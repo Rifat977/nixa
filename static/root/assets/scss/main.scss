@@ -1,0 +1,103 @@
+/*-----------------------------------------------------------------------------------
+
+    Project Name: E.visa - Immigration and Visa Consulting Template
+    Author: XpressBuddy -->> (https://themeforest.net/user/xpressbuddy)
+    Support: support@xpressbuddy.com
+    Description: E.visa - Immigration and Visa Consulting Template
+    Developer: Mohammad Wasim Mia -> contact@xpressbuddy.com
+    Version: 1.0
+
+-----------------------------------------------------------------------------------
+
+    CSS INDEX
+    ===================
+
+	01. Theme default CSS
+    02. header
+    03. global
+    04. hero
+    05. brand
+    06. service
+    07. about
+    08. counter
+    09. country
+    10. team
+    11. testimonial
+    12. faq
+    13. blog
+    14. newsletter
+    15. contact
+    16. feature
+    17. cta
+    18. fanfact
+    19. mobile-menu
+    20. coaching
+    21. book-form
+    22. breadcrumb
+    23. preloader
+    24. package
+    25. category
+    26. destination
+    27. sidebar
+    28. backtotop
+    29. search
+    30. sec-title
+    
+
+-----------------------------------------------------------------------------------*/
+// abstracts scss
+@import
+    'abstracts/variables',
+    'abstracts/mixins';
+
+// base scss
+@import 
+    'base/fonts',
+    'base/base',
+    'base/spacing',
+    'base/typography',
+    'base/animation',
+    'base/overlay';
+
+// layout scss
+@import 
+    'layout/header',
+    'layout/navigation';
+ 
+// components scss
+@import 
+    'components/buttons',
+    'components/global',
+    'components/hero',
+    'components/brand',
+    'components/service',
+    'components/about',
+    'components/counter',
+    'components/country',
+    'components/team',
+    'components/testimonial',
+    'components/faq',
+    'components/blog',
+    'components/newsletter',
+    'components/contact',
+    'components/feature',
+    'components/cta',
+    'components/fanfact',
+    'components/mobile-menu',
+    'components/coaching',
+    'components/book-form',
+    'components/breadcrumb',
+    'components/preloader',
+    'components/package',
+    'components/category',
+    'components/destination',
+    'components/sidebar',
+    'components/backtotop',
+    'components/search',
+    'components/sec-title';
+
+
+// layout scss
+@import
+    'layout/footer';
+ 

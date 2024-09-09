@@ -1,0 +1,41 @@
+/*----------------------------------------*/
+/*  17. cta
+/*----------------------------------------*/
+.xb-cta {
+    &__wrap {
+        background-color: #121212;
+        padding: 70px 0;
+        margin-top: -180px;
+        @include respond(md) {
+            padding: 60px 40px;
+        }
+    }
+    &__img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 34%;
+        height: 100%;
+        background-size: cover;
+        background-repeat: no-repeat;
+        @include respond(md) {
+            display: none;
+        }
+    }
+    .sec-title--sub {
+        margin-bottom: 27px;
+    }
+    .sec-title--heading {
+        font-size: 35px;
+    }
+}
+.xb-cta2 {
+    padding: 80px;
+    padding-top: 60px;
+    @include border-radius(30px);
+    background-size: cover;
+    background-position: center center;
+    @include respond(xs) {
+        padding: 40px 20px;
+    }
+}

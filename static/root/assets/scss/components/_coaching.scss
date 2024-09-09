@@ -1,0 +1,53 @@
+/*----------------------------------------*/
+/*  20. coaching
+/*----------------------------------------*/
+.xb-coaching {
+    &:hover {
+        .xb-item--img img {
+            @include transform(scale(1.04));
+        }
+    }
+    .xb-item {
+        &--img {
+            overflow: hidden;
+            img {
+                @include transform(scale(1));
+                @include transition(0.3s cubic-bezier(0.67, 0.04, 0.3, 0.91));
+            }
+        }
+        &--inner {
+            @include border-radius(20px);
+            overflow: hidden;
+            @include transition(.3s);
+            &:hover {
+                box-shadow: 0px 14px 19px 0px rgba(221, 229, 236, 0.42);
+            }
+        }
+        &--holder {
+            border: 1px solid #EDF3F5;
+            border-top: 0;
+            padding: 35px 30px;
+        }
+        &--title {
+            font-size: 24px;
+            margin-bottom: 10px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            a {
+                color: currentColor;
+            }
+        }
+        &--link {
+            width: 44px;
+            height: 44px;
+            background-color: var(--color-primary);
+            border: 1px solid #EDF3F5;
+            display: inline-block;
+            @include center;
+            @include border-radius(50%);
+            position: absolute;
+            top: -23px;
+            right: 40px;
+        }
+    }
+}

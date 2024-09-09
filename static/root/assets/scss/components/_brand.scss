@@ -1,0 +1,206 @@
+/*----------------------------------------*/
+/*  05. brand
+/*----------------------------------------*/
+.brand-slider {
+	.xb-swiper-slide {
+		a {
+			display: inline-block;
+			padding: 25px 27px;
+			width: 100%;
+			position: relative;
+			z-index: 1;
+			min-height: 80px;
+			opacity: .5;
+			@include center;
+			&::before {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background-color: var(--color-white);
+				content: "";
+				box-shadow: 0px 14px 19px 0px rgba(221, 229, 236, 0.42);
+				opacity: 0;
+				@include transition(.3s);
+				z-index: -1;
+				@include border-radius(10px);
+				@include transform(scale(0.8));
+			}
+			&:hover {
+				opacity: 1;
+				&::before {
+					@include transform(scale(1));
+					opacity: 1;
+				}
+			}
+		}
+	}
+}
+.brand-title {
+	font-size: 18px;
+	color: var(--color-default);
+	letter-spacing: -0.18px;
+	& > span {
+		padding: 0 100px;
+		position: relative;
+		display: inline-block;
+		
+		@include respond(xs) {
+			padding: 0;
+		}
+		&::before {
+			position: absolute;
+			top: 60%;
+			@include transform(translateY(-50%));
+			width: 100%;
+			height: 1px;
+			background-color: var(--color-default);
+			content: "";
+			left: 0;
+			z-index: -1;
+		}
+		span {
+			padding: 0 10px;
+			background-color: var(--color-white);
+		}
+	}
+}
+.xb-brand1 {
+	.xb-item {
+		&--item {
+			width: 25%;
+			@include center;
+			padding: 53px 20px;
+			border-top: 1px dashed #D4D5D6;
+			border-right: 1px dashed #D4D5D6;
+			position: relative;
+			min-height: 152px;
+			margin-top: -1px;
+			@include respond(md) {
+				min-height: 100px;
+				padding: 25px 20px;
+			}
+			@include respond(xs) {
+				width: 50%;
+			}
+			&:nth-child(1),
+			&:nth-child(2),
+			&:nth-child(3),
+			&:nth-child(4) {
+				border-top: 0
+			}
+			&:nth-child(4),
+			&:nth-child(8) {
+				border-right: 0
+			}
+			&::before {
+				@include before;
+				background-color: var(--color-white);
+				@include transition(0.3s cubic-bezier(0.67, 0.04, 0.3, 0.91));
+			}
+			&:hover {
+				&::before {
+					@include border-radius(76px 0);
+				}
+			}
+			&::after {
+				position: absolute;
+				content: "\f067";
+				font-family: "Font Awesome 5 Pro";
+				font-weight: 400;
+				right: -4px;
+				bottom: -14px;
+				font-size: 12px;
+				z-index: 2;
+				background: var(--color-gradient);
+				background-clip: text;
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+				opacity: 0;
+			}
+			&:nth-child(1),
+			&:nth-child(2),
+			&:nth-child(3) {
+				&::after {
+					opacity: 1;
+				}
+			}
+			&:nth-child(2) {
+				&::after {
+					@include respond(xs) {
+						opacity: 0;
+					}
+				}
+			}
+			&:nth-child(5) {
+				&::after {
+					@include respond(xs) {
+						opacity: 1;
+					}
+				}
+			}
+		}
+		&--inner {
+			@include center;
+			z-index: 1;
+			img {
+				max-width: 180px;
+				@include respond(lg) {
+					max-width: 150px;
+				}
+				@include respond(md) {
+					max-width: 100px;
+				}
+			}
+		}
+	}
+}
+.brand-shape {
+	.shape {
+		position: absolute;
+		z-index: -1;
+		&--1 {
+			top: 42%;
+			left: 4%;
+		}
+		&--2 {
+			top: 45%;
+			right: 4%;
+		}
+	}
+}
+
+.xb-brand2 {
+	.xb-item {
+		&--inner {
+			padding: 35px 15px;
+			background-color: var(--color-white);
+			@include center;
+			filter: drop-shadow(0px 14px 19px rgba(221, 229, 236, 0.42));
+			@include border-radius(20px);
+			@include transition(.3s var(--easing));
+			min-height: 150px;
+			&:hover {
+				@include transform(translateY(-5px));
+			}
+		}
+	}
+	&__mt {
+		margin-top: -170px;
+		z-index: 1;
+		position: relative;
+	}
+}
+.brand-pb {
+	padding-bottom: 260px;
+}
+.xb-strock-text-brand {
+	bottom: 30%;
+	z-index: -1;
+	left: -10%;
+  	right: -10%;
+	@include respond(xs) {
+		bottom: 58%;
+	}
+}

@@ -1,0 +1,90 @@
+/*----------------------------------------*/
+/*  18. fanfact
+/*----------------------------------------*/
+.xb-fanfact1 {
+    .xb-item {
+        &--inner {
+            padding: 80px 92px;
+            border: 1px solid #F3F3F3;
+            position: relative;
+            background-color: var(--color-white);
+            @include respond(laptop) {
+                padding: 60px 50px;
+            }
+            @include respond(lg) {
+                padding: 40px 30px;
+            }
+            &::before {
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                width: 0;
+                height: 2px;
+                content: "";
+                background: var(--color-gradient);
+                @include transition(.3s);
+            }
+            &:hover::before {
+                width: 100%;
+                right: auto;
+                left: 0;
+            }
+        }
+        &--number {
+            font-size: 75px;
+            font-weight: 300;
+            line-height: 1;
+            letter-spacing: 3px;
+            margin-bottom: 5px;
+            @include respond(lg) {
+                font-size: 60px;
+            }
+            @include respond(md) {
+                font-size: 40px;
+            }
+            span {
+                width: auto;
+                padding: 0px;
+                margin-left: -1px;
+                line-height: 1;
+            }
+            .suffix {
+                top: 8px;
+                position: relative;
+            }
+        }
+        &--dots {
+            display: inline-block;
+            margin-bottom: 15px;
+            span {
+                width: 4px;
+                height: 4px;
+                background: var(--color-gradient);
+                margin-right: 4px;
+                display: inline-block;
+                @include border-radius(50%);
+            }
+        }
+        &--title {
+            font-size: 24px;
+            font-weight: 600;
+            @include respond(md) {
+                font-size: 18px;
+            }
+        }
+    }
+}
+.fanfact-shape {
+    .shape {
+        position: absolute;
+        z-index: -1;
+        &--1 {
+            bottom: 0;
+            left: 2%;
+        }
+        &--2 {
+            bottom: 1%;
+            right: 3%;
+        }
+    }
+}

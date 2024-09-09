@@ -1,0 +1,101 @@
+/*----------------------------------------*/
+/*  25. category
+/*----------------------------------------*/
+.xb-category {
+    .xb-item {
+        &--inner {
+            background-color: var(--color-white);
+            text-align: center;
+            @include border-radius(20px);
+            filter: drop-shadow(0px 14px 19px rgba(221, 229, 236, 0.42));
+            padding: 42px 20px;
+            position: relative;
+            overflow: hidden;
+            @include transition(.3s var(--easing));
+            &:hover {
+                @include transform(translateY(-6px));
+                .xb-item {
+                    &--icon {
+                        background-color: #FFBD0F;
+                        filter: drop-shadow(0px 6px 9px rgba(255, 187, 15, 0.20));
+                        svg path {
+                            fill: #fff;
+                        }
+                        &.color-2 {
+                            background-color: #897CB5;
+                            filter: drop-shadow(0px 6px 9px rgba(137, 124, 181, 0.20));
+                        }
+                        &.color-3 {
+                            background-color: #FE6C3F;
+                            filter: drop-shadow(0px 6px 9px rgba(254, 108, 63, 0.20));
+                        }
+                        &.color-4 {
+                            background-color: #03CB99;
+                            filter: drop-shadow(0px 6px 9px rgba(0, 204, 153, 0.20));
+                        }
+                        &.color-5 {
+                            background-color: #0091FF;
+                            filter: drop-shadow(0px 6px 9px rgba(0, 145, 255, 0.20));
+                        }
+                    }
+                }
+            }
+        }
+        &--icon {
+            width: 59px;
+            height: 59px;
+            @include border-radius(50%);
+            background-color: rgba(255, 187, 15, 0.1);
+            @include center;
+            margin: 0 auto 20px;
+            @include transition(.3s);
+            svg path {
+                @include transition(.3s);
+            }
+            &.color-1 {
+                background-color: #897CB5;
+            }
+            &.color-2 {
+                background-color: rgba(137, 124, 181, 0.1);
+            }
+            &.color-3 {
+                background-color: rgba(254, 108, 63, 0.1);
+            }
+            &.color-4 {
+                background-color: rgba(3, 203, 153, 0.1);
+            }
+            &.color-5 {
+                background-color: rgba(0, 145, 255, 0.1);
+            }
+        }
+        &--title {
+            font-size: 20px;
+            letter-spacing: -0.6px;
+        }
+        &--link {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 1005px;
+            height: 100%;
+        }
+    }
+}
+.xb-category-slider {
+    margin-left: -100px;
+    margin-right: -100px;
+    padding: 40px 0;
+    @include respond(xs) {
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
+.xb-strock-text-cat {
+    margin-left: -10%;
+    margin-right: -10%;
+}
+.pt-md-100 {
+    @include respond(md) {
+        padding-top: 100px;
+    }
+}

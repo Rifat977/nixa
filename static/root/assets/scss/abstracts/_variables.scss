@@ -1,0 +1,27 @@
+// variable
+:root {
+    --font-body: 'Plus Jakarta Sans', sans-serif;
+    --font-heading: 'Plus Jakarta Sans', sans-serif;
+    --font-inter: 'Inter', sans-serif;
+    --font-dancing: 'Dancing Script', cursive;
+
+    --color-primary: #00CC99;
+    --color-secondary: #0091FF;
+
+    --color-primary-2: #FB4927;
+    --gradient-color-from: #D91334;
+    --gradient-color-to: #FB4927;
+
+    --color-gradient: linear-gradient(90deg, var(--gradient-color-from) 0%, var(--gradient-color-to) 100%);
+
+    --color-heading: #0F172A;
+    --color-dark: #0F172A;
+    --color-white: #fff;
+    --color-black: #000;
+    --color-default: #787B84;
+    --color-gray: #EDF3F5;
+    --color-gray-2: #F6F6F6;
+    --color-border: #EFF5F8;
+
+    --easing: cubic-bezier(0.67, 0.04, 0.3, 0.91);
+}

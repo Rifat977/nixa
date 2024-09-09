@@ -1,0 +1,324 @@
+/*----------------------------------------*/
+/*  23. footer
+/*----------------------------------------*/
+.footer {
+    &__widget {
+        .widget-title {
+            font-size: 20px;
+            line-height: 28px;
+            margin-bottom: 25px;
+            letter-spacing: -0.6px;
+        }
+    }
+    &__cta {
+        li {
+            font-size: 24px;
+            font-weight: 600;
+            letter-spacing: -0.72px;
+            color: var(--color-dark);
+            @include respond(xs) {
+                font-size: 20px;
+            }
+            &:not(:last-child) {
+                margin-bottom: 17px;
+            }
+            & > span {
+                margin-right: 10px;
+                width: 45px;
+                height: 45px;
+                @include border-radius(50%);
+                background-color: var(--color-white);
+                @include center;
+                box-shadow: 0px 4px 4px rgba(48, 69, 75, 0.03);
+            }
+        }
+    }
+    &__links {
+        li {
+            &:not(:last-child) {
+                margin-bottom: 10px;
+            }
+            a {
+                color: var(--color-default);
+                display: flex;
+                align-items: center;
+                display: inline-block;
+                &:hover {
+                    color: var(--color-dark);
+                    & > span svg path {
+                        fill: var(--color-primary);
+                    }
+                }
+                & > span {
+                    display: inline-block;
+                    margin-right: 10px;
+                    @include transform(translateY(-2px));
+                    svg {
+                        path {
+                            @include transition(.3s);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    &__custom-col {
+        width: 23%;
+        &:first-child {
+            width: 31%;
+            @include respond(md) {
+                width: 50%;
+            }
+            @include respond(xs) {
+                width: 100%;
+            }
+            @include respond(sm) {
+                width: 50%;
+            }
+        }
+        @include respond(md) {
+            width: 50%;
+        }
+        @include respond(xs) {
+            width: 100%;
+        }
+        @include respond(sm) {
+            width: 50%;
+        }
+        &:not(:first-child) {
+            .footer__widget {
+                padding-left: 80px;
+                @include respond(lg) {
+                    padding-left: 30px;
+                }
+                @include respond(md) {
+                    padding-left: 0;
+                }
+            }
+        }
+    }
+    &__copyright {
+        border-top: 1px solid #D9E3E7;
+        padding-bottom: 15px;
+    }
+    &__social {
+        li {
+            &:not(:last-child) {
+                margin-right: 16px;
+            }
+            a {
+                font-size: 15px;
+                color: #5F5F5F;
+                &:hover {
+                    color: var(--color-white);
+                }
+            }
+        }
+    }
+    &__bottom {
+        padding-top: 40px;
+        margin-top: 50px;
+        border-top: 1px dashed rgba(217, 227, 231, 0.2);
+    }
+    &__nav {
+        @include respond(xs) {
+            justify-content: start;
+        }
+        li {
+            margin-top: 15px;
+            &:not(:last-child) {
+                margin-right: 50px;
+                @include respond(xs) {
+                    margin-right: 20px;
+                }
+            }
+            a {
+                font-size: 18px;
+                color: var(--color-white);
+                position: relative;
+                font-weight: 400;
+                &::before {
+                    position: absolute;
+                    bottom: 0;
+                    right: 0;
+                    width: 0;
+                    height: 1px;
+                    content: "";
+                    background-color: currentColor;
+                    @include transition(.4s cubic-bezier(.67,.04,.3,.91));
+                }
+                &:hover::before {
+                    width: 100%;
+                    right: auto;
+                    left: 0;
+                }
+            }
+        }
+    }
+}
+.footer-style-two {
+    padding-top: 285px;
+    .footer__custom-col:nth-child(2) .footer__widget {
+        padding-left: 15px;
+        @include respond(md) {
+            padding-left: 0;
+        }
+    }
+    .footer__custom-col:nth-child(3) .footer__widget {
+        padding-left: 70px;
+        @include respond(md) {
+            padding-left: 0;
+        }
+    }
+    .footer__widget {
+        h4 {
+            letter-spacing: 0;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--color-white);
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            font-family: var(--font-inter);
+        }
+        p {
+            font-size: 16px;
+            line-height: 26px;
+            color: var(--color-white);
+        }
+    }
+    .copyright-text {
+        color: var(--color-white);
+        span {
+            color: #A3A3A3;
+        }
+    }
+    .footer-links {
+        li {
+            &:not(:last-child) {
+                margin-right: 45px;
+            }
+            a {
+                color: #A3A3A3;
+                &:hover {
+                    color: var(--color-white);
+                }
+            }
+        }
+    }
+    .footer__social {
+        @include respond(md) {
+            justify-content: start;
+        }
+    }
+}
+
+.footer-style-three {
+    .footer__widget {
+        width: 25%;
+        border: 1px solid #F0F2F6;
+        margin-right: -1px;
+        padding-top: 85px;
+        padding-bottom: 85px;
+        &:nth-child(1) {
+            border-left: 0;
+            width: 20%;
+            @include respond(lg) {
+                width: 24%;
+            }
+        }
+        &:nth-child(2) {
+            width: 30%;
+            padding-left: 120px;
+            @include respond(lg) {
+                width: 26%;
+                padding-left: 50px;
+            }
+        }
+        &:nth-child(3) {
+            width: 30%;
+            padding-left: 120px;
+            @include respond(lg) {
+                width: 26%;
+                padding-left: 50px;
+            }
+        }
+        &:nth-child(4) {
+            width: 20%;
+            border-right: 0;
+            padding-left: 90px;
+            @include respond(lg) {
+                width: 24%;
+                padding-left: 40px;
+            }
+        }
+        @include respond(md) {
+            width: 50% !important;
+            padding: 0 !important;
+            border: 0 !important;
+            margin-top: 30px;
+            padding-bottom: 50px !important;
+        }
+    }
+    .footer-links {
+        li {
+            &:not(:last-child) {
+                margin-right: 45px;
+                @include respond(xs) {
+                    margin-right: 20px;
+                }
+            }
+            a {
+                color: #787B84;
+                &:hover {
+                    color: var(--color-black);
+                }
+            }
+        }
+    }
+    .footer__links {
+        padding-left: 15px;
+    }
+}
+
+.newsletter-title {
+    span {
+        font-weight: 600;
+        color: #787B84;
+        text-transform: uppercase;
+        display: inline-block;
+        margin-bottom: 12px;
+    }
+    h3 {
+        font-size: 24px;
+        line-height: 34px;
+    }
+}
+
+.footer-newsletter-form {
+    max-width: 674px;
+    width: 100%;
+    position: relative;
+    input {
+        background-color: #F0F2F6;
+        height: 66px;
+        color: var(--color-heading);
+        @include placeholder(#787B84);
+        @include border-radius(47px);
+        padding: 20px;
+        width: calc(100% - 198px);
+        @include respond(xs) {
+            width: 100%;
+        }
+    }
+    button {
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 20px 50px;
+        height: 66px;
+        @include respond(xs) {
+            position: unset;
+            margin-top: 20px;
+        }
+    }
+}

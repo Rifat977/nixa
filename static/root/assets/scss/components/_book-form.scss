@@ -1,0 +1,109 @@
+/*----------------------------------------*/
+/*  21. book-form
+/*----------------------------------------*/
+.xb-book-form {
+    padding: 58px 55px;
+    padding-right: 0;
+    align-items: end;
+    @include respond(lg) {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    &__wrap {
+        position: relative;
+        z-index: 1;
+        margin-top: -122px;
+        @include respond(md) {
+            margin-top: 0;
+        }
+        &::before {
+            position: absolute;
+            top: 0;
+            left: calc((100% - 1294px)/2);
+            width: 100%;
+            height: 100%;
+            background-color: #fff;
+            @include border-radius(20px);
+            content: "";
+            z-index: -1;
+            @media (max-width: 1300px) {
+                left: 0;
+            }
+        }
+    }
+    .xb-item {
+        &--field {
+            max-width: 240px;
+            position: relative;
+            margin-top: 20px;
+            @media only screen and (min-width: 1200px) and (max-width: 1300px) {
+                max-width: 210px;
+            }
+            @include respond(lg) {
+                width: 48%;
+                max-width: 100%;
+            }
+            @include respond(xs) {
+                width: 100%;
+            }
+            label {
+                font-size: 16px;
+                font-weight: 600;
+                color: #0F172A;
+                margin-bottom: 15px;
+            }
+            input {
+                height: 60px;
+                border: 1px solid #EDF3F5;
+                background-color: #F9FAFD;
+                @include border-radius(76px);
+                padding: 10px;
+                padding-left: 46px;
+            }
+            .icon {
+                position: absolute;
+                bottom: 18px;
+                left: 19px;
+            }
+        }
+        &--btn {
+            margin-top: 20px;
+        }
+    }
+}
+
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button, html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:active {
+	border: 1px solid #f0f2f6;
+	background: #f0f2f6;
+	font-weight: normal;
+	color: #454545;
+}
+
+.ui-datepicker td span,
+.ui-datepicker td a {
+	text-align: center;
+}
+.ui-widget.ui-widget-content {
+	border: 1px solid #c5c5c5;
+}
+.ui-state-active,
+.ui-widget-content .ui-state-active,
+.ui-widget-header .ui-state-active,
+a.ui-button:active, .ui-button:active,
+.ui-button.ui-state-active:hover {
+	border: 1px solid #0c9;
+	background: #0c9;
+}
+.ui-state-highlight, 
+.ui-widget-content .ui-state-highlight,
+.ui-widget-header .ui-state-highlight {
+	border: 1px solid #00cc9947;
+	background: #00cc9947;
+}
+.ui-state-active, .ui-widget-content .ui-state-active {
+    color: #fff;
+}
+.ui-widget-header {
+	border: 1px solid #f0f2f6;
+	background: #f0f2f6;
+}

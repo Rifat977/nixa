@@ -1,0 +1,123 @@
+.thm-btn {
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: None;
+    color: var(--color-white);
+    border-style: none;
+    padding: 21px 50px 23px;
+    align-self: center;
+    position: relative;
+    display: inline-block;
+    @include border-radius(10px);
+    line-height: 1.1;
+    letter-spacing: -.3px;
+    transition: all .2s cubic-bezier(.68,.01,.58,.75);
+    background-color: var(--color-primary);
+    &:hover {
+        color: var(--color-white);
+        background-color: var(--color-secondary);
+    }
+    &--white {
+        color: var(--color-dark);
+        background-color: var(--color-white);
+        &:hover {
+            background-color: var(--color-primary);
+            color: var(--color-white);
+            span svg path {
+                stroke: #fff;
+            }
+        }
+    }
+    &--trv {
+        padding: 20px 50px 21px;
+        @include border-radius(91px);
+        &:hover {
+            background-color: #09AD84;
+            span {
+                @include transform(translateX(7px));
+            }
+        }
+        span {
+            padding-left: 21px;
+            display: inline-block;
+            @include transition(.3s var(--easing));
+            svg path {
+                @include transition(.3s var(--easing));
+            }
+        }
+        &.thm-btn--white:hover {
+            background-color: var(--color-primary);
+        }
+    }
+}
+.grd-btn {
+    background-image: var(--color-gradient);
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 50px;
+    letter-spacing: -0.16px;
+    text-transform: capitalize;
+    display: inline-block;
+    padding: 19px 40px;
+    font-weight: 600;
+    color: var(--color-white);
+    line-height: 1.1;
+    @include border-radius(80px);
+    background-size: 200%,1px;
+        background-image: -moz-linear-gradient(to right, var(--gradient-color-from) 0%, var(--gradient-color-to) 50%, var(--gradient-color-from) 100%);
+        background-image: -webkit-linear-gradient(to right, var(--gradient-color-from) 0%, var(--gradient-color-to) 50%, var(--gradient-color-from) 100%);
+        background-image: -ms-linear-gradient(to right, var(--gradient-color-from) 0%, var(--gradient-color-to) 50%, var(--gradient-color-from) 100%);
+        background-image: linear-gradient(to right, var(--gradient-color-from) 0%, var(--gradient-color-to) 50%, var(--gradient-color-from) 100%);
+        &:hover {
+            color: var(--color-white);
+            background-position: 100% 0;
+        }
+    span {
+        margin-left: 25px;
+    }
+}
+.xb-tran-btn {
+    font-size: 16px;
+    color: var(--color-white);
+    padding: 15px 0;
+    display: inline-block;
+    position: relative;
+    font-weight: 600;
+    text-transform: capitalize;
+    &:hover {
+        color: var(--color-white);
+        span {
+            @include transform(translateX(10px));
+        }
+        &::before {
+            width: 0;
+        }
+    }
+    &:before {
+        @include before;
+        height: 2px;
+        bottom: 0;
+        top: auto;
+        background: var(--color-gradient);
+        @include transition(0.3s cubic-bezier(0.67, 0.04, 0.3, 0.91));
+    }
+    span {
+        margin-left: 40px;
+        @include transition(.3s cubic-bezier(.67,.04,.3,.91));
+        display: inline-block;
+        line-height: 1;
+    }
+}
+.btns {
+    margin: -12px;
+    &.gap-20 {
+        margin: -10px;
+        a {
+            margin: 10px;
+        }
+    }
+    a {
+        margin: 12px;
+    }
+}
+

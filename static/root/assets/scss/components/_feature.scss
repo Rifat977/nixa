@@ -1,0 +1,172 @@
+/*----------------------------------------*/
+/*  16. feature
+/*----------------------------------------*/
+.xb-feature1 {
+    .xb-item {
+        &--inner {
+            margin-top: 30px;
+            padding-bottom: 30px;
+            &:not(:last-child) {
+                margin-right: 30px;
+            }
+        }
+        &--icon {
+            width: 40px;
+            height: 40px;
+            @include border-radius(50%);
+            position: relative;
+            @include center;
+            margin-right: 10px;
+            &:before {
+                @include before;
+                background: var(--color-gradient);
+                @include border-radius(50%);
+                z-index: -1;
+                opacity: .1;
+            }
+        }
+        &--title {
+            font-size: 16px;
+            font-weight: 500;
+            letter-spacing: 0;
+        }
+    }
+}
+.xb-feature2 {
+    &__wrap {
+        border-top: 1px dashed #CDCECF;
+        border-bottom: 1px dashed #CDCECF;
+    }
+    &:hover {
+        .xb-item {
+            &--icon {
+                &::before {
+                    opacity: 1;
+                }
+                span {
+                    &.default {
+                        opacity: 0;
+                    }
+                    &.hover {
+                        opacity: 1;
+                    }
+                }
+            }
+        }
+    }
+    .xb-item {
+        &--inner {
+            background-color: #fff;
+            padding: 55px;
+            @include transition(.3s cubic-bezier(.67,.04,.3,.91));
+            opacity: 1;
+            position: relative;
+            @include respond(md) {
+                padding: 40px 30px;
+            }
+            &::before,
+            &::after {
+                position: absolute;
+                content: "\f067";
+                font-family: "Font Awesome 5 Pro";
+                font-weight: 400;
+                left: -4px;
+                bottom: -14px;
+                font-size: 12px;
+                z-index: 1;
+                background: var(--color-gradient);
+                background-clip: text;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+            &::after {
+                right: -5px;
+                left: auto;
+                top: -13px;
+            }
+            &:hover {
+                @include border-radius(0px 172.5px);
+            }
+        }
+        &--icon {
+            width: 128px;
+            height: 128px;
+            border: 1px solid #F1F1F1;
+            @include border-radius(50%);
+            position: relative;
+            @include center;
+            margin: 0 auto 20px;
+            z-index: 1;
+            &:before {
+                @include before;
+                background: var(--color-gradient);
+                @include border-radius(50%);
+                z-index: -1;
+                opacity: 0;
+                @include transition(.3s);
+            }
+            span {
+                position: absolute;
+                @include transition(.3s);
+                &.hover {
+                    opacity: 0;
+                }
+            }
+        }
+        &--title {
+            font-size: 24px;
+            color: #110F10;
+            margin-bottom: 20px;
+        }
+        &--content {
+            font-size: 14px;
+            line-height: 24px;
+        }
+        &--line {
+            border-left: 1px dashed #CDCECF;
+            position: absolute;
+            width: auto;
+            height: 100%;
+            top: 0;
+            z-index: 1;
+            @include respond(md) {
+                display: none;
+            }
+        }
+    } 
+}
+
+.xb-feature-right-line {
+    border-left: 1px dashed #CDCECF;
+	position: absolute;
+	width: auto;
+	height: 100%;
+	top: 0;
+    right: 0;
+    right: calc((100% - 1292px)/2);
+    @include respond(md) {
+        display: none;
+    }
+}
+
+.xb-feature2__wrap .col-lg-4:nth-child(2) .xb-feature .xb-item--inner::before,
+.xb-feature2__wrap .col-lg-4:nth-child(2) .xb-feature .xb-item--inner::after {
+    display: none;
+}
+
+.feature-shape {
+    .shape {
+        position: absolute;
+        @include respond(xs) {
+            display: none;
+        }
+        &--1 {
+            top: 20%;
+            left: 6%;
+        }
+        &--2 {
+            top: 18%;
+            right: 6%;
+        }
+    }
+}

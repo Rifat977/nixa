@@ -1,0 +1,118 @@
+{% extends 'root/partial/base.html' %}
+
+{% block title %}University || Nixaglobal{% endblock %}
+
+{% load static %}
+
+{% block content %}
+<!-- breadcrumb start -->
+<section class="breadcrumb pos-rel bg_img" data-background="{% static '/root/assets/img/bg/breadcrumb_bg.jpg' %}">
+    <div class="container">
+        <div class="breadcrumb__content">
+            <h2 class="breadcrumb__title">Univeristy</h2>
+            <ul class="breadcrumb__list clearfix">
+                <li class="breadcrumb-item"><a href="{% url 'core:index' %}">Home</a></li>
+                <li class="breadcrumb-item">University</li>
+            </ul>
+        </div>
+    </div>
+    <div class="breadcrumb__circle">
+        <span class="big" data-parallax='{"y" : 100, "scale" : 0.1}'></span>
+        <span class="small" data-parallax='{"y" : 100, "scale" : 0.1}'></span>
+    </div>
+    <div class="breadcrumb__shape">
+        <div class="shape shape--1">
+            <div class="shape-inner" data-parallax='{"x":-50,"y":80}'>
+                <img src="{% static '/root/assets/img/shape/br_shape1.png' %}" alt="">
+            </div>
+        </div>
+        <div class="shape shape--2">
+            <div class="shape-inner" data-parallax='{"x":50,"y":-90}'>
+                <img src="{% static '/root/assets/img/shape/br_shape2.png' %}" alt="">
+            </div>
+        </div>
+    </div>
+</section>
+<!-- breadcrumb end -->
+
+<!-- country start -->
+<section class="country pt-120 pb-130">
+    <div class="container">
+        <div class="row mb-30 align-items-center">
+            <div class="col-lg-6">
+                <div class="sec-title">
+                    <h2 class="mb-20 wow skewIn">Make Your Choice for the <br> <span>Preferred Nation</span>
+                    </h2>
+                </div>
+            </div>
+            <div class="col-lg-5 offset-lg-1">
+                <div class="sec-title mb-20">
+                    <p>Choosing the ideal destination for immigration is a pivotal decision that can shape the trajectory of your.</p>
+                </div>
+            </div>
+        </div>
+        <ul class="xb-country-nav nav nav-tabs ul_li_between mb-65" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="xbc-tab1" data-bs-toggle="tab"
+                        data-bs-target="#xbc-tab-pane1" type="button" role="tab" aria-controls="xbc-tab-pane1"
+                        aria-selected="true">Malaysiya
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="xbc-tab2" data-bs-toggle="tab" data-bs-target="#xbc-tab-pane2"
+                        type="button" role="tab" aria-controls="xbc-tab-pane2" aria-selected="false">Europe
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="xbc-tab3" data-bs-toggle="tab" data-bs-target="#xbc-tab-pane3"
+                        type="button" role="tab" aria-controls="xbc-tab-pane3" aria-selected="false">Canada
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="xbc-tab4" data-bs-toggle="tab" data-bs-target="#xbc-tab-pane4"
+                        type="button" role="tab" aria-controls="xbc-tab-pane4" aria-selected="false">USA
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="xbc-tab5" data-bs-toggle="tab" data-bs-target="#xbc-tab-pane5"
+                        type="button" role="tab" aria-controls="xbc-tab-pane5" aria-selected="false">China
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="xbc-tab6" data-bs-toggle="tab" data-bs-target="#xbc-tab-pane6"
+                        type="button" role="tab" aria-controls="xbc-tab-pane6" aria-selected="false">Japan
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="xbc-tab7" data-bs-toggle="tab" data-bs-target="#xbc-tab-pane7"
+                        type="button" role="tab" aria-controls="xbc-tab-pane7" aria-selected="false">Italy
+                </button>
+            </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane animated fadeInUp show active" id="xbc-tab-pane1" role="tabpanel"
+                    aria-labelledby="xbc-tab1" tabindex="0">
+                <div class="xb-country ul_li">
+                    <div class="xb-item--item">
+                        <a href="country-single.html" class="xb-item--inner ul_li">
+                            <div class="xb-item--flag">
+                                <img src="{% static '/root/assets/img/country/img_01.png' %}" alt="">
+                            </div>
+                            <h3 class="xb-item--title">University of Cyberjaya</h3>
+                        </a>
+                    </div>
+                    <div class="xb-item--item">
+                        <a href="country-single.html" class="xb-item--inner ul_li">
+                            <div class="xb-item--flag">
+                                <img src="{% static '/root/assets/img/country/img_12.png' %}" alt="">
+                            </div>
+                            <h3 class="xb-item--title">Quest International University</h3>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- country end -->
+{% endblock %}

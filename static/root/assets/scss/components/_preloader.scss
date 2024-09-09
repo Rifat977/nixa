@@ -1,0 +1,111 @@
+/*----------------------------------------*/
+/*  23. preloader
+/*----------------------------------------*/
+#xb-loadding {
+    height:100%;
+    position:fixed;
+    width:100%;
+    z-index:999999;
+    top:0;
+    left:0;
+    background-color:#fff;
+    -webkit-transform:scale(1);
+    -khtml-transform:scale(1);
+    -moz-transform:scale(1);
+    -ms-transform:scale(1);
+    -o-transform:scale(1);
+    transform:scale(1)
+   }
+
+   .loader {
+    text-align: center;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    &.style-2 {
+      .earth {
+        background: url("../img/bg/preloader-2.png");
+      }
+    }
+  }
+  
+  
+  .wait {
+    margin: 5rem 0;
+  }
+  .iata_code {
+      font-size: 6rem;
+      opacity:0.3;
+    top: 52%;
+    position: absolute;
+    color: #0099cc;
+    }
+  .departure_city {
+    left: 0;
+  }
+  
+  .arrival_city {
+    right: 1.5rem;
+  }
+  
+  .plane {
+    position: absolute;
+    margin: 0 auto;
+    width: 100%;
+  }
+  
+  .plane-img {
+    -webkit-animation: spin 2.5s linear infinite;
+    -moz-animation: spin 2.5s linear infinite;
+    animation: spin 2.5s linear infinite;
+  }
+  
+  
+  
+  .earth-wrapper {
+    position: absolute;
+    margin: 0 auto;
+    width: 100%;
+  }
+  
+  .earth {
+    width: 160px;
+    height: 160px;
+    background: url("../img/bg/preloader.png");
+    border-radius: 100%;
+    background-size: 340px;
+    animation: earthAnim 12s infinite linear;
+    margin: 0 auto;
+    border: 1px solid #CDD1D3;
+  }
+  
+  @keyframes earthAnim {
+    0% {background-position-x: 0;}
+    100% {background-position-x: -340px;}
+  }
+  
+  @media screen and (max-width: 420px) {
+    .departure_city {
+      left: 0;
+      right: 0;
+      top: 30%;
+      position: absolute;
+      margin: 0 auto;
+    }
+    
+    .arrival_city {
+      left: 0;
+      right: 0;
+      top: 93%;
+      position: absolute;
+      margin: 0 auto;
+    }
+    
+    
+  }

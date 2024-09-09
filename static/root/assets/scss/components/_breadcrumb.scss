@@ -1,0 +1,98 @@
+/*----------------------------------------*/
+/*  22. breadcrumb
+/*----------------------------------------*/
+.breadcrumb {
+	min-height: 450px;
+	padding: 120px 0;
+	margin: 0;
+	display: flex;
+	align-items: center;
+    @include respond(lg) {
+        min-height: 350px;
+    }
+    @include respond(xs) {
+        padding: 100px 0;
+        background-position: center left;
+        min-height: 300px;
+    }
+    &__title {
+        font-size: 65px;
+        font-weight: 700;
+        margin-bottom: 22px;
+        @include respond(lg) {
+            font-size: 50px;
+        }
+        @include respond(xs) {
+            font-size: 40px;
+        }
+    }
+    &__list {
+        background-color: var(--color-white);
+        display: inline-block;
+        padding: 7px  20px;
+        li {
+            display: inline-block;
+            font-weight: 600;
+            color: var(--color-default);
+            font-size: 14px;
+            position: relative;
+            a {
+                color: var(--color-dark);
+            }
+        }
+    }
+    &__shape {
+        @include respond(xs) {
+            display: none;
+        }
+        .shape {
+            position: absolute;
+            &--1 {
+                top: 30%;
+                left: 0;
+                @include respond(laptop) {
+                    display: none;
+                }
+                @include respond(lg) {
+                    display: none;
+                }
+            }
+            &--2 {
+                right: 20%;
+                top: 28%;
+            }
+        }
+    }
+    &__circle {
+        position: absolute;
+        top: 19%;
+        right: 3%;
+        @include respond(lg) {
+            top: 17%;
+            right: 0%;
+        }
+        @include respond(xs) {
+            display: none;
+        }
+        span {
+            background-color: var(--color-white);
+            @include border-radius(50%);
+            display: inline-block;
+            &.big {
+                width: 116px;
+                height: 116px;
+                @include respond(lg) {
+                    width: 80px;
+                    height: 80px;
+                }
+            }
+            &.small {
+                width: 16px;
+                height: 16px;
+                position: relative;
+                right: 135px;
+                border: 39px;
+            }
+        }
+    }
+}

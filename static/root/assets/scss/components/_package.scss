@@ -1,0 +1,103 @@
+/*----------------------------------------*/
+/*  24. package
+/*----------------------------------------*/
+.package-bg {
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    z-index: 1;
+    .xb-strock-text {
+        bottom: 37%;
+    }
+}
+.xb-package {
+    .xb-item {
+        &--inner {
+            padding: 15px;
+            background: #fff;
+            @include border-radius(10px);
+            filter: drop-shadow(0px 14px 19px rgba(221, 229, 236, 0.42));
+            &:hover {
+                .xb-item--img img {
+                    @include transform(scale(1));
+                }
+            }
+        }
+        &--img {
+            @include border-radius(20px 20px 0 0);
+            overflow: hidden;
+            img {
+                @include transform(scale(1.06));
+                @include transition(.3s var(--easing));
+            }
+        }
+        &--holder {
+            padding: 30px 15px;
+            padding-bottom: 20px;
+        }
+        &--country,
+        &--rating {
+            img {
+                width: 22px;
+                height: 22px;
+                @include border-radius(50%);
+                margin-right: 6px;
+            }
+            span {
+                font-size: 14px;
+                font-weight: 500;
+                color: #0F172A;
+            }
+        }
+        &--rating {
+            span {
+                margin-right: 12px;
+            }
+        }
+        &--title {
+            font-size: 24px;
+            color: #0F172A;
+            a {
+                color: currentColor;
+            }
+        }
+        &--info {
+            padding-top: 25px;
+            margin-top: 28px;
+            border-top: 1px solid #F5F5F5;
+            margin-bottom: 30px;
+            li {
+                font-size: 14px;
+                font-weight: 500;
+                color: #0F172A;
+                display: flex;
+                align-items: center;
+                img {
+                    margin-right: 8px;
+                }
+            }
+        }
+        &--btn {
+            font-size: 14px;
+            font-weight: 600;
+            color: #B1B4BA;
+            display: inline-block;
+            width: 100%;
+            padding: 10px 20px;
+            border: 1px solid #F5F5F5;
+            @include border-radius(94px);
+            text-align: center;
+            span {
+                color: #0F172A;
+                font-weight: 600;
+                @include transition(.3s);
+            }
+            &:hover {
+                background-color: var(--color-primary);
+                color: var(--color-white);
+                span {
+                    color: currentColor;
+                }
+            }
+        }
+    }
+}

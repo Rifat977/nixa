@@ -1,0 +1,150 @@
+/*----------------------------------------*/
+/*  08. counter
+/*----------------------------------------*/
+.xb-counter {
+    padding-right: 197px;
+    @include respond(laptop) {
+        padding-right: 50px;
+    }
+    @include respond(lg) {
+        padding-right: 0;
+    }
+    .xb-item {
+        &--item {
+            width: 50%;
+            background-color: var(--color-white);
+            padding: 46px 65px;
+            padding-top: 26px;
+            border: 1px solid #EDF3F5;
+            margin-top: -1px;
+            margin-left: -1px;
+            position: relative;
+            @include transition(.3s);
+            @include respond(xs) {
+                width: 100%;
+                padding: 40px;
+            }
+            &:nth-child(1) {
+                border-top-left-radius: 20px;
+            }
+            &:nth-child(2) {
+                border-top-right-radius: 20px;
+            }
+            &:nth-child(3) {
+                border-bottom-left-radius: 20px;
+            }
+            &:nth-child(4) {
+                border-bottom-right-radius: 20px;
+            }
+            .suffix {
+                top: 8px;
+                position: relative;
+            }
+            &:hover {
+                z-index: 1;
+                position: relative;
+                box-shadow: 0px 21px 32px 0px rgba(191, 191, 191, 0.23);
+            }
+            &::before {
+                position: absolute;
+                top: 50%;
+                left: 0;
+                width: 4px;
+                height: 103px;
+                @include transform(translateY(-50%));
+                background-color: #FE6C3F;
+                content: "";
+            }
+            &.style-2 {
+                &::before {
+                    background-color: #0091FF;
+                }
+                .xb-item--icon {
+                    background-color: rgba(20, 149, 248, 0.1);
+                }
+            }
+            &.style-3 {
+                &::before {
+                    background-color: #00CC99;
+                }
+                .xb-item--icon {
+                    background-color: rgba(0, 204, 153, 0.1);
+                }
+            }
+            &.style-4 {
+                &::before {
+                    background-color: #FFBD0F;
+                }
+                .xb-item--icon {
+                    background-color: rgba(255, 187, 15, 0.1);
+                }
+            }
+        }
+        &--icon {
+            width: 108px;
+            height: 108px;
+            background-color: rgba(254, 108, 63, 0.1);
+            @include border-radius(50%);
+            margin-right: 44px;
+            @include center;
+            margin-top: 20px;
+        }
+        &--holder {
+            width: calc(100% - 152px);
+            margin-top: 20px;
+            @include respond(md) {
+                width: 100%;
+            }
+        }
+        &--number {
+            font-size: 70px;
+            font-weight: 300;
+            letter-spacing: 3px;
+            margin-top: -10px;
+            line-height: 1;
+            @include respond(lg) {
+                font-size: 56px;
+            }
+            span {
+                width: auto;
+                padding: 0px;
+                margin-left: -1px;
+                line-height: 1;
+            }
+        }
+        &--title {
+            font-size: 18px;
+            font-weight: 500;
+            color: var(--color-default);
+            margin-top: 7px;
+        }
+    }
+    &__wrap {
+        background-color: var(--color-white);
+        @include border-radius(20px);
+        padding: 26px 80px;
+        filter: drop-shadow(0px 14px 19px rgba(45, 78, 109, 0.05));
+    }
+}
+
+.xb-counter2 {
+    .xb-item {
+        &--inner {
+            padding: 30px 0;
+        }
+        &--number {
+            font-size: 60px;
+            font-weight: 600;
+            span {
+                width: auto;
+                padding: 0px;
+                margin-left: -1px;
+                line-height: 1;
+            }
+            .suffix {
+                top: 7px;
+                position: relative;
+            }
+        }
+    }
+}

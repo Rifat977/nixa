@@ -1,0 +1,108 @@
+/*----------------------------------------*/
+/*  30. sec-title
+/*----------------------------------------*/
+.sec-title {
+    h2 {
+        font-size: 50px;
+        font-weight: 700;
+        line-height: 1.2;
+        letter-spacing: -1.5px;
+        display: inline-block;
+        @include respond(lg) {
+            font-size: 42px;
+        }
+        @include respond(xs) {
+            font-size: 28px;
+            line-height: 1.3;
+        }
+        span {
+            color: var(--color-default);
+        }
+    }
+    p {
+        font-size: 20px;
+        line-height: 28px;
+        letter-spacing: -0.2px;
+        font-weight: 500;
+    }
+    &--sub {
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 22px;
+        letter-spacing: 6.72px;
+        text-transform: uppercase;
+        color: #110F10;
+        margin-bottom: 18px;
+        display: flex;
+        align-items: center;
+        img {
+            &:first-child {
+                margin-right: 13px;
+            }
+            &:last-child {
+                margin-left: 5px;
+            }
+        }
+    }
+    &--heading {
+        font-size: 48px;
+        font-weight: 700;
+        color: #110F10;
+        line-height: 1.2;
+        @include respond(lg) {
+            font-size: 40px;
+        }
+        @include respond(xs) {
+            font-size: 28px;
+        }
+    }
+    &.style-2 {
+        &.text-center {
+            .sec-title--sub {
+                justify-content: center;
+            }
+        }
+        p {
+            font-size: 16px;
+            color: #555;
+            font-weight: 400;
+            line-height: 28px;
+            opacity: 0.8;
+        }
+    }
+    &--big {
+        .sec-title--heading {
+            font-size: 60px;
+            @include respond(lg) {
+                font-size: 45px;
+            }
+            @include respond(xs) {
+                font-size: 32px;
+            }
+        }
+    }
+    &--travel {
+        .subtitle {
+            font-size: 20px;
+            font-weight: 700;
+            font-family: var(--font-dancing);
+            margin-bottom: 20px;
+            color: var(--color-heading);
+            display: inline-block;
+        }
+        h2 {
+            display: block;
+        }
+        p {
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 28px;
+        }
+    }
+    &--white {
+        span, .subtitle, h3, h2 {
+            color: var(--color-white);
+        }
+    }
+}
