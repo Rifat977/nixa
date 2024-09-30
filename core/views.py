@@ -33,3 +33,9 @@ def videos(request):
 
 def university(request):
     return render(request, 'root/university.html')
+
+def university_details(request):
+    return render(request, 'root/university-details.html')
+
+def application(request):
+    return render(request, 'root/application.html')

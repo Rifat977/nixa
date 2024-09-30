@@ -1,0 +1,218 @@
+{% extends 'root/partial/base.html' %}
+
+{% block title %}Application || Nixaglobal{% endblock %}
+
+{% load static %}
+
+{% block content %}
+<!-- breadcrumb start -->
+<section class="breadcrumb pos-rel bg_img" data-background="{% static '/root/assets/img/bg/breadcrumb_bg.jpg' %}">
+    <div class="container">
+        <div class="breadcrumb__content">
+            <h2 class="breadcrumb__title">Application</h2>
+            <ul class="breadcrumb__list clearfix">
+                <li class="breadcrumb-item"><a href="{% url 'core:index' %}">Home</a></li>
+                <li class="breadcrumb-item">Application</li>
+            </ul>
+        </div>
+    </div>
+    <div class="breadcrumb__circle">
+        <span class="big" data-parallax='{"y" : 100, "scale" : 0.1}'></span>
+        <span class="small" data-parallax='{"y" : 100, "scale" : 0.1}'></span>
+    </div>
+    <div class="breadcrumb__shape">
+        <div class="shape shape--1">
+            <div class="shape-inner" data-parallax='{"x":-50,"y":80}'>
+                <img src="{% static '/root/assets/img/shape/br_shape1.png' %}" alt="">
+            </div>
+        </div>
+        <div class="shape shape--2">
+            <div class="shape-inner" data-parallax='{"x":50,"y":-90}'>
+                <img src="{% static '/root/assets/img/shape/br_shape2.png' %}" alt="">
+            </div>
+        </div>
+    </div>
+</section>
+<!-- breadcrumb end -->
+
+<section class="contact pt-120 pb-120">
+    <div class="container">
+        <div class="row justify-content-md-center mt-none-30">
+            <div class="col-md-12">
+                <h2 class="text-center mb-4">Application Form</h2>
+                <form class="xb-item--form contact-from">
+                    <!-- Row 1: Name and Reference Code -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="name" class="mb-2">Name</label>
+                            <div class="xb-item--field">
+                                <input type="text" class="form-control" id="name" placeholder="Enter your name" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="reference_code" class="mb-2">Reference Code</label>
+                            <div class="xb-item--field">
+                                <input type="text" class="form-control" id="reference_code" placeholder="Enter your reference code">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row 2: Phone and Email -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="phone" class="mb-2">Phone</label>
+                            <div class="xb-item--field">
+                                <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="email" class="mb-2">Email</label>
+                            <div class="xb-item--field">
+                                <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row 3: Gender and Passport Number -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="gender" class="mb-2">Gender</label>
+                            <div class="xb-item--field">
+                                <select class="form-control" id="gender" required>
+                                    <option value="" disabled selected>Gender</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="passport_number" class="mb-2">Passport Number</label>
+                            <div class="xb-item--field">
+                                <input type="text" class="form-control" id="passport_number" placeholder="Enter your passport number" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row 4: Date of Birth and SSC Year -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="date_of_birth" class="mb-2">Date of Birth</label>
+                            <div class="xb-item--field">
+                                <input type="date" class="form-control" id="date_of_birth" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="ssc_year" class="mb-2">SSC Year</label>
+                            <div class="xb-item--field">
+                                <input type="number" class="form-control" id="ssc_year" placeholder="Enter your SSC year" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row 5: SSC Result and HSC Year -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="ssc_result" class="mb-2">SSC Result</label>
+                            <div class="xb-item--field">
+                                <input type="text" class="form-control" id="ssc_result" placeholder="Enter your SSC result" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="hsc_year" class="mb-2">HSC Year</label>
+                            <div class="xb-item--field">
+                                <input type="number" class="form-control" id="hsc_year" placeholder="Enter your HSC year" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row 6: HSC Result and Bachelor Year -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="hsc_result" class="mb-2">HSC Result</label>
+                            <div class="xb-item--field">
+                                <input type="text" class="form-control" id="hsc_result" placeholder="Enter your HSC result" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="bachelor_year" class="mb-2">Bachelor Year</label>
+                            <div class="xb-item--field">
+                                <input type="number" class="form-control" id="bachelor_year" placeholder="Enter your Bachelor year" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row 7: Bachelor Result and Level of Study -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="bachelor_result" class="mb-2">Bachelor Result</label>
+                            <div class="xb-item--field">
+                                <input type="text" class="form-control" id="bachelor_result" placeholder="Enter your Bachelor result" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="level_of_study" class="mb-2">Level of Study</label>
+                            <div class="xb-item--field">
+                                <select class="form-control" id="level_of_study" required>
+                                    <option value="" disabled selected>Level Of Study</option>
+                                    <option value="bachelor">Bachelor</option>
+                                    <option value="master">Master</option>
+                                    <option value="phd">PhD</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row 8: English Certificate and Interested Field of Study -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="english_language_certificate" class="mb-2">English Certificate</label>
+                            <div class="xb-item--field">
+                                <input type="text" class="form-control" id="english_language_certificate" placeholder="Enter your English language certificate">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="interested_field_of_study" class="mb-2">Interested Field of Study</label>
+                            <div class="xb-item--field">
+                                <textarea class="form-control" id="interested_field_of_study" placeholder="Enter your interested field of study" rows="3"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row 9: Interested University -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="interested_university" class="mb-2">Interested University</label>
+                            <div class="xb-item--field">
+                                <select class="form-control" id="interested_university">
+                                    <option value="" disabled selected>Interested University</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row 10: Certificate Upload and Passport Information Page -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="certificate_upload" class="mb-2">Upload Certificate</label>
+                            <div class="xb-item--field">
+                                <input type="file" class="form-control" id="certificate_upload" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="passport_information_page" class="mb-2">Passport Information Page</label>
+                            <div class="xb-item--field">
+                                <input type="file" class="form-control" id="passport_information_page" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-center mt-4">
+                        <button type="submit" class="btn btn-lg text-light" style="background-color: #fe8103;">Submit Application</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
