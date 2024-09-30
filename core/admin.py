@@ -32,6 +32,6 @@ admin.site.register(University, UniversityAdmin)
 admin.site.register(Program, ProgramAdmin)
 admin.site.register(Subject, SubjectAdmin)
 
-admin.site.site_header = _('Education Management Admin')  # change the site header
-admin.site.site_title = _('Education Management Admin')  # change the site title
-admin.site.index_title = _('Education Management Admin') 
+admin.site.site_header = _('Nixaglobal Adminstrator')  # change the site header
+admin.site.site_title = _('Nixaglobal Adminstrator')  # change the site title
+admin.site.index_title = _('Nixaglobal Adminstrator') 
