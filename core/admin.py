@@ -3,25 +3,23 @@ from django.contrib import admin
 from .models import University, Program, Subject
 from django.utils.translation import gettext_lazy as _
 
-class ProgramInline(admin.TabularInline):
-    model = Program
-    extra = 1
+# class ProgramInline(admin.TabularInline):
+#     model = Program
+#     extra = 1
 
-class SubjectInline(admin.TabularInline):
-    model = Subject
-    extra = 1
+# class SubjectInline(admin.TabularInline):
+#     model = Subject
+#     extra = 1
 
 class UniversityAdmin(admin.ModelAdmin):
     list_display = ('name', 'title')
     search_fields = ('name', 'title', 'description')  # search by university name, title, or description
     list_filter = ('name',)  # filter by university name
-    inlines = [ProgramInline]
+    # inlines = [ProgramInline]
 
 class ProgramAdmin(admin.ModelAdmin):
-    list_display = ('university', 'program_type', 'name')
-    search_fields = ('name', 'program_type')  # search by program name or type
-    list_filter = ('university', 'program_type')  # filter by university or program type
-    inlines = [SubjectInline]
+    list_display = ('name',) # filter by university or program type
+    # inlines = [SubjectInline]
 
 class SubjectAdmin(admin.ModelAdmin):
     list_display = ('program', 'name', 'course_period', 'start_date', 'fee', 'course_type')

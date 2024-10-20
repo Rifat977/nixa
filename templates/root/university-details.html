@@ -43,26 +43,23 @@
                 <div class="sidebar-widget">
                     <div class="widget">
                         <ul class="widget-category country-widget list-unstyled">
-                            <li><a href="country-single.html">Bechalor<span><img src="{% static '/root/assets/img/icon/fr_03_h.svg' %}" alt=""></span></a></li>
-                            <li><a href="country-single.html">Foundation<span><img src="{% static '/root/assets/img/country/fr_03_h.svg' %}" alt=""></span></a></li>
-                            <li><a href="country-single.html">PHD<span><img src="{% static '/root/assets/img/country/fr_03_h.svg' %}" alt=""></span></a></li>
-                            <li><a href="country-single.html">Masters<span><img src="{% static '/root/assets/img/country/fr_03_h.svg' %}" alt=""></span></a></li>
-                            <li><a href="country-single.html">Local Undergraduate<span><img src="{% static '/root/assets/img/country/fr_03_h.svg' %}" alt=""></span></a></li>
-                            
+                            {% for program in programs %}
+                            <li><a href="country-single.html">{{program.name}}<span><img src="{% static '/root/assets/img/icon/fr_03_h.svg' %}" alt=""></span></a></li>
+                            {% endfor %}
                         </ul>
                     </div>
                 </div>
             </div>
             <div class="col-lg-8">
                 <div class="single-content">
-                    <h3>University of Cyberjaya</h3>
-                    <h4>Title of descriptioin about University of Cyberjaya</h4>
+                    <h3>{{university.name}}</h3>
+                    <h4>{{university.title}}</h4>
                     <div class="single-img mt-35 mb-70">
-                        <img src="{% static '/root/assets/img/country/single.jpg' %}" alt="">
+                        <img src="{{university.image.url}}" alt="">
                     </div>
-                    <p>When it comes to world-class education, Canada stands as a beacon of excellence, offering a welcoming environment, top-tier institutions, and a diverse cultural tapestry. Studying in Canada isn't just about gaining a degree. </p>
-                    <p> It's about immersing yourself in an enriching educational experience that prepares you for global success. Here's a glimpse into what makes studying in Canada .</p>
-                    
+                    <p>
+                        {{university.description}}
+                    </p>
                 </div>
             </div>
         </div>

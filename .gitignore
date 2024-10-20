@@ -6,3 +6,5 @@ staticfiles
 *.pyc
 venv
 __pycache__/
+core/migrations/*
+*/migrations/*

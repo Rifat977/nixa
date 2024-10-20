@@ -22,16 +22,16 @@ class Program(models.Model):
     """
     Represents a Program offered by a University.
     """
-    UNIVERSITY_PROGRAM_TYPES = [
-        ('BACHELOR', 'Bachelor'),
-        ('MASTER', 'Master'),
-        ('PHD', 'PhD'),
-        ('Foundation', 'Foundation'),
-        ('Pharmacy', 'Pharmacy'),
-    ]
+    # UNIVERSITY_PROGRAM_TYPES = [
+    #     ('BACHELOR', 'Bachelor'),
+    #     ('MASTER', 'Master'),
+    #     ('PHD', 'PhD'),
+    #     ('Foundation', 'Foundation'),
+    #     ('Pharmacy', 'Pharmacy'),
+    # ]
 
-    university = models.ForeignKey(University, on_delete=models.CASCADE, related_name='programs')
-    program_type = models.CharField(max_length=10, choices=UNIVERSITY_PROGRAM_TYPES)
+    # university = models.ForeignKey(University, on_delete=models.CASCADE, related_name='programs')
+    # program_type = models.CharField(max_length=10, choices=UNIVERSITY_PROGRAM_TYPES)
     name = models.CharField(max_length=255)
 
     class Meta:
@@ -39,7 +39,7 @@ class Program(models.Model):
         verbose_name_plural = " Program"
 
     def __str__(self):
-        return f"{self.university.name} - {self.get_program_type_display()}"
+        return f"{self.name}"
 
 
 class Subject(models.Model):
@@ -53,7 +53,7 @@ class Subject(models.Model):
     program = models.ForeignKey(Program, on_delete=models.CASCADE, related_name='subjects')
     name = models.CharField(max_length=255)
     course_period = models.CharField(max_length=255)
-    start_date = models.CharField(max_length=10)  # month
+    start_date = models.DateField()  # month
     fee = models.DecimalField(max_digits=10, decimal_places=2)
     course_type = models.CharField(max_length=10, choices=COURSE_TYPES)
 

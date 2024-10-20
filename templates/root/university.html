@@ -93,22 +93,16 @@
             <div class="tab-pane animated fadeInUp show active" id="xbc-tab-pane1" role="tabpanel"
                     aria-labelledby="xbc-tab1" tabindex="0">
                 <div class="xb-country ul_li">
+                    {% for university in universities %}
                     <div class="xb-item--item">
-                        <a href="{% url 'core:university-details' %}" class="xb-item--inner ul_li">
+                        <a href="{% url 'core:university-details' university.id %}" class="xb-item--inner ul_li">
                             <div class="xb-item--flag">
-                                <img src="{% static '/root/assets/img/country/img_01.png' %}" alt="">
+                                <img src="{{university.logo.url}}" alt="">
                             </div>
-                            <h3 class="xb-item--title">University of Cyberjaya</h3>
+                            <h3 class="xb-item--title">{{university.name}}</h3>
                         </a>
                     </div>
-                    <div class="xb-item--item">
-                        <a href="{% url 'core:university-details' %}" class="xb-item--inner ul_li">
-                            <div class="xb-item--flag">
-                                <img src="{% static '/root/assets/img/country/img_12.png' %}" alt="">
-                            </div>
-                            <h3 class="xb-item--title">Quest International University</h3>
-                        </a>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>

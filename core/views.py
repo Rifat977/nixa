@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from .models import *
 
 # Create your views here.
 def index(request):
@@ -32,10 +33,20 @@ def videos(request):
     return render(request, 'root/videos.html')
 
 def university(request):
-    return render(request, 'root/university.html')
+    universities = University.objects.all()
+    context = {
+        'universities' : universities
+    }
+    return render(request, 'root/university.html', context)
 
-def university_details(request):
-    return render(request, 'root/university-details.html')
+def university_details(request, id):
+    university = University.objects.get(id=id)
+    programs = Program.objects.all()
+    context = {
+        'university' : university,
+        'programs' : programs,
+    }
+    return render(request, 'root/university-details.html', context)
 
 def application(request):
     return render(request, 'root/application.html')
