@@ -14,7 +14,11 @@ urlpatterns = [
     path('blog/', views.blog, name="blog"),
     path('blog-details/', views.blog_details, name="blog-details"),
     path('videos/', views.videos, name="videos"),
+
     path('university/', views.university, name="university"),
     path('university-details/<int:id>/', views.university_details, name="university-details"),
+    path('get-subjects/<int:program_id>/<int:u_id>/', views.get_subjects, name='get_subjects'),
+
+    path('application/success/', views.application_success, name='application_success'),
     path('application/', views.application, name="application")
 ]

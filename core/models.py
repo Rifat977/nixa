@@ -50,6 +50,7 @@ class Subject(models.Model):
         ('Coursework', 'Coursework'),
     ]
 
+    university = models.ForeignKey(University, on_delete=models.CASCADE)
     program = models.ForeignKey(Program, on_delete=models.CASCADE, related_name='subjects')
     name = models.CharField(max_length=255)
     course_period = models.CharField(max_length=255)
@@ -63,3 +64,39 @@ class Subject(models.Model):
 
     def __str__(self):
         return f"{self.program.name} - {self.name}"
+
+
+class Application(models.Model):
+    GENDER_CHOICES = [
+        ('male', 'Male'),
+        ('female', 'Female'),
+    ]
+    LEVEL_OF_STUDY_CHOICES = [
+        ('bachelor', 'Bachelor'),
+        ('master', 'Master'),
+        ('phd', 'PhD'),
+    ]
+
+    name = models.CharField(max_length=255)
+    reference_code = models.CharField(max_length=255, blank=True, null=True)
+    phone = models.CharField(max_length=20)
+    email = models.EmailField()
+    gender = models.CharField(max_length=6, choices=GENDER_CHOICES)
+    passport_number = models.CharField(max_length=50)
+    date_of_birth = models.DateField()
+    ssc_year = models.IntegerField()
+    ssc_result = models.CharField(max_length=50)
+    hsc_year = models.IntegerField()
+    hsc_result = models.CharField(max_length=50)
+    bachelor_year = models.IntegerField(blank=True, null=True)
+    bachelor_result = models.CharField(max_length=50, blank=True, null=True)
+    level_of_study = models.CharField(max_length=10, choices=LEVEL_OF_STUDY_CHOICES)
+    english_language_certificate = models.CharField(max_length=255, blank=True, null=True)
+    program = models.ForeignKey(Program, on_delete=models.SET_NULL, null=True)
+    university = models.ForeignKey(University, on_delete=models.SET_NULL, null=True)
+    subject = models.ForeignKey(Subject, on_delete=models.SET_NULL, null=True)
+    certificate_upload = models.FileField(upload_to='certificates/')
+    passport_information_page = models.FileField(upload_to='passports/')
+
+    def __str__(self):
+        return f"{self.name} - {self.program.name} - {self.university.name}"

@@ -40,19 +40,20 @@
         <div class="row justify-content-md-center mt-none-30">
             <div class="col-md-12">
                 <h2 class="text-center mb-4">Application Form</h2>
-                <form class="xb-item--form contact-from">
+                <form class="xb-item--form contact-from" method="post" action="{% url 'core:application' %}" enctype="multipart/form-data">
+                    {% csrf_token %}
                     <!-- Row 1: Name and Reference Code -->
                     <div class="row">
                         <div class="col-md-6">
                             <label for="name" class="mb-2">Name</label>
                             <div class="xb-item--field">
-                                <input type="text" class="form-control" id="name" placeholder="Enter your name" required>
+                                <input type="text" name="name" class="form-control" id="name" placeholder="Enter your name" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <label for="reference_code" class="mb-2">Reference Code</label>
                             <div class="xb-item--field">
-                                <input type="text" class="form-control" id="reference_code" placeholder="Enter your reference code">
+                                <input type="text" name="reference_code" class="form-control" id="reference_code" placeholder="Enter your reference code">
                             </div>
                         </div>
                     </div>
@@ -62,13 +63,13 @@
                         <div class="col-md-6">
                             <label for="phone" class="mb-2">Phone</label>
                             <div class="xb-item--field">
-                                <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number" required>
+                                <input type="tel" name="phone" class="form-control" id="phone" placeholder="Enter your phone number" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <label for="email" class="mb-2">Email</label>
                             <div class="xb-item--field">
-                                <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                                <input type="email" name="email" class="form-control" id="email" placeholder="Enter your email" required>
                             </div>
                         </div>
                     </div>
@@ -78,7 +79,7 @@
                         <div class="col-md-6">
                             <label for="gender" class="mb-2">Gender</label>
                             <div class="xb-item--field">
-                                <select class="form-control" id="gender" required>
+                                <select class="form-control" name="gender" id="gender" required>
                                     <option value="" disabled selected>Gender</option>
                                     <option value="male">Male</option>
                                     <option value="female">Female</option>
@@ -88,7 +89,7 @@
                         <div class="col-md-6">
                             <label for="passport_number" class="mb-2">Passport Number</label>
                             <div class="xb-item--field">
-                                <input type="text" class="form-control" id="passport_number" placeholder="Enter your passport number" required>
+                                <input type="text" name="passport_number" class="form-control" id="passport_number" placeholder="Enter your passport number" required>
                             </div>
                         </div>
                     </div>
@@ -98,13 +99,13 @@
                         <div class="col-md-6">
                             <label for="date_of_birth" class="mb-2">Date of Birth</label>
                             <div class="xb-item--field">
-                                <input type="date" class="form-control" id="date_of_birth" required>
+                                <input type="date" name="date_of_birth" class="form-control" id="date_of_birth" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <label for="ssc_year" class="mb-2">SSC Year</label>
                             <div class="xb-item--field">
-                                <input type="number" class="form-control" id="ssc_year" placeholder="Enter your SSC year" required>
+                                <input type="number" name="ssc_year" class="form-control" id="ssc_year" placeholder="Enter your SSC year" required>
                             </div>
                         </div>
                     </div>
@@ -114,13 +115,13 @@
                         <div class="col-md-6">
                             <label for="ssc_result" class="mb-2">SSC Result</label>
                             <div class="xb-item--field">
-                                <input type="text" class="form-control" id="ssc_result" placeholder="Enter your SSC result" required>
+                                <input type="text" name="ssc_result" class="form-control" id="ssc_result" placeholder="Enter your SSC result" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <label for="hsc_year" class="mb-2">HSC Year</label>
                             <div class="xb-item--field">
-                                <input type="number" class="form-control" id="hsc_year" placeholder="Enter your HSC year" required>
+                                <input type="number" name="hsc_year" class="form-control" id="hsc_year" placeholder="Enter your HSC year" required>
                             </div>
                         </div>
                     </div>
@@ -130,13 +131,13 @@
                         <div class="col-md-6">
                             <label for="hsc_result" class="mb-2">HSC Result</label>
                             <div class="xb-item--field">
-                                <input type="text" class="form-control" id="hsc_result" placeholder="Enter your HSC result" required>
+                                <input type="text" name="hsc_result" class="form-control" id="hsc_result" placeholder="Enter your HSC result" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <label for="bachelor_year" class="mb-2">Bachelor Year</label>
                             <div class="xb-item--field">
-                                <input type="number" class="form-control" id="bachelor_year" placeholder="Enter your Bachelor year" required>
+                                <input type="number" name="bachelor_year" class="form-control" id="bachelor_year" placeholder="Enter your Bachelor year" required>
                             </div>
                         </div>
                     </div>
@@ -146,13 +147,13 @@
                         <div class="col-md-6">
                             <label for="bachelor_result" class="mb-2">Bachelor Result</label>
                             <div class="xb-item--field">
-                                <input type="text" class="form-control" id="bachelor_result" placeholder="Enter your Bachelor result" required>
+                                <input type="text" name="bachelor_result" class="form-control" id="bachelor_result" placeholder="Enter your Bachelor result" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <label for="level_of_study" class="mb-2">Level of Study</label>
                             <div class="xb-item--field">
-                                <select class="form-control" id="level_of_study" required>
+                                <select class="form-control" name="level_of_study" id="level_of_study" required>
                                     <option value="" disabled selected>Level Of Study</option>
                                     <option value="bachelor">Bachelor</option>
                                     <option value="master">Master</option>
@@ -167,41 +168,68 @@
                         <div class="col-md-6">
                             <label for="english_language_certificate" class="mb-2">English Certificate</label>
                             <div class="xb-item--field">
-                                <input type="text" class="form-control" id="english_language_certificate" placeholder="Enter your English language certificate">
+                                <input type="text" class="form-control" name="english_language_certificate" id="english_language_certificate" placeholder="Enter your English language certificate">
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <!-- <div class="col-md-6">
                             <label for="interested_field_of_study" class="mb-2">Interested Field of Study</label>
                             <div class="xb-item--field">
                                 <textarea class="form-control" id="interested_field_of_study" placeholder="Enter your interested field of study" rows="3"></textarea>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
 
-                    <!-- Row 9: Interested University -->
+                    <!-- Row: Select Program and University -->
                     <div class="row">
-                        <div class="col-md-12">
-                            <label for="interested_university" class="mb-2">Interested University</label>
+                        <div class="col-md-6">
+                            <label for="program" class="mb-2">Select Program</label>
                             <div class="xb-item--field">
-                                <select class="form-control" id="interested_university">
-                                    <option value="" disabled selected>Interested University</option>
+                                <select class="form-control" name="program" id="program" required>
+                                    <option value="" disabled selected>Select Program</option>
+                                    {% for program in programs %}
+                                    <option value="{{ program.id }}">{{ program.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="university" class="mb-2">Interested University</label>
+                            <div class="xb-item--field">
+                                <select class="form-control" name="university" id="university" required>
+                                    <option value="" disabled selected>Select University</option>
+                                    {% for university in universities %}
+                                    <option value="{{ university.id }}">{{ university.name }}</option>
+                                    {% endfor %}
                                 </select>
                             </div>
                         </div>
                     </div>
+
+                    <!-- Subject Select Dropdown -->
+                    <div class="col-md-6">
+                        <label for="subjects-dropdown" class="mb-2">Select Subject</label>
+                        <div class="xb-item--field">
+                            <select class="form-control" name="subject" id="subjects-dropdown" required>
+                                <option value="" disabled selected>Select Subject</option>
+                            </select>
+                        </div>
+                    </div>
+
+
 
                     <!-- Row 10: Certificate Upload and Passport Information Page -->
                     <div class="row">
                         <div class="col-md-6">
                             <label for="certificate_upload" class="mb-2">Upload Certificate</label>
                             <div class="xb-item--field">
-                                <input type="file" class="form-control" id="certificate_upload" required>
+                                <input type="file" class="form-control" name="certificate_upload" id="certificate_upload" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <label for="passport_information_page" class="mb-2">Passport Information Page</label>
                             <div class="xb-item--field">
-                                <input type="file" class="form-control" id="passport_information_page" required>
+                                <input type="file" class="form-control" name="passport_information_page" id="passport_information_page" required>
                             </div>
                         </div>
                     </div>
@@ -214,5 +242,37 @@
         </div>
     </div>
 </section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const programDropdown = document.getElementById('program');
+    const universityDropdown = document.getElementById('university');
+    const subjectsDropdown = document.getElementById('subjects-dropdown');
+
+    function loadSubjects() {
+        const programId = programDropdown.value;
+        const universityId = universityDropdown.value;
+
+        if (programId && universityId) {
+            fetch(`/get-subjects/${programId}/${universityId}`)
+                .then(response => response.json())
+                .then(data => {
+                    subjectsDropdown.innerHTML = '<option value="" disabled selected>Select Subject</option>';
+
+                    data.subjects.forEach(subject => {
+                        subjectsDropdown.innerHTML += `
+                            <option value="${subject.id}">${subject.name} - Fee: ${subject.fee}</option>`;
+                    });
+                })
+                .catch(error => console.error('Error fetching subjects:', error));
+        }
+    }
+
+    programDropdown.addEventListener('change', loadSubjects);
+    universityDropdown.addEventListener('change', loadSubjects);
+});
+
+</script>
+
 
 {% endblock %}

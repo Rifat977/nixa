@@ -1,6 +1,6 @@
 # admin.py
 from django.contrib import admin
-from .models import University, Program, Subject
+from .models import University, Program, Subject, Application
 from django.utils.translation import gettext_lazy as _
 
 # class ProgramInline(admin.TabularInline):
@@ -29,6 +29,7 @@ class SubjectAdmin(admin.ModelAdmin):
 admin.site.register(University, UniversityAdmin)
 admin.site.register(Program, ProgramAdmin)
 admin.site.register(Subject, SubjectAdmin)
+admin.site.register(Application)
 
 admin.site.site_header = _('Nixaglobal Adminstrator')  # change the site header
 admin.site.site_title = _('Nixaglobal Adminstrator')  # change the site title
