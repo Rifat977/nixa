@@ -51,7 +51,7 @@
   --font-heading: 'Plus Jakarta Sans', sans-serif;
   --font-inter: 'Inter', sans-serif;
   --font-dancing: 'Dancing Script', cursive;
-  --color-primary: #00CC99;
+  --color-primary: #fe8103;
   --color-secondary: #0091FF;
   --color-primary-2: #FB4927;
   --gradient-color-from: #D91334;
@@ -346,7 +346,7 @@ p, li, span {
   margin: 0px;
   padding: 0px;
   display: flex;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
   align-items: center; }
 
 .ul_li > li, .ul_li_right > li, .ul_li_center > li, .ul_li_between > li {
@@ -3934,7 +3934,7 @@ body .mfp-wrap .mfp-container .mfp-content .mfp-close:hover::before, body .mfp-w
       background-color: var(--color-white); }
 
 .xb-brand1 .xb-item--item {
-  width: 25%;
+  width: auto;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -4725,7 +4725,7 @@ body .mfp-wrap .mfp-container .mfp-content .mfp-close:hover::before, body .mfp-w
     margin-right: 27px;
     margin-top: 8px; }
   .xb-country .xb-item--title {
-    font-size: 20px;
+    font-size: 16px;
     letter-spacing: -0.6px;
     margin-top: 8px; }
 

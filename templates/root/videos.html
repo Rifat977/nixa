@@ -39,51 +39,17 @@
 <section class="coaching pt-130 pb-120">
     <div class="container">
         <div class="row mt-none-30">
+            {% for video in videos %}
             <div class="col-lg-4 col-md-6 mt-30">
                 <div class="xb-coaching">
                     <div class="xb-item--inner">
                         <div class="xb-item--img">
-                            <iframe width="100%" height="270" src="https://www.youtube.com/embed/2fsKanIuNfM" title="যদি হিমালয় হয়ে-খালিদ(চাইম) | লিরিক্স ভিডিও|Jodi Himaloy Hoye-Khalid(Chime)|Ban/Rom/Eng| Lyrics Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                            <iframe width="100%" height="270" src="{{video.video_url}}" title="{{video.title}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-6 mt-30">
-                <div class="xb-coaching">
-                    <div class="xb-item--inner">
-                        <div class="xb-item--img">
-                            <iframe width="100%" height="270" src="https://www.youtube.com/embed/2fsKanIuNfM" title="যদি হিমালয় হয়ে-খালিদ(চাইম) | লিরিক্স ভিডিও|Jodi Himaloy Hoye-Khalid(Chime)|Ban/Rom/Eng| Lyrics Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 mt-30">
-                <div class="xb-coaching">
-                    <div class="xb-item--inner">
-                        <div class="xb-item--img">
-                            <iframe width="100%" height="270" src="https://www.youtube.com/embed/2fsKanIuNfM" title="যদি হিমালয় হয়ে-খালিদ(চাইম) | লিরিক্স ভিডিও|Jodi Himaloy Hoye-Khalid(Chime)|Ban/Rom/Eng| Lyrics Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 mt-30">
-                <div class="xb-coaching">
-                    <div class="xb-item--inner">
-                        <div class="xb-item--img">
-                            <iframe width="100%" height="270" src="https://www.youtube.com/embed/2fsKanIuNfM" title="যদি হিমালয় হয়ে-খালিদ(চাইম) | লিরিক্স ভিডিও|Jodi Himaloy Hoye-Khalid(Chime)|Ban/Rom/Eng| Lyrics Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 mt-30">
-                <div class="xb-coaching">
-                    <div class="xb-item--inner">
-                        <div class="xb-item--img">
-                            <iframe width="100%" height="270" src="https://www.youtube.com/embed/2fsKanIuNfM" title="যদি হিমালয় হয়ে-খালিদ(চাইম) | লিরিক্স ভিডিও|Jodi Himaloy Hoye-Khalid(Chime)|Ban/Rom/Eng| Lyrics Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
 
         </div>
     </div>

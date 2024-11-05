@@ -42,7 +42,7 @@
 <div id="xb-loadding">
     <div class="loader">
         <div class="plane">
-            <img class="plane-img" src="assets/img/icon/plane.gif" alt="">
+            <img class="plane-img" src="{% static '/root/assets/img/icon/plane.gif' %}" alt="">
         </div>
         <div class="earth-wrapper">
             <div class="earth"></div>
@@ -59,11 +59,11 @@
             <div class="container">
                 <div class="header__top ul_li_between">
                     <div class="header__top-cta">
-                        <img src="{% static '/root/assets/img/icon/n_pad.svg' %}" alt=""><span>Help Desk :</span> +60 11-2302 2129
+                        <img src="{% static '/root/assets/img/icon/n_pad.svg' %}" alt=""><span>Help Desk :</span> +60 173891304
                     </div>
                     <ul class="header__top-info ul_li">
                         <li><img src="{% static '/root/assets/img/icon/time.svg' %}" alt="">Monday - Friday 09:00 am - 05:00 Pm</li>
-                        <li><img src="{% static '/root/assets/img/icon/location.svg' %}" alt="">Jln Tun Razak Kuala Lampur, Malaysia</li>
+                        <li><img src="{% static '/root/assets/img/icon/location.svg' %}" alt="">Khan Plaza, (Lift 6), 32/1 Mirpur Road, Dhanmondi, Dhaka 1205, Bangladesh</li>
                     </ul>
                 </div>
             </div>
@@ -82,6 +82,7 @@
                                 <li class="menu-item-has-children">
                                     <a href="#!"><span>Pages</span></a>
                                     <ul class="submenu">
+                                        <li><a href="{% url 'core:gallery' %}"><span>Our Gallery</span></a></li>
                                         <li><a href="{% url 'core:services' %}"><span>Services</span></a></li>
                                         <li><a href="{% url 'core:service_details' %}"><span>Service Details</span></a></li>
                                         <li><a href="{% url 'core:testimonial' %}"><span>Testimonials</span></a></li>

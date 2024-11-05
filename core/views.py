@@ -6,6 +6,8 @@ from django.views.decorators.http import require_http_methods
 from django.core.files.storage import FileSystemStorage
 from django.core.exceptions import ValidationError
 
+import random
+
 
 # Create your views here.
 def index(request):
@@ -18,7 +20,17 @@ def service_details(request):
     return render(request, 'root/service-details.html')
 
 def testimonial(request):
-    return render(request, 'root/testimonial.html')
+    testimonials = Testimonial.objects.all()
+
+    styles = [f'style-{i}' for i in range(1, 8)]
+
+    for index, testimonial in enumerate(testimonials):
+        testimonial.style_class = styles[index % len(styles)]
+
+    context = {
+        'testimonials' : testimonials
+    }
+    return render(request, 'root/testimonial.html', context)
 
 def faq(request):
     return render(request, 'root/faq.html')
@@ -36,7 +48,18 @@ def blog_details(request):
     return render(request, 'root/blog-details.html')
 
 def videos(request):
-    return render(request, 'root/videos.html')
+    videoss = Video.objects.all()
+    context =  {
+        'videos' : videoss
+    }
+    return render(request, 'root/videos.html', context)
+
+def gallery(request):
+    galleries = GalleryImage.objects.all()
+    context = {
+        'galleries' : galleries
+    }
+    return render(request, 'root/our-gallery.html', context)
 
 def university(request):
     universities = University.objects.all()
@@ -71,6 +94,13 @@ def get_subjects(request, program_id, u_id):
     # Return the list wrapped in a 'subjects' key
     return JsonResponse({'subjects': subject_list}, safe=False)
 
+import logging
+
+# Set up logging
+logger = logging.getLogger(__name__)
+from django.contrib import messages
+
+
 @require_http_methods(["GET", "POST"])
 def application(request):
     if request.method == 'POST':
@@ -82,13 +112,8 @@ def application(request):
         gender = request.POST.get('gender')
         passport_number = request.POST.get('passport_number')
         date_of_birth = request.POST.get('date_of_birth')
-        ssc_year = request.POST.get('ssc_year')
-        ssc_result = request.POST.get('ssc_result')
-        hsc_year = request.POST.get('hsc_year')
-        hsc_result = request.POST.get('hsc_result')
-        bachelor_year = request.POST.get('bachelor_year')
-        bachelor_result = request.POST.get('bachelor_result')
-        level_of_study = request.POST.get('level_of_study')
+        highest_qualification = request.POST.get('highest_qualification')
+        year_of_passing = request.POST.get('year_of_passing')
         english_certificate = request.POST.get('english_language_certificate')
         program_id = request.POST.get('program')
         university_id = request.POST.get('university')
@@ -97,19 +122,28 @@ def application(request):
         passport_information_page = request.FILES.get('passport_information_page')
 
         # Get related models
-        program = get_object_or_404(Program, id=program_id)
-        university = get_object_or_404(University, id=university_id)
-        subject = get_object_or_404(Subject, id=subject_id)
-
-        # Perform validation (basic example)
-        if not name or not phone or not email or not gender or not passport_number or not date_of_birth:
+        try:
+            program = get_object_or_404(Program, id=program_id)
+            university = get_object_or_404(University, id=university_id)
+            subject = get_object_or_404(Subject, id=subject_id)
+        except Exception as e:
+            logger.error(f"Error fetching related models: {e}")
+            messages.error(request, "Invalid selection for program, university, or subject.")
             return render(request, 'root/application.html', {
-                'error': 'Please fill all required fields.',
+                'programs': Program.objects.all(),
+                'universities': University.objects.all(),
+                'error': 'Please select a valid program, university, and subject.'
+            })
+
+        # Basic validation
+        if not (name and phone and email and gender and passport_number and date_of_birth):
+            messages.error(request, "Please fill all required fields.")
+            return render(request, 'root/application.html', {
                 'programs': Program.objects.all(),
                 'universities': University.objects.all(),
             })
 
-        # Save the application
+        # Try to save the application
         try:
             application = Application(
                 name=name,
@@ -119,41 +153,32 @@ def application(request):
                 gender=gender,
                 passport_number=passport_number,
                 date_of_birth=date_of_birth,
-                ssc_year=ssc_year,
-                ssc_result=ssc_result,
-                hsc_year=hsc_year,
-                hsc_result=hsc_result,
-                bachelor_year=bachelor_year if bachelor_year else None,
-                bachelor_result=bachelor_result if bachelor_result else None,
-                level_of_study=level_of_study,
+                highest_qualification=highest_qualification,
+                year_of_passing=year_of_passing,
                 english_language_certificate=english_certificate,
                 program=program,
                 university=university,
                 subject=subject,
                 certificate_upload=certificate_upload,
-                passport_information_page=passport_information_page
+                passport_information_page=passport_information_page,
             )
-
             application.save()
-
-            # # Redirect to success page after saving
-            return redirect('core:application_success') 
-
-        except ValidationError as e:
-            # Handle validation errors (if any)
+            messages.success(request, "Your application has been submitted successfully!")
+            return redirect('core:application_success')  # Redirect to success page
+        except Exception as e:
+            logger.error(f"Error saving application: {e}")
+            messages.error(request, f"An error occurred while submitting your application. Please try again.")
             return render(request, 'root/application.html', {
-                'error': f"Error: {e.message}",
                 'programs': Program.objects.all(),
                 'universities': University.objects.all(),
             })
-
-    # Handle form rendering (GET)
-    programs = Program.objects.all()
-    universities = University.objects.all()
+    
+    # GET request to render the form with dropdown options
     return render(request, 'root/application.html', {
-        'programs': programs,
-        'universities': universities,
+        'programs': Program.objects.all(),
+        'universities': University.objects.all(),
     })
+
 
 def application_success(request):
     return render(request, 'root/success.html')

@@ -40,145 +40,26 @@
     <div class="container">
         <div class="xb-testimonial__masonry">
             <div class="row grid mt-none-100">
+                {% for testimonial in testimonials %}
                 <div class="col-lg-6 grid-item mt-100">
-                    <div class="xb-testimonial3">
+                    <div class="xb-testimonial3 {{testimonial.style_class}}">
                         <div class="xb-item--inner">
                             <div class="xb-item--author-info ul_li mb-40">
                                 <div class="xb-item--avatar">
-                                    <img src="{% static '/root/assets/img/testimonial/avatar1.png' %}" alt="">
+                                    <img src="{{testimonial.avatar.url}}" alt="">
                                 </div>
                                 <div class="xb-item--author">
-                                    <h3 class="xb-item--name">Elisa Doward</h3>
-                                    <span class="xb-item--desig">Canadian Student</span>
+                                    <h3 class="xb-item--name">{{testimonial.name}}</h3>
+                                    <span class="xb-item--desig">{{testimonial.designation}}</span>
                                 </div>
                             </div>
                             <div class="xb-item--content">
-                                <p>Elisa Doward, a Canadian university student, embarked on a journey abroad with the help of E.visa Company Service. With their support, she successfully pursued her education overseas, gaining valuable experiences and knowledge.</p>
-                                <p>Upon returning to Canada, Elisa's determination and E.visa Company Service's guidance led her to a thriving career in Seattle. She now excels in her field, serving as an inspiration for others seeking success in there life as well.</p>
-                                <p>Elisa's story showcases the power of determination and expert support in achieving one's dreams.</p>
+                                <p>{{testimonial.content}}</p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6 grid-item mt-100">
-                    <div class="xb-testimonial3 style-2">
-                        <div class="xb-item--inner">
-                            <div class="xb-item--author-info ul_li mb-40">
-                                <div class="xb-item--avatar">
-                                    <img src="{% static '/root/assets/img/testimonial/avatar2.png' %}" alt="">
-                                </div>
-                                <div class="xb-item--author">
-                                    <h3 class="xb-item--name">Elisa Doward</h3>
-                                    <span class="xb-item--desig">Canadian Student</span>
-                                </div>
-                            </div>
-                            <div class="xb-item--content">
-                                <p>Malinda Hira, a bright student from a Canadian university, embarked on an incredible journey with E.visa Company Service. She had a thirst for international experiences and sought to study abroad. With E.visa's expert assistance, Malinda's dream became a reality.</p>
-                                <p>Studying overseas expanded Malinda's horizons and allowed her to immerse herself in diverse cultures. Her commitment to learning and adapting to new environments paid off, and she graduated with honors. Armed with a global perspective, Malinda returned to Canada and is now making waves in Seattle, excelling in her chosen field.</p>
-                                <p>Her story is a testament to the transformative power of international education and determination.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 grid-item mt-100">
-                    <div class="xb-testimonial3 style-3">
-                        <div class="xb-item--inner">
-                            <div class="xb-item--author-info ul_li mb-40">
-                                <div class="xb-item--avatar">
-                                    <img src="{% static '/root/assets/img/testimonial/avatar3.png' %}" alt="">
-                                </div>
-                                <div class="xb-item--author">
-                                    <h3 class="xb-item--name">Elisa Doward</h3>
-                                    <span class="xb-item--desig">Canadian Student</span>
-                                </div>
-                            </div>
-                            <div class="xb-item--content">
-                                <p>David Mia, a Canadian university student, turned to E.visa Company Service for assistance in navigating the complexities of studying abroad. With their support, David pursued his education in a foreign land, gaining valuable insights and experiences.</p>
-                                <p>Upon his return to Canada, David's international background set him apart in the job market. He secured a coveted position in Seattle and quickly rose through the ranks, making his mark in the industry. His journey illustrates the career opportunities that await those who embrace global experiences and seize them with determination.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 grid-item mt-100">
-                    <div class="xb-testimonial3 style-4">
-                        <div class="xb-item--inner">
-                            <div class="xb-item--author-info ul_li mb-40">
-                                <div class="xb-item--avatar">
-                                    <img src="{% static '/root/assets/img/testimonial/avatar4.png' %}" alt="">
-                                </div>
-                                <div class="xb-item--author">
-                                    <h3 class="xb-item--name">Jordan Alvz</h3>
-                                    <span class="xb-item--desig">Canadian  Student</span>
-                                </div>
-                            </div>
-                            <div class="xb-item--content">
-                                <p>Jordan Alvz, a Canadian university student, enlisted the help of E.visa Company Service to embark on an overseas academic adventure. With their guidance, Jordan smoothly transitioned to studying abroad, expanding his horizons and honing his skills.</p>
-                                <p>Back in Canada, Jordan leveraged his international experiences to secure a promising career in Seattle.</p>
-                                <p>His dedication and unique perspective have made him an asset to his industry. Jordan's story exemplifies how studying abroad can lead to unparalleled professional growth and personal development.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 grid-item mt-100">
-                    <div class="xb-testimonial3 style-5">
-                        <div class="xb-item--inner">
-                            <div class="xb-item--author-info ul_li mb-40">
-                                <div class="xb-item--avatar">
-                                    <img src="{% static '/root/assets/img/testimonial/avatar5.png' %}" alt="">
-                                </div>
-                                <div class="xb-item--author">
-                                    <h3 class="xb-item--name">Akhil Hossien</h3>
-                                    <span class="xb-item--desig">Canadian  Student</span>
-                                </div>
-                            </div>
-                            <div class="xb-item--content">
-                                <p>Akhil Hossien, a determined student from a Canadian university, sought E.visa Company Service's expertise to facilitate his journey abroad. His desire for international education led him to pursue his dreams with unwavering determination.</p>
-                                <p>Akhil returned to Canada armed with knowledge and skills that set him apart in the job market.</p>
-                                <p> He secured a rewarding career in Seattle, where he continues to thrive. Akhil's story highlights how international experiences can open doors to success, and E.visa Company Service played a pivotal role in his remarkable journey.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 grid-item mt-100">
-                    <div class="xb-testimonial3 style-6">
-                        <div class="xb-item--inner">
-                            <div class="xb-item--author-info ul_li mb-40">
-                                <div class="xb-item--avatar">
-                                    <img src="{% static '/root/assets/img/testimonial/avatar6.png' %}" alt="">
-                                </div>
-                                <div class="xb-item--author">
-                                    <h3 class="xb-item--name">Gomez Raha</h3>
-                                    <span class="xb-item--desig">Canadian  Student</span>
-                                </div>
-                            </div>
-                            <div class="xb-item--content">
-                                <p>Gomez Raha, a Canadian university student, entrusted E.visa Company Service to help him embark on a life-changing international journey. With their support, Gomez pursued his education abroad, broadening his horizons and gaining invaluable insights.</p>
-                                <p>Upon his return to Canada, Gomez's global perspective made him a standout candidate in the competitive job market. He secured a prestigious position in Seattle, where he continues to excel.</p>
-                                <p>Gomez's story serves as a testament to the transformative power of international education and the essential role E.visa Company Service played in his journey to success.</p>
-                                <p>Company Service to help him embark on a life-changing international journey. With their support, Gomez pursued his education abroad, broadening his horizons and gaining invaluable insights of the oscitation .</p>
-                                <p>He secured a rewarding career in Seattle, where he continues to thrive. Akhil's story highlights how international experiences .</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 grid-item mt-100">
-                    <div class="xb-testimonial3 style-7">
-                        <div class="xb-item--inner">
-                            <div class="xb-item--author-info ul_li mb-40">
-                                <div class="xb-item--avatar">
-                                    <img src="{% static '/root/assets/img/testimonial/avatar7.png' %}" alt="">
-                                </div>
-                                <div class="xb-item--author">
-                                    <h3 class="xb-item--name">Makhacav Rim</h3>
-                                    <span class="xb-item--desig">Canadian  Student</span>
-                                </div>
-                            </div>
-                            <div class="xb-item--content">
-                                <p>Makhacav Rim, a determined individual from a diverse background, embarked on a remarkable journey with the help of E.visa Company Service. Makhacav's dream was to pursue higher education in Canada, and E.visa became the.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
     </div>

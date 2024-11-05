@@ -45,13 +45,13 @@
                     <!-- Row 1: Name and Reference Code -->
                     <div class="row">
                         <div class="col-md-6">
-                            <label for="name" class="mb-2">Name</label>
+                            <label for="name" class="mb-2">Full Name</label>
                             <div class="xb-item--field">
                                 <input type="text" name="name" class="form-control" id="name" placeholder="Enter your name" required>
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <label for="reference_code" class="mb-2">Reference Code</label>
+                            <label for="reference_code" class="mb-2">Reference Code (optional)</label>
                             <div class="xb-item--field">
                                 <input type="text" name="reference_code" class="form-control" id="reference_code" placeholder="Enter your reference code">
                             </div>
@@ -77,6 +77,12 @@
                     <!-- Row 3: Gender and Passport Number -->
                     <div class="row">
                         <div class="col-md-6">
+                            <label for="passport_number" class="mb-2">Passport Number</label>
+                            <div class="xb-item--field">
+                                <input type="text" name="passport_number" class="form-control" id="passport_number" placeholder="Enter your passport number" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
                             <label for="gender" class="mb-2">Gender</label>
                             <div class="xb-item--field">
                                 <select class="form-control" name="gender" id="gender" required>
@@ -84,12 +90,6 @@
                                     <option value="male">Male</option>
                                     <option value="female">Female</option>
                                 </select>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="passport_number" class="mb-2">Passport Number</label>
-                            <div class="xb-item--field">
-                                <input type="text" name="passport_number" class="form-control" id="passport_number" placeholder="Enter your passport number" required>
                             </div>
                         </div>
                     </div>
@@ -103,9 +103,9 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <label for="ssc_year" class="mb-2">SSC Year</label>
+                            <label for="ssc_year" class="mb-2">Highest Qualification</label>
                             <div class="xb-item--field">
-                                <input type="number" name="ssc_year" class="form-control" id="ssc_year" placeholder="Enter your SSC year" required>
+                                <input type="text" name="highest_qualification" class="form-control" id="highest_qualification" placeholder="Highest Qualification" required>
                             </div>
                         </div>
                     </div>
@@ -113,70 +113,21 @@
                     <!-- Row 5: SSC Result and HSC Year -->
                     <div class="row">
                         <div class="col-md-6">
-                            <label for="ssc_result" class="mb-2">SSC Result</label>
+                            <label for="ssc_result" class="mb-2">Year Of Passing</label>
                             <div class="xb-item--field">
-                                <input type="text" name="ssc_result" class="form-control" id="ssc_result" placeholder="Enter your SSC result" required>
+                                <input type="text" name="year_of_passing" class="form-control" id="ssc_result" placeholder="Year of Passing" required>
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <label for="hsc_year" class="mb-2">HSC Year</label>
+                            <label for="bachelor_result" class="mb-2">Do you have any English Proficiency examination certificate?</label>
                             <div class="xb-item--field">
-                                <input type="number" name="hsc_year" class="form-control" id="hsc_year" placeholder="Enter your HSC year" required>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Row 6: HSC Result and Bachelor Year -->
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label for="hsc_result" class="mb-2">HSC Result</label>
-                            <div class="xb-item--field">
-                                <input type="text" name="hsc_result" class="form-control" id="hsc_result" placeholder="Enter your HSC result" required>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="bachelor_year" class="mb-2">Bachelor Year</label>
-                            <div class="xb-item--field">
-                                <input type="number" name="bachelor_year" class="form-control" id="bachelor_year" placeholder="Enter your Bachelor year" required>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Row 7: Bachelor Result and Level of Study -->
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label for="bachelor_result" class="mb-2">Bachelor Result</label>
-                            <div class="xb-item--field">
-                                <input type="text" name="bachelor_result" class="form-control" id="bachelor_result" placeholder="Enter your Bachelor result" required>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="level_of_study" class="mb-2">Level of Study</label>
-                            <div class="xb-item--field">
-                                <select class="form-control" name="level_of_study" id="level_of_study" required>
-                                    <option value="" disabled selected>Level Of Study</option>
-                                    <option value="bachelor">Bachelor</option>
-                                    <option value="master">Master</option>
-                                    <option value="phd">PhD</option>
+                                <select class="form-control" name="english_language_certificate" id="english_language_certificate" required>
+                                    <option value="" disabled selected>Choose option</option>
+                                    <option value="True">Yes</option>
+                                    <option value="False">No</option>
                                 </select>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- Row 8: English Certificate and Interested Field of Study -->
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label for="english_language_certificate" class="mb-2">English Certificate</label>
-                            <div class="xb-item--field">
-                                <input type="text" class="form-control" name="english_language_certificate" id="english_language_certificate" placeholder="Enter your English language certificate">
-                            </div>
-                        </div>
-                        <!-- <div class="col-md-6">
-                            <label for="interested_field_of_study" class="mb-2">Interested Field of Study</label>
-                            <div class="xb-item--field">
-                                <textarea class="form-control" id="interested_field_of_study" placeholder="Enter your interested field of study" rows="3"></textarea>
-                            </div>
-                        </div> -->
                     </div>
 
                     <!-- Row: Select Program and University -->

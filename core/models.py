@@ -65,38 +65,58 @@ class Subject(models.Model):
     def __str__(self):
         return f"{self.program.name} - {self.name}"
 
-
 class Application(models.Model):
     GENDER_CHOICES = [
         ('male', 'Male'),
         ('female', 'Female'),
     ]
-    LEVEL_OF_STUDY_CHOICES = [
-        ('bachelor', 'Bachelor'),
-        ('master', 'Master'),
-        ('phd', 'PhD'),
-    ]
 
     name = models.CharField(max_length=255)
-    reference_code = models.CharField(max_length=255, blank=True, null=True)
-    phone = models.CharField(max_length=20)
+    reference_code = models.CharField(max_length=50, blank=True, null=True)
+    phone = models.CharField(max_length=15)  # Example regex for phone number validation
     email = models.EmailField()
     gender = models.CharField(max_length=6, choices=GENDER_CHOICES)
-    passport_number = models.CharField(max_length=50)
+    passport_number = models.CharField(max_length=20)
     date_of_birth = models.DateField()
-    ssc_year = models.IntegerField()
-    ssc_result = models.CharField(max_length=50)
-    hsc_year = models.IntegerField()
-    hsc_result = models.CharField(max_length=50)
-    bachelor_year = models.IntegerField(blank=True, null=True)
-    bachelor_result = models.CharField(max_length=50, blank=True, null=True)
-    level_of_study = models.CharField(max_length=10, choices=LEVEL_OF_STUDY_CHOICES)
-    english_language_certificate = models.CharField(max_length=255, blank=True, null=True)
-    program = models.ForeignKey(Program, on_delete=models.SET_NULL, null=True)
-    university = models.ForeignKey(University, on_delete=models.SET_NULL, null=True)
-    subject = models.ForeignKey(Subject, on_delete=models.SET_NULL, null=True)
+    highest_qualification = models.CharField(max_length=255)
+    year_of_passing = models.CharField(max_length=10)
+    english_language_certificate = models.BooleanField(default=False)  # Use a BooleanField to represent yes/no
+    program = models.ForeignKey(Program, on_delete=models.CASCADE)
+    university = models.ForeignKey(University, on_delete=models.CASCADE)
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
     certificate_upload = models.FileField(upload_to='certificates/')
     passport_information_page = models.FileField(upload_to='passports/')
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.name} - {self.program.name} - {self.university.name}"
+        return f"Application by {self.name} for {self.program.name} at {self.university.name}"
+
+
+class GalleryImage(models.Model):
+    title = models.CharField(max_length=255, null=True, blank=True) 
+    image_primary = models.ImageField(upload_to='gallery_images/')
+    image_1 = models.ImageField(upload_to='gallery_images/', null=True, blank=True)
+    image_2 = models.ImageField(upload_to='gallery_images/', null=True, blank=True)
+    image_3 = models.ImageField(upload_to='gallery_images/', null=True, blank=True)
+    image_4 = models.ImageField(upload_to='gallery_images/', null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title if self.title else f'Gallery Image {self.id}'
+
+class Video(models.Model):
+    title = models.CharField(max_length=255) 
+    video_url = models.URLField(max_length=200) 
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title
+
+class Testimonial(models.Model):
+    name = models.CharField(max_length=255)
+    designation = models.CharField(max_length=255)
+    avatar = models.ImageField(upload_to='testimonials/avatars/')
+    content = models.TextField()
+
+    def __str__(self):
+        return f"{self.name} - {self.designation}"
