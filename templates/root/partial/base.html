@@ -26,6 +26,46 @@
     <link rel="stylesheet" href="{% static '/root/assets/css/jquery-ui.min.css' %}">
     <link rel="stylesheet" href="{% static '/root/assets/css/magnific-popup.css' %}">
     <link rel="stylesheet" href="{% static '/root/assets/css/main.css' %}">
+    <style>
+        /* Notification Container */
+        .notification-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 300px;
+            z-index: 1000;
+        }
+
+        /* Alert Styling */
+        .alert {
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            font-size: 14px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        /* Alert Colors */
+        .alert-success {
+            color: #155724;
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+        }
+
+        .alert-error {
+            color: #721c24;
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+        }
+
+        /* Fade-In Animation */
+        .alert.show {
+            opacity: 1;
+        }
+    </style>
 </head>
 
 <body>
@@ -83,14 +123,16 @@
                                     <a href="#!"><span>Pages</span></a>
                                     <ul class="submenu">
                                         <li><a href="{% url 'core:gallery' %}"><span>Our Gallery</span></a></li>
+                                        <li><a href="{% url 'core:videos' %}"><span>Videos</span></a></li>
                                         <li><a href="{% url 'core:services' %}"><span>Services</span></a></li>
                                         <li><a href="{% url 'core:service_details' %}"><span>Service Details</span></a></li>
                                         <li><a href="{% url 'core:testimonial' %}"><span>Testimonials</span></a></li>
+                                        <li><a href="{% url 'core:about' %}"><span>About us</span></a></li>
+                                        <li><a href="{% url 'core:contact' %}"><span>Contact us</span></a></li>
                                         <li><a href="{% url 'core:faq' %}"><span>FAQ</span></a></li>
                                     </ul>
                                 </li>
                                 <li><a href="{% url 'core:university' %}"><span>University</span></a></li>
-                                <li><a href="{% url 'core:about' %}"><span>About us</span></a></li>
                                 <li class="menu-item-has-children">
                                     <a href="#!"><span>Blog</span></a>
                                     <ul class="submenu">
@@ -98,8 +140,18 @@
                                         <li><a href="{% url 'core:blog-details' %}"><span>Blog Details</span></a></li>
                                     </ul>
                                 </li>
-                                <li><a href="{% url 'core:contact' %}"><span>Contact</span></a></li>
-                                <li><a href="{% url 'core:videos' %}"><span>Videos</span></a></li>
+                                <li class="menu-item-has-children">
+                                    <a href="#!"><span>Account</span></a>
+                                    <ul class="submenu">
+                                        {% if request.user.is_authenticated %}
+                                            <li><a href="{% url 'core:logout' %}"><span>Profile</span></a></li>
+                                            <li><a href="{% url 'core:logout' %}"><span>Logout</span></a></li>
+                                        {% else %}
+                                            <li><a href="{% url 'core:login' %}"><span>Login</span></a></li>
+                                            <li><a href="{% url 'core:registration' %}"><span>Registration</span></a></li>
+                                        {% endif %}
+                                    </ul>
+                                </li>
                                 <li><a href="{% url 'core:application' %}"><span>Application</span></a></li>
                             </ul>
                         </nav>
@@ -175,6 +227,17 @@
         </div>
     </header>
     <!-- header end -->
+
+    <!-- Notifications Container -->
+<div class="notification-container">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %} show">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+</div>
 
 
     <div class="body-overlay"></div>
@@ -324,6 +387,17 @@
 <script src="{% static '/root/assets/js/jquery-ui.min.js' %}"></script>
 <script src="{% static '/root/assets/js/parallax-scroll.js' %}"></script>
 <script src="{% static '/root/assets/js/main.js' %}"></script>
+
+<script>
+    // Auto-hide alerts after 3 seconds
+    setTimeout(() => {
+        const alerts = document.querySelectorAll('.alert');
+        alerts.forEach(alert => {
+            alert.style.opacity = '0';
+            setTimeout(() => alert.remove(), 500); // Remove alert from DOM after fade out
+        });
+    }, 3000); // 3 seconds
+</script>
 
 </body>
 

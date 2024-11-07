@@ -5,11 +5,16 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 from django.core.files.storage import FileSystemStorage
 from django.core.exceptions import ValidationError
-
 import random
 
+from django.contrib.auth import get_user_model
+from django.contrib import messages
+from django.contrib.auth.hashers import make_password
 
-# Create your views here.
+from django.contrib.auth import authenticate, login, logout
+
+
+
 def index(request):
     return render(request, 'root/index.html')
 
@@ -46,6 +51,80 @@ def blog(request):
 
 def blog_details(request):
     return render(request, 'root/blog-details.html')
+
+def user_login(request):
+
+    if request.user.is_authenticated:
+            return redirect('core:index')
+
+    if request.method == "POST":
+        email = request.POST.get("email")
+        password = request.POST.get("password")
+        
+        # Debugging prints
+        print(f"Email: {email}")
+        print(f"Password: {password}")
+
+        user = authenticate(request, username=email, password=password)
+
+        if user is not None:
+            login(request, user)
+            return redirect("core:index")
+        else:
+            messages.error(request, "Invalid email or password.")
+    
+    return render(request, "root/login.html")
+
+
+def registration(request):
+
+    if request.user.is_authenticated:
+            return redirect('core:index')
+
+    if request.method == "POST":
+        full_name = request.POST.get("full_name")
+        email = request.POST.get("email")
+        passport_number = request.POST.get("passport_number")
+        password = request.POST.get("password")
+        confirm_password = request.POST.get("confirm_password")
+
+        print(password)
+        print(confirm_password)
+
+        if password != confirm_password:
+            messages.error(request, "Passwords do not match.")
+            return redirect("core:registration")
+
+        first_name, last_name = (full_name.split(" ", 1) + [""])[:2]
+
+        if Account.objects.filter(email=email).exists():
+            messages.error(request, "An account with this email already exists.")
+            return redirect("core:registration")
+
+        try:
+            user = Account.objects.create(
+                first_name=first_name,
+                last_name=last_name,
+                email=email,
+                username=email,
+                passport_number=passport_number,
+                password=make_password(password),
+                is_active=True, 
+            )
+            messages.success(request, "Registration successful! Please log in.")
+            return redirect("core:login")
+        except ValidationError as e:
+            messages.error(request, f"Error: {e}")
+            return redirect("core:registration")
+    else:
+        return render(request, 'root/registration.html')
+
+
+def user_logout(request):
+    logout(request)
+    
+    return redirect('core:index') 
+
 
 def videos(request):
     videoss = Video.objects.all()

@@ -16,6 +16,11 @@ urlpatterns = [
     path('videos/', views.videos, name="videos"),
     path('our-gallery/', views.gallery, name="gallery"),
 
+    path('login/', views.user_login, name="login"),
+    path('registration/', views.registration, name="registration"),
+    path('logout/', views.user_logout, name='logout'),
+
+
     path('university/', views.university, name="university"),
     path('university-details/<int:id>/', views.university_details, name="university-details"),
     path('get-subjects/<int:program_id>/<int:u_id>/', views.get_subjects, name='get_subjects'),

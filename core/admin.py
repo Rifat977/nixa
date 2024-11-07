@@ -2,6 +2,24 @@
 from django.contrib import admin
 from .models import *
 from django.utils.translation import gettext_lazy as _
+from django.contrib.auth.admin import UserAdmin
+# from django.contrib.auth.models import Group
+
+# admin.site.unregister(Group)
+# admin.site.register(User)
+
+
+class CustomAdmin(UserAdmin):
+    list_display = ('email', 'username', 'first_name', 'last_name', 'passport_number', 'is_verified', 'is_active', 'is_staff')
+    list_filter = ('is_verified', 'is_active', 'is_staff', 'is_superuser')
+    
+    
+    search_fields = ('email', 'first_name', 'last_name', 'passport_number')
+    ordering = ('email',)
+    filter_horizontal = ('groups', 'user_permissions',)
+
+admin.site.register(Account, CustomAdmin)
+
 
 # class ProgramInline(admin.TabularInline):
 #     model = Program
@@ -37,3 +55,13 @@ admin.site.register(Testimonial)
 admin.site.site_header = _('Nixaglobal Adminstrator')  # change the site header
 admin.site.site_title = _('Nixaglobal Adminstrator')  # change the site title
 admin.site.index_title = _('Nixaglobal Adminstrator') 
+
+@admin.register(Blog)
+class BlogAdmin(admin.ModelAdmin):
+    list_display = ('title', 'published_at', 'is_published')
+    search_fields = ('title', 'content')
+    list_filter = ('is_published', 'published_at')
+
+@admin.register(Tag)
+class TagAdmin(admin.ModelAdmin):
+    list_display = ('name',)
