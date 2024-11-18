@@ -8263,7 +8263,7 @@ a.ui-button:active, .ui-button:active,
       -o-transition: 0.3s;
       transition: 0.3s; }
 .footer__custom-col {
-  width: 23%; }
+  width: 53%; }
   .footer__custom-col:first-child {
     width: 31%; }
     @media (max-width: 991px) {
