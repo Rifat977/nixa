@@ -133,13 +133,7 @@
                                     </ul>
                                 </li>
                                 <li><a href="{% url 'core:university' %}"><span>University</span></a></li>
-                                <li class="menu-item-has-children">
-                                    <a href="#!"><span>Blog</span></a>
-                                    <ul class="submenu">
-                                        <li><a href="{% url 'core:blog' %}"><span>Blog</span></a></li>
-                                        <li><a href="{% url 'core:blog-details' %}"><span>Blog Details</span></a></li>
-                                    </ul>
-                                </li>
+                                <li><a href="{% url 'core:blog' %}"><span>Blog</span></a></li>
                                 <li class="menu-item-has-children">
                                     <a href="#!"><span>Account</span></a>
                                     <ul class="submenu">
@@ -169,56 +163,40 @@
                 <div class="xb-header-menu-scroll">
                     <div class="xb-menu-close xb-hide-xl xb-close"></div>
                     <div class="xb-logo-mobile xb-hide-xl">
-                        <a href="index.html" rel="home"><img src="assets/img/logo/logo.svg" alt=""></a></div>
-                    <div class="xb-header-mobile-search xb-hide-xl">
-                        <form role="search" action="#">
-                            <input type="text" placeholder="Search..." name="s" class="search-field">
-                            <button type="submit" class="search-submit">
-                            </button>
-                        </form>
-                    </div>
+                        <a href="{% url 'core:index' %}" rel="home"><img src="https://b2b.nixaglobal.com/static/images/logo1.png" style="height: 60px; width:100%;" alt=""></a></div>
                     <nav class="xb-header-nav">
                         <ul class="xb-menu-primary clearfix">
-                            <li class="menu-item menu-item-has-children">
-                                <a href="#"><span>Home</span></a>
-                                <ul class="sub-menu">
-                                    <li class="menu-item"><a href="index.html"><span>Immigration</span></a></li>
-                                    <li class="menu-item"><a href="home-studient-visa.html"><span>Studient Visa</span></a></li>
-                                    <li class="menu-item"><a href="home-travel-agency.html"><span>Travel Agency</span></a></li>
-                                    <li class="menu-item"><a href="home-rtl.html"><span>Demo RTL</span></a></li>
-                                </ul>
+                            <li class="menu-item">
+                                <li class="active"><a href="{% url 'core:index' %}"><span>Home</span></a>
                             </li>
                             <li class="menu-item menu-item-has-children">
-                                <a href="#"><span>Pages</span></a>
+                                <a href="#"><span>Explore</span></a>
                                 <ul class="sub-menu">
-                                    <li class="menu-item"><a href="services.html"><span>Services</span></a></li>
-                                    <li class="menu-item"><a href="service-single.html"><span>Service Details</span></a></li>
-                                    <li class="menu-item"><a href="coaching.html"><span>Coaching</span></a></li>
-                                    <li class="menu-item"><a href="coaching-single.html"><span>Coaching Details</span></a></li>
-                                    <li class="menu-item"><a href="visa.html"><span>Visa</span></a></li>
-                                    <li class="menu-item"><a href="visa-single.html"><span>Visa Details</span></a></li>
-                                    <li class="menu-item"><a href="team.html"><span>Team</span></a></li>
-                                    <li class="menu-item"><a href="team-single.html"><span>Team Details</span></a></li>
-                                    <li class="menu-item"><a href="testimonial.html"><span>Testimonials</span></a></li>
-                                    <li class="menu-item"><a href="faq.html"><span>FAQ</span></a></li>
+                                    <li><a href="{% url 'core:gallery' %}"><span>Our Gallery</span></a></li>
+                                        <li><a href="{% url 'core:videos' %}"><span>Videos</span></a></li>
+                                        <li><a href="{% url 'core:services' %}"><span>Services</span></a></li>
+                                        <li><a href="{% url 'core:testimonial' %}"><span>Testimonials</span></a></li>
+                                        <li><a href="{% url 'core:about' %}"><span>About us</span></a></li>
+                                        <li><a href="{% url 'core:contact' %}"><span>Contact us</span></a></li>
+                                        <li><a href="{% url 'core:faq' %}"><span>FAQ</span></a></li>
+                                        <li><a href="https://b2b.nixaglobal.com/"><span>B2B Agent</span></a></li>
                                 </ul>
                             </li>
-                            <li class="menu-item"><a href="about.html"><span>About us</span></a></li>
+                            <li class="menu-item"><a href="{% url 'core:university' %}"><span>University</span></a></li>
+                            <li class="menu-item"><a href="{% url 'core:blog' %}"><span>Blog</span></a></li>
                             <li class="menu-item menu-item-has-children">
-                                <a href="#"><span>Country</span></a>
+                                <a href="#"><span>Account</span></a>
                                 <ul class="sub-menu">
-                                    <li class="menu-item"><a href="country.html"><span>Country</span></a></li>
-                                    <li class="menu-item"><a href="country-single.html"><span>Country Details</span></a></li>
+                                    {% if request.user.is_authenticated %}
+                                            <li class="menu-item"><a href="{% url 'core:logout' %}"><span>Profile</span></a></li>
+                                            <li class="menu-item"><a href="{% url 'core:logout' %}"><span>Logout</span></a></li>
+                                        {% else %}
+                                            <li class="menu-item"><a href="{% url 'core:login' %}"><span>Login</span></a></li>
+                                            <li class="menu-item"><a href="{% url 'core:registration' %}"><span>Registration</span></a></li>
+                                    {% endif %}
                                 </ul>
                             </li>
-                            <li class="menu-item menu-item-has-children">
-                                <a href="#"><span>Blog</span></a>
-                                <ul class="sub-menu">
-                                    <li class="menu-item"><a href="blog.html"><span>Blog</span></a></li>
-                                    <li class="menu-item"><a href="blog-single.html"><span>Blog Details</span></a></li>
-                                </ul>
-                            </li>
-                            <li class="menu-item"><a href="contact.html"><span>Contact</span></a></li>
+                            <li class="menu-item"><a href="{% url 'core:application' %}"><span>Apply</span></a></li>
                         </ul>
                     </nav>
                 </div>
