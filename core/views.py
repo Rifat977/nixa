@@ -166,7 +166,7 @@ def get_subjects(request, program_id, u_id):
                     'fee': subject.fee,
                     'university': subject.university.name,
                     'program': subject.program.name,
-                    'start_date': subject.start_date,
+                    'intake': subject.intake,
                     'course_type': subject.course_type,
                     'course_period': subject.course_period,
                     } for subject in subjects]

@@ -40,8 +40,8 @@ class ProgramAdmin(admin.ModelAdmin):
     # inlines = [SubjectInline]
 
 class SubjectAdmin(admin.ModelAdmin):
-    list_display = ('program', 'name', 'course_period', 'start_date', 'fee', 'course_type')
-    search_fields = ('name', 'course_period', 'start_date')  # search by subject name, course period, or start date
+    list_display = ('program', 'name', 'course_period', 'intake', 'fee', 'course_type')
+    search_fields = ('name', 'course_period')  # search by subject name, course period, or start date
     list_filter = ('program', 'course_type') 
 
 admin.site.register(University, UniversityAdmin)

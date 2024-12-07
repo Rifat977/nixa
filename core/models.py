@@ -40,9 +40,6 @@ class Account(AbstractUser):
 
 
 class University(models.Model):
-    """
-    Represents a University with its details.
-    """
     name = models.CharField(max_length=255)
     logo = models.ImageField(upload_to='university_logos', null=True, blank=True)
     title = models.CharField(max_length=255)
@@ -93,8 +90,8 @@ class Subject(models.Model):
     program = models.ForeignKey(Program, on_delete=models.CASCADE, related_name='subjects')
     name = models.CharField(max_length=255)
     course_period = models.CharField(max_length=255)
-    start_date = models.DateField()  # month
-    fee = models.DecimalField(max_digits=10, decimal_places=2)
+    intake = models.CharField(max_length=255)
+    fee = models.CharField(max_length=255)
     course_type = models.CharField(max_length=10, choices=COURSE_TYPES)
 
     class Meta:
