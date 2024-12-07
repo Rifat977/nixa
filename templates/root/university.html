@@ -96,9 +96,11 @@
                     {% for university in universities %}
                     <div class="xb-item--item">
                         <a href="{% url 'core:university-details' university.id %}" class="xb-item--inner ul_li">
+                            {% if university.logo %}
                             <div class="xb-item--flag">
                                 <img src="{{university.logo.url}}" alt="">
                             </div>
+                            {% endif %}
                             <h3 class="xb-item--title">{{university.name}}</h3>
                         </a>
                     </div>
