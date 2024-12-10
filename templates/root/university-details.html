@@ -62,7 +62,7 @@
                     </div>
                     {% endif %}
                     <p>{{ university.description }}</p>
-                    <div id="subject-details" class="subject-details mt-4"></div> <!-- Container for subject details -->
+                    <div id="subject-details" class="subject-details mt-4"></div> 
                 </div>
             </div>
         </div>
@@ -71,40 +71,51 @@
 <!-- coaching single end -->
 
 <script>
-    document.querySelectorAll('.program-link').forEach(item => {
-        item.addEventListener('click', function(e) {
-            e.preventDefault();
-            const programId = this.getAttribute('data-program-id');
-            fetch(`/get-subjects/${programId}/{{university.id}}/`)
-                .then(response => response.json())
-                .then(data => {
-                    const subjectDetailsContainer = document.getElementById('subject-details');
-                    subjectDetailsContainer.innerHTML = ''; // Clear previous details
-                    data.subjects.forEach(subject => {
-                        subjectDetailsContainer.innerHTML += `
-                            <div class="card shadow-md mb-4 p-4 border border-dark rounded shadow-sm">
-                                <h5 class="card-title text-center font-weight-bold h4">${subject.name}</h5>
-                                <div class="card-body">
-                                    <div class="d-flex justify-content-between mb-2">
-                                        <p class="m-0"> Tution Fees: <span class="text-success">${subject.fee}</span></p>
-                                        <p class="m-0"><i class="fas fa-calendar-alt"></i> Intake: <span>${subject.intake}</span></p>
+document.querySelectorAll('.program-link').forEach(item => {
+    item.addEventListener('click', function (e) {
+        e.preventDefault();
+        const programId = this.getAttribute('data-program-id');
+        fetch(`/get-subjects/${programId}/{{university.id}}/`)
+            .then(response => response.json())
+            .then(data => {
+                const subjectDetailsContainer = document.getElementById('subject-details');
+                subjectDetailsContainer.innerHTML = ''; 
+                data.subjects.forEach(subject => {
+                    subjectDetailsContainer.innerHTML += `
+                        <div class="card shadow-md mb-2 p-4 border rounded shadow-sm">
+                            <h5 class="card-title text-center text-light rounded bg-primary p-2 font-weight-bold h4 fs-5 fs-md-4">${subject.name}</h5>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12 col-md-6 mb-2">
+                                        <p class="m-0 fs-6 fs-md-5"><i class="fas fa-dollar-sign"></i> Tuition Fees: <span class="text-success">${subject.fee}</span></p>
                                     </div>
-                                    <div class="d-flex justify-content-between mb-2">
-                                        <p class="m-0"><i class="fas fa-university"></i> University: <span>${subject.university}</span></p>
-                                        <p class="m-0"><i class="fas fa-graduation-cap"></i> Program: <span>${subject.program}</span></p>
+                                    <div class="col-12 col-md-6 mb-2">
+                                        <p class="m-0 fs-6 fs-md-5"><i class="fas fa-calendar-alt"></i> Intake: <span>${subject.intake}</span></p>
                                     </div>
-                                    <div class="d-flex justify-content-between">
-                                        <p class="m-0"><i class="fas fa-book"></i> Course Type: <span>${subject.course_type}</span></p>
-                                        <p class="m-0"><i class="fas fa-clock"></i> Course Period: <span>${subject.course_period}</span></p>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 col-md-6 mb-2">
+                                        <p class="m-0 fs-6 fs-md-5"><i class="fas fa-graduation-cap"></i> Program: <span>${subject.program}</span></p>
+                                    </div>
+                                    <div class="col-12 col-md-6 mb-2">
+                                        <p class="m-0 fs-6 fs-md-5"><i class="fas fa-book"></i> Course Type: <span>${subject.course_type}</span></p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 col-md-6 mb-2">
+                                        <p class="m-0 fs-6 fs-md-5"><i class="fas fa-clock"></i> Course Period: <span>${subject.course_period}</span></p>
                                     </div>
                                 </div>
                             </div>
-                        `;
-                    });
-                })
-                .catch(error => console.error('Error fetching subjects:', error));
-        });
+                        </div>
+                    `;
+                });
+            })
+            .catch(error => console.error('Error fetching subjects:', error));
     });
+});
+
+
 </script>
 
 {% endblock %}
