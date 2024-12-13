@@ -18,7 +18,6 @@ ALLOWED_HOSTS = [
     'nixaglobal.com',
     'b2b.nixaglobal.com',
     '93.127.195.189',
-    "*",
 ]
 # AUTH_USER_MODEL = "core.Account"
 
