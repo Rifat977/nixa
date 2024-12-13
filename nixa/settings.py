@@ -20,7 +20,7 @@ ALLOWED_HOSTS = [
     '93.127.195.189',
     "*",
 ]
-AUTH_USER_MODEL = "core.Account"
+# AUTH_USER_MODEL = "core.Account"
 
 # Application definition
 
