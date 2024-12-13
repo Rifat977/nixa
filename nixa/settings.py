@@ -14,8 +14,12 @@ SECRET_KEY = 'django-insecure-n=ly$v^=@*t0@5jysa34j3)f(riqu%nf#c)+-4!(7!g^&9tp2c
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
-
+ALLOWED_HOSTS = [
+    'nixaglobal.com',
+    'b2b.nixaglobal.com',
+    '93.127.195.189',
+    "*",
+]
 AUTH_USER_MODEL = "core.Account"
 
 # Application definition
