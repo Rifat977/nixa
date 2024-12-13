@@ -61,7 +61,7 @@
                         <img src="{{ university.image.url }}" alt="">
                     </div>
                     {% endif %}
-                    <p>{{ university.description }}</p>
+                    <p>{{ university.description|safe }}</p>
                     <div id="subject-details" class="subject-details mt-4"></div> 
                 </div>
             </div>

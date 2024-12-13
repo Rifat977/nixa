@@ -16,7 +16,8 @@ from django.contrib.auth import authenticate, login, logout
 
 
 def index(request):
-    return render(request, 'root/index.html')
+    latest_blogs = Blog.objects.order_by('-id')[:3]
+    return render(request, 'root/index.html', {'blogs':latest_blogs})
 
 def services(request):
     return render(request, 'root/services.html')
@@ -47,10 +48,18 @@ def contact(request):
     return render(request, 'root/contact.html')
 
 def blog(request):
-    return render(request, 'root/blog.html')
+    blogs = Blog.objects.all().order_by('-id')
+    context = {
+        'blogs':blogs
+    }
+    return render(request, 'root/blog.html', context)
 
-def blog_details(request):
-    return render(request, 'root/blog-details.html')
+def blog_details(request, pk):
+    blog = Blog.objects.get(id=pk)
+    context = {
+        'blog' : blog
+    }
+    return render(request, 'root/blog-details.html', context)
 
 def user_login(request):
 

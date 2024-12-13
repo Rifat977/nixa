@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager, Group, Permission
 from django.core.validators import RegexValidator
 from django.utils.translation import gettext_lazy as _
+from ckeditor.fields import RichTextField
+
 
 class Account(AbstractUser):
     email = models.EmailField(unique=True)
@@ -43,7 +45,7 @@ class University(models.Model):
     name = models.CharField(max_length=255)
     logo = models.ImageField(upload_to='university_logos', null=True, blank=True)
     title = models.CharField(max_length=255)
-    description = models.TextField(null=True, blank=True)
+    description = RichTextField(null=True, blank=True)
     image = models.ImageField(upload_to='university_images', null=True, blank=True)
 
     class Meta:
@@ -198,7 +200,7 @@ class Tag(models.Model):
 class Blog(models.Model):
     title = models.CharField(max_length=200)  
     image = models.ImageField(upload_to='blog/')
-    content = models.TextField() 
+    content = RichTextField(null=True, blank=True) 
     created_at = models.DateTimeField(auto_now_add=True)  
     updated_at = models.DateTimeField(auto_now=True)  
     published_at = models.DateTimeField(default=timezone.now)

@@ -489,69 +489,29 @@ your journey!
                 <p>Explore the most recent addition to our informative articles</p>
             </div>
             <div class="row justify-content-md-center mt-none-30">
+                {% for blog in blogs %}
                 <div class="col-lg-4 col-md-6 mt-30">
                     <div class="xb-blog">
                         <div class="xb-item--inner">
                             <div class="xb-item--img">
-                                <img src="https://html.xpressbuddy.com/e.visa/assets/img/blog/img_01.jpg" alt="">
+                                {% if blog.image %}
+                                <a href="{% url 'core:blog-details' blog.id %}"><img src="{{blog.image.url}}" alt=""></a>
+                                {% endif %}
                             </div>
                             <div class="xb-item--holder">
-                                <span class="xb-item--category">Consulting</span>
+                                <!-- <span class="xb-item--category">Consulting</span> -->
                                 <ul class="xb-item--meta ul_li mb-20">
-                                    <li><img src="assets/img/icon/user.svg" alt="">By farugia</li>
-                                    <li><img src="assets/img/icon/calendar.svg" alt="">16 August 2023</li>
+                                    <li><img src="assets/img/icon/calendar.svg" alt="">{{blog.published_at}}</li>
                                 </ul>
-                                <h3 class="xb-item--title border-effect"><a href="blog-single.html">Cultural
-                                    adjustment thriving in a new country..</a></h3>
-                                <a class="xb-item--link" href="blog-single.html">Read the article<span><img
+                                <h3 class="xb-item--title border-effect"><a href="{% url 'core:blog-details' blog.id %}">{{blog.title}}</a></h3>
+                                <a class="xb-item--link" href="{% url 'core:blog-details' blog.id %}">Read the article<span><img
                                         src="assets/img/icon/right_arrow.svg" alt=""></span></a>
                             </div>
-                            <a class="xb-overlay xb-overlay-link" href="blog-single.html"></a>
+                            <a class="xb-overlay xb-overlay-link" href="{% url 'core:blog-details' blog.id %}"></a>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 mt-30">
-                    <div class="xb-blog">
-                        <div class="xb-item--inner">
-                            <div class="xb-item--img">
-                                <a href="blog-single.html"><img src="https://html.xpressbuddy.com/e.visa/assets/img/blog/img_01.jpg" alt=""></a>
-                            </div>
-                            <div class="xb-item--holder">
-                                <a class="xb-item--category color-2" href="#!">Immigration</a>
-                                <ul class="xb-item--meta ul_li mb-20">
-                                    <li><img src="assets/img/icon/user.svg" alt="">By Andrew</li>
-                                    <li><img src="assets/img/icon/calendar.svg" alt="">16 September 2023</li>
-                                </ul>
-                                <h3 class="xb-item--title border-effect"><a href="blog-single.html">Essential
-                                    documents for a successful visa application..</a></h3>
-                                <a class="xb-item--link" href="blog-single.html">Read the article<span><img
-                                        src="assets/img/icon/right_arrow.svg" alt=""></span></a>
-                            </div>
-                            <a class="xb-overlay xb-overlay-link" href="blog-single.html"></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mt-30">
-                    <div class="xb-blog">
-                        <div class="xb-item--inner">
-                            <div class="xb-item--img">
-                                <a href="blog-single.html"><img src="https://html.xpressbuddy.com/e.visa/assets/img/blog/img_01.jpg" alt=""></a>
-                            </div>
-                            <div class="xb-item--holder">
-                                <a class="xb-item--category color-3" href="#!">Consulting</a>
-                                <ul class="xb-item--meta ul_li mb-20">
-                                    <li><img src="assets/img/icon/user.svg" alt="">By Kurtz</li>
-                                    <li><img src="assets/img/icon/calendar.svg" alt="">22 August 2023</li>
-                                </ul>
-                                <h3 class="xb-item--title border-effect"><a href="blog-single.html">A guide to
-                                    navigating student visas tips for success..</a></h3>
-                                <a class="xb-item--link" href="blog-single.html">Read the article<span><img
-                                        src="assets/img/icon/right_arrow.svg" alt=""></span></a>
-                            </div>
-                            <a class="xb-overlay xb-overlay-link" href="blog-single.html"></a>
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
             <div class="xb-blog-bg" data-bg-color="#EDF3F5" data-background="assets/img/bg/blog_bg.png"></div>
         </div>

@@ -39,78 +39,35 @@
 <section class="blog pt-120 pb-120">
     <div class="container">
         <div class="row">
-            <div class="col-lg-8">
+            <div class="col-lg-12">
                 <div class="blog-post-wrapper">
+                    {% for blog in blogs %}
                     <article class="single-post-item">
                         <div class="post-thumbnail-wrapper">
-                            <a href="blog-single.html"><img src="{% static '/root/assets/img/blog/post_02.jpg' %}" alt=""></a>
+                            {% if blog.image %}
+                            <a href="{% url 'core:blog-details' blog.id %}"><img src="{{blog.image.url}}" alt=""></a>
+                            {% endif %}
                         </div>
                         <div class="post-content-wrapper">
                             <ul class="post-meta ul_li">
-                                <li><span><i class="far fa-user"></i><span class="author vcard">Admin</span></span></li>
-                                <li><a href="#!"><i class="far fa-comments"></i> Comments (3)</a></li>
-                                <li><span class="posted-on"><i class="far fa-calendar-check"></i> <a href="#!">August 4, 2023</a></span></li>
+                                <!-- <li><span><i class="far fa-user"></i><span class="author vcard">Admin</span></span></li> -->
+                                <li><span class="posted-on"><i class="far fa-calendar-check"></i> <a href="#!">{{blog.published_at}}</a></span></li>
                             </ul>
-                            <h3 class="post-title border_effect"><a href="blog-single.html">Elevating your visa application navigating complexity with confidence</a></h3>
+                            <h3 class="post-title border_effect"><a href="blog-single.html">{{blog.title}}</a></h3>
                             <div class="post-excerpt">
-                                <p>Navigating Complexity with Confidence" is a concise and impactful title that captures the essence of how visa consultants can assist in making the intricate visa process more manageable ...</p>
+                                <p>
+                                    {{ blog.content|slice:":255"|safe }}...
+                                </p>
                             </div>
                             <div class="post-read-more">
-                                <a class="thm-btn" href="blog-single.html">Read More</a>
+                                <a class="thm-btn" href="{% url 'core:blog-details' blog.id %}">Read More</a>
                             </div>
                         </div>
                     </article>
-                    <article class="single-post-item">
-                        <div class="post-thumbnail-wrapper">
-                            <a href="blog-single.html"><img src="{% static '/root/assets/img/blog/post_01.jpg' %}" alt=""></a>
-                        </div>
-                        <div class="post-content-wrapper">
-                            <ul class="post-meta ul_li">
-                                <li><span><i class="far fa-user"></i><span class="author vcard">Admin</span></span></li>
-                                <li><a href="#!"><i class="far fa-comments"></i> Comments (3)</a></li>
-                                <li><span class="posted-on"><i class="far fa-calendar-check"></i> <a href="#!">August 4, 2023</a></span></li>
-                            </ul>
-                            <h3 class="post-title border_effect"><a href="blog-single.html">Expert Consulting for Smooth Approval and Confident Navigation</a></h3>
-                            <div class="post-excerpt">
-                                <p>Embarking on the journey of securing a visa can be a labyrinthine process, rife with complexities and uncertainties. That's where expert consulting steps in as your guiding light, illuminating...</p>
-                            </div>
-                            <div class="post-read-more">
-                                <a class="thm-btn" href="blog-single.html">Read More</a>
-                            </div>
-                        </div>
-                    </article>
-                    <article class="single-post-item">
-                        <div class="post-thumbnail-wrapper">
-                            <a href="blog-single.html"><img src="{% static '/root/assets/img/blog/post_03.jpg' %}" alt=""></a>
-                        </div>
-                        <div class="post-content-wrapper">
-                            <ul class="post-meta ul_li">
-                                <li><span><i class="far fa-user"></i><span class="author vcard">Admin</span></span></li>
-                                <li><a href="#!"><i class="far fa-comments"></i> Comments (3)</a></li>
-                                <li><span class="posted-on"><i class="far fa-calendar-check"></i> <a href="#!">August 4, 2023</a></span></li>
-                            </ul>
-                            <h3 class="post-title border_effect"><a href="blog-single.html">Your Comprehensive Guide to Successfully Pursuing Education Abroad</a></h3>
-                            <div class="post-excerpt">
-                                <p>Our guide doesn't just navigate the technicalities; it's a roadmap that instills confidence. We believe that informed decisions lead to successful outcomes, and our aim is to empower...</p>
-                            </div>
-                            <div class="post-read-more">
-                                <a class="thm-btn" href="blog-single.html">Read More</a>
-                            </div>
-                        </div>
-                    </article>
-                    <div class="pagination_wrap pt-20">
-                        <ul>
-                            <li><a href="#"><i class="far fa-long-arrow-left"></i></a></li>
-                            <li><a href="#" class="current_page">01</a></li>
-                            <li><a href="#">02</a></li>
-                            <li><a href="#"><i class="fal fa-ellipsis-h"></i></a></li>
-                            <li><a href="#">08</a></li>
-                            <li><a href="#"><i class="far fa-long-arrow-right"></i></a></li>
-                        </ul>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
-            <div class="col-lg-4">
+            <!-- <div class="col-lg-4">
                 <div class="blog-sidebar">
                     <div class="widget">
                         <h3 class="widget-title">Categories</h3>
@@ -138,7 +95,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </section>
