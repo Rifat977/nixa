@@ -1,0 +1,77 @@
+{% extends 'root/partial/base.html' %}
+{% block title %}Upcoming Events || Nixaglobal{% endblock %}
+{% load static %}
+
+{% block content %}
+<section class="nixa-events-hero">
+    <div class="container">
+        <div class="nixa-events-hero__inner">
+            <h1 class="nixa-events-hero__title">Upcoming <span>Events</span></h1>
+            <p class="nixa-events-hero__subtitle">Education expos, fairs, assessment days & spot admissions — join us and take the next step in your study abroad journey.</p>
+            <nav class="nixa-breadcrumb nixa-events-hero__breadcrumb" aria-label="Breadcrumb">
+                <a href="{% url 'core:index' %}">Home</a>
+                <span>/</span>
+                <span>Events</span>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="nixa-events-page">
+    <div class="container">
+        <div class="nixa-events-filters">
+            <a href="{% url 'core:events' %}" class="nixa-events-filter-pill {% if not current_type %}active{% endif %}">All Events</a>
+            {% for value, label in event_type_choices %}
+            <a href="{% url 'core:events' %}?type={{ value }}" class="nixa-events-filter-pill {% if current_type == value %}active{% endif %}">{{ label }}</a>
+            {% endfor %}
+        </div>
+
+        <div class="nixa-events-grid">
+            {% for event in events %}
+            <article class="nixa-event-card">
+                <a href="{% url 'core:event-detail' event.slug %}" class="nixa-event-card__link">
+                    <div class="nixa-event-card__img-wrap">
+                        {% if event.image %}
+                        <img src="{{ event.image.url }}" alt="{{ event.title }}" class="nixa-event-card__img">
+                        {% else %}
+                        <div class="nixa-event-card__placeholder">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Event</span>
+                        </div>
+                        {% endif %}
+                        <span class="nixa-event-card__type">{{ event.get_event_type_display }}</span>
+                        <div class="nixa-event-card__date-badge">
+                            <span class="nixa-event-card__date-day">{{ event.event_date|date:"d" }}</span>
+                            <span class="nixa-event-card__date-month">{{ event.event_date|date:"M" }}</span>
+                        </div>
+                    </div>
+                    <div class="nixa-event-card__body">
+                        <h3 class="nixa-event-card__title">{{ event.title }}</h3>
+                        {% if event.venue %}
+                        <p class="nixa-event-card__venue"><i class="far fa-map-marker-alt"></i> {{ event.venue }}</p>
+                        {% endif %}
+                        <p class="nixa-event-card__excerpt">{{ event.description|striptags|truncatewords:18 }}</p>
+                        <span class="nixa-event-card__cta">View details <i class="far fa-arrow-right"></i></span>
+                    </div>
+                </a>
+                <div class="nixa-event-card__footer">
+                    <button type="button" class="nixa-event-book-btn"
+                        data-event-slug="{{ event.slug }}"
+                        data-event-title="{{ event.title|escapejs }}">
+                        <i class="far fa-ticket-alt"></i> Book Seat
+                    </button>
+                </div>
+            </article>
+            {% empty %}
+            <div class="nixa-events-empty">
+                <div class="nixa-events-empty__icon"><i class="far fa-calendar-plus"></i></div>
+                <h3 class="nixa-events-empty__title">No upcoming events right now</h3>
+                <p class="nixa-events-empty__text">{% if current_type %}No {{ current_type }} events at the moment.{% else %}Check back soon for new education expos, fairs and assessment days.{% endif %}</p>
+                <a href="{% url 'core:contact' %}" class="thm-btn">Contact us</a>
+                <a href="{% url 'core:events' %}" class="nixa-events-empty__link">View all events</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}
