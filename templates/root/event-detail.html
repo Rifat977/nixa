@@ -1,0 +1,48 @@
+{% extends 'root/partial/base.html' %}
+{% block title %}{{ event.title }} || Nixaglobal{% endblock %}
+{% load static %}
+{% load safe_html %}
+
+{% block content %}
+<section class="breadcrumb pos-rel bg_img" data-background="{% static 'root/assets/img/bg/breadcrumb_bg.jpg' %}">
+    <div class="container">
+        <div class="breadcrumb__content">
+            <h2 class="breadcrumb__title">{{ event.title }}</h2>
+            <ul class="breadcrumb__list clearfix">
+                <li class="breadcrumb-item"><a href="{% url 'core:index' %}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'core:events' %}">Events</a></li>
+                <li class="breadcrumb-item">{{ event.title }}</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="about pt-130 pb-130">
+    <div class="container">
+        <div class="row align-items-center">
+            {% if event.image %}
+            <div class="col-lg-5 mb-30">
+                <img src="{{ event.image.url }}" alt="{{ event.title }}" class="img-fluid">
+            </div>
+            {% endif %}
+            <div class="col-lg-{% if event.image %}7{% else %}12{% endif %}">
+                <div class="sec-title mb-30">
+                    <span class="xb-item--category">{{ event.get_event_type_display }}</span>
+                    <h2>{{ event.title }}</h2>
+                    <p><i class="far fa-calendar"></i> {{ event.event_date|date:"l, F d, Y" }} at {{ event.event_date|time:"g:i A" }}</p>
+                    {% if event.venue %}<p><i class="far fa-map-marker-alt"></i> {{ event.venue }}</p>{% endif %}
+                </div>
+                <div class="xb-item--description">
+                    {% if event.description %}{{ event.description|sanitize_html }}{% else %}<p>No description available.</p>{% endif %}
+                </div>
+                <button type="button" class="thm-btn mt-30 nixa-event-book-btn"
+                    data-event-slug="{{ event.slug }}"
+                    data-event-title="{{ event.title|escapejs }}">
+                    <i class="far fa-ticket-alt"></i> Book Seat
+                </button>
+                <a href="{% url 'core:events' %}" class="thm-btn thm-btn--outline mt-30 ml-2">Back to Events</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
