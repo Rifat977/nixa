@@ -1,0 +1,23 @@
+{% extends 'root/partial/base.html' %}
+
+{% block title %}Consultation Booked || Nixa Global{% endblock %}
+
+{% load static %}
+
+{% block content %}
+<section class="nixa-success-section">
+    <div class="container">
+        <div class="nixa-success-card">
+            <div class="nixa-success-icon">
+                <i class="far fa-check-circle"></i>
+            </div>
+            <h1>Your Consultation is Booked!</h1>
+            <p>Thank you for choosing Nixa Global. Our education counsellors will contact you within 24 hours to confirm your consultation slot and answer any preliminary questions.</p>
+            <div class="nixa-success-actions">
+                <a href="{% url 'core:index' %}" class="nixa-btn nixa-btn--primary">Back to Home</a>
+                <a href="{% url 'core:application' %}" class="nixa-btn nixa-btn--outline">Apply Now</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

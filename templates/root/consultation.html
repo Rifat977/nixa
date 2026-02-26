@@ -1,0 +1,155 @@
+{% extends 'root/partial/base.html' %}
+
+{% block title %}Book a Free Consultation || Nixa Global{% endblock %}
+
+{% load static %}
+
+{% block content %}
+<!-- Page header -->
+<section class="nixa-page-header">
+    <div class="container">
+        <h1>Book a Free Consultation</h1>
+        <p>Get personalized guidance from our education experts. Discuss universities, scholarships, visas, and your study abroad journey—completely free.</p>
+        <nav class="nixa-breadcrumb" aria-label="breadcrumb">
+            <a href="{% url 'core:index' %}">Home</a>
+            <span>/</span>
+            <span>Book Consultation</span>
+        </nav>
+    </div>
+</section>
+
+<!-- Consultation content -->
+<section class="nixa-consultation-section">
+    <div class="container">
+        <div class="nixa-consultation-grid">
+            <!-- Form card -->
+            <div class="nixa-consultation-form-card">
+                {% if messages %}
+                <div class="nixa-form-alerts">
+                    {% for message in messages %}
+                    <div class="nixa-alert nixa-alert--{{ message.tags }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                <form class="nixa-consultation-form" method="post" action="{% url 'core:consultation' %}">
+                    {% csrf_token %}
+
+                    <div class="nixa-form-section">
+                        <h3 class="nixa-form-section__title"><i class="far fa-user"></i> Your Details</h3>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="nixa-form-group">
+                                    <label for="name">Full Name <span class="required">*</span></label>
+                                    <input type="text" name="name" id="name" placeholder="Enter your full name" value="{% if form_data %}{{ form_data.name|default:''|escape }}{% endif %}" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="nixa-form-group">
+                                    <label for="email">Email <span class="required">*</span></label>
+                                    <input type="email" name="email" id="email" placeholder="your@email.com" value="{% if form_data %}{{ form_data.email|default:''|escape }}{% endif %}" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="nixa-form-group">
+                                    <label for="phone">Phone <span class="required">*</span></label>
+                                    <input type="tel" name="phone" id="phone" placeholder="+60 123456789" value="{% if form_data %}{{ form_data.phone|default:''|escape }}{% endif %}" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="nixa-form-section">
+                        <h3 class="nixa-form-section__title"><i class="far fa-globe"></i> Consultation Preferences</h3>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="nixa-form-group">
+                                    <label for="preferred_destination">Preferred Study Destination</label>
+                                    <select name="preferred_destination" id="preferred_destination">
+                                        <option value="">Select destination (optional)</option>
+                                        {% for dest in destinations %}
+                                        <option value="{{ dest.name }}" {% if form_data and form_data.preferred_destination == dest.name %}selected{% endif %}>{{ dest.name }}</option>
+                                        {% empty %}
+                                        <option value="Malaysia">Malaysia</option>
+                                        <option value="Australia">Australia</option>
+                                        <option value="New Zealand">New Zealand</option>
+                                        <option value="UK">United Kingdom</option>
+                                        <option value="Canada">Canada</option>
+                                        <option value="Europe">Europe (Denmark, Hungary)</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="nixa-form-group">
+                                    <label for="consultation_type">Consultation Type</label>
+                                    <select name="consultation_type" id="consultation_type">
+                                        <option value="online" {% if not form_data or form_data.consultation_type == 'online' %}selected{% endif %}>Online (Video Call)</option>
+                                        <option value="in_person" {% if form_data and form_data.consultation_type == 'in_person' %}selected{% endif %}>In Person</option>
+                                        <option value="phone" {% if form_data and form_data.consultation_type == 'phone' %}selected{% endif %}>Phone Call</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="nixa-form-group">
+                                    <label for="preferred_date">Preferred Date</label>
+                                    <input type="date" name="preferred_date" id="preferred_date" value="{% if form_data and form_data.preferred_date %}{{ form_data.preferred_date|escape }}{% endif %}" min="">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="nixa-form-group">
+                                    <label for="preferred_time_slot">Preferred Time Slot</label>
+                                    <select name="preferred_time_slot" id="preferred_time_slot">
+                                        <option value="">Select time (optional)</option>
+                                        <option value="10:00-12:00" {% if form_data and form_data.preferred_time_slot == '10:00-12:00' %}selected{% endif %}>10:00 AM - 12:00 PM</option>
+                                        <option value="12:00-14:00" {% if form_data and form_data.preferred_time_slot == '12:00-14:00' %}selected{% endif %}>12:00 PM - 2:00 PM</option>
+                                        <option value="14:00-16:00" {% if form_data and form_data.preferred_time_slot == '14:00-16:00' %}selected{% endif %}>2:00 PM - 4:00 PM</option>
+                                        <option value="16:00-18:00" {% if form_data and form_data.preferred_time_slot == '16:00-18:00' %}selected{% endif %}>4:00 PM - 6:00 PM</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="nixa-form-group">
+                                    <label for="message">Message / Areas you'd like to discuss</label>
+                                    <textarea name="message" id="message" rows="4" placeholder="e.g. Scholarship options for Malaysia, Visa requirements for UK...">{% if form_data and form_data.message %}{{ form_data.message|escape }}{% endif %}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="nixa-form-actions">
+                        <button type="submit" class="nixa-btn nixa-btn--primary">
+                            <i class="far fa-calendar-check"></i> Book Consultation
+                        </button>
+                        <p class="nixa-form-note">Our team will contact you within 24 hours to confirm your consultation slot.</p>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Info sidebar -->
+            <div class="nixa-consultation-sidebar">
+                <div class="nixa-consultation-benefits">
+                    <h4>What you'll get</h4>
+                    <ul>
+                        <li><i class="far fa-check-circle"></i> One-on-one session with our education counsellor</li>
+                        <li><i class="far fa-check-circle"></i> Personalized university & course recommendations</li>
+                        <li><i class="far fa-check-circle"></i> Scholarship & funding guidance</li>
+                        <li><i class="far fa-check-circle"></i> Visa & documentation overview</li>
+                        <li><i class="far fa-check-circle"></i> Answers to all your questions</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const dateInput = document.getElementById('preferred_date');
+    if (dateInput) {
+        const today = new Date().toISOString().split('T')[0];
+        dateInput.setAttribute('min', today);
+    }
+});
+</script>
+{% endblock %}

@@ -162,41 +162,82 @@
 		});
 	});
 
-	// brand slider
+	// homepage video carousel: 4 videos per slide, dot pagination
+	if ($('.nixa-video-swiper').length) {
+		new Swiper('.nixa-video-swiper', {
+			slidesPerView: 1,
+			spaceBetween: 0,
+			speed: 500,
+			loop: $('.nixa-video-swiper .swiper-slide').length > 1,
+			pagination: {
+				el: '.nixa-video-slider .swiper-pagination',
+				clickable: true,
+				bulletClass: 'swiper-pagination-bullet',
+				bulletActiveClass: 'swiper-pagination-bullet-active',
+			},
+		});
+	}
+
+	// homepage testimonial carousel: 3 per slide, dot pagination
+	if ($('.nixa-testimonial-swiper').length) {
+		new Swiper('.nixa-testimonial-swiper', {
+			slidesPerView: 1,
+			spaceBetween: 0,
+			speed: 500,
+			loop: $('.nixa-testimonial-swiper .swiper-slide').length > 1,
+			pagination: {
+				el: '.nixa-testimonial-slider .swiper-pagination',
+				clickable: true,
+				bulletClass: 'swiper-pagination-bullet',
+				bulletActiveClass: 'swiper-pagination-bullet-active',
+			},
+		});
+	}
+
+	// homepage offers carousel: 3 per slide, dot pagination
+	if ($('.nixa-offers-swiper').length) {
+		new Swiper('.nixa-offers-swiper', {
+			slidesPerView: 1,
+			spaceBetween: 0,
+			speed: 500,
+			loop: $('.nixa-offers-swiper .swiper-slide').length > 1,
+			pagination: {
+				el: '.nixa-offers-slider .swiper-pagination',
+				clickable: true,
+				bulletClass: 'swiper-pagination-bullet',
+				bulletActiveClass: 'swiper-pagination-bullet-active',
+			},
+		});
+	}
+
+	// brand slider (featured universities) - each slide shows a 5x3 stacked grid
 	var slider = new Swiper('.brand-slider .swiper-container', {
-		slidesPerView: 7,
+		slidesPerView: 1,
 		roundLengths: true,
 		loop: true,
 		centeredSlides: true,
-		loopAdditionalSlides: 30,
+		loopAdditionalSlides: 10,
 		watchSlidesVisibility: true,
 		slideVisibleClass: 'swiper-slide-visible',
 		autoplay: {
 			enabled: true,
 			delay: 6000
 		},
-		speed: 400,
+		speed: 450,
 		breakpoints: {
-			'1600': {
-				slidesPerView: 7,
-			},
 			'1200': {
-				slidesPerView: 6,
+				slidesPerView: 1,
 			},
 			'992': {
-				slidesPerView: 5,
+				slidesPerView: 1,
 				centeredSlides: false,
 			},
 			'768': {
-				slidesPerView: 4,
-				centeredSlides: false,
-			},
-			'576': {
-				slidesPerView: 3,
+				slidesPerView: 1,
 				centeredSlides: false,
 			},
 			'0': {
-				slidesPerView: 2,
+				slidesPerView: 1,
 			},
 		},
 	});

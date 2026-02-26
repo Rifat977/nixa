@@ -1,0 +1,39 @@
+{% extends 'root/partial/base.html' %}
+{% block title %}{{ destination.name }} || Nixaglobal{% endblock %}
+{% load static %}
+
+{% block content %}
+<section class="breadcrumb pos-rel bg_img" data-background="{% static 'root/assets/img/bg/breadcrumb_bg.jpg' %}">
+    <div class="container">
+        <div class="breadcrumb__content">
+            <h2 class="breadcrumb__title">{{ destination.name }}</h2>
+            <ul class="breadcrumb__list clearfix">
+                <li class="breadcrumb-item"><a href="{% url 'core:index' %}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'core:destinations' %}">Destinations</a></li>
+                <li class="breadcrumb-item">{{ destination.name }}</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="about pt-130 pb-130">
+    <div class="container">
+        <div class="row align-items-center">
+            {% if destination.image %}
+            <div class="col-lg-5 mb-30">
+                <img src="{{ destination.image.url }}" alt="{{ destination.name }}" class="img-fluid">
+            </div>
+            {% endif %}
+            <div class="col-lg-{% if destination.image %}7{% else %}12{% endif %}">
+                <div class="sec-title mb-30">
+                    <h2>Study in <span>{{ destination.name }}</span></h2>
+                </div>
+                <div class="xb-item--description">
+                    {{ destination.description|linebreaks }}
+                </div>
+                <a href="{% url 'core:contact' %}" class="thm-btn mt-30">Book a Consultation</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

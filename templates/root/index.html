@@ -1,183 +1,298 @@
 {% extends 'root/partial/base.html' %}
 
-{% block title %}Home || Nixaglobal{% endblock %}
+{% block title %}Nixaglobal | Study Abroad{% endblock %}
 
 {% load static %}
+{% load safe_html %}
 
 {% block content %}
-<!-- hero start -->
-<section class="hero hero__style-one bg_img" data-background="https://html.xpressbuddy.com/e.visa/assets/img/bg/hero_bg.jpg">
+<style>
+.nixa-video-slider { position: relative; min-height: 360px; padding-bottom: 60px; }
+.nixa-video-slider .swiper-container { min-height: 320px; overflow: hidden; padding-bottom: 56px; box-sizing: content-box; }
+.nixa-video-slider .swiper-slide { height: auto; display: flex; align-items: stretch; }
+.nixa-video-slider .nixa-video-row { display: flex; flex-wrap: nowrap; gap: 40px; width: 100%; justify-content: flex-start; }
+.nixa-video-slider .nixa-video-cell { flex: 0 0 calc((100% - 120px) / 4); min-width: 0; }
+.nixa-video-slide { border-radius: 8px; overflow: hidden; }
+.nixa-video-slide iframe { display: block; width: 100%; height: 350px; }
+.nixa-video-slider .swiper-pagination { bottom: 16px; }
+.nixa-video-slider .swiper-pagination-bullet { width: 12px; height: 12px; margin: 0 14px !important; background: #0066cc; opacity: 0.4; }
+.nixa-video-slider .swiper-pagination-bullet-active { opacity: 1; }
+@media (max-width: 1200px) { .nixa-video-slider .nixa-video-cell { flex: 0 0 calc((100% - 120px) / 4); } }
+@media (max-width: 768px) { .nixa-video-slider .nixa-video-row { gap: 28px; } .nixa-video-slider .nixa-video-cell { flex: 0 0 calc((100% - 28px) / 2); } .nixa-video-slide iframe { height: 280px; } }
+@media (max-width: 576px) { .nixa-video-slider .nixa-video-row { gap: 16px; } .nixa-video-slider .nixa-video-cell { flex: 0 0 100%; } .nixa-video-slide iframe { height: 260px; } }
+/* Testimonial carousel - 3 per slide, dot pagination */
+.nixa-testimonial-slider { position: relative; padding-bottom: 60px; }
+.nixa-testimonial-slider .swiper-container { overflow: hidden; padding-bottom: 56px; box-sizing: content-box; }
+.nixa-testimonial-slider .swiper-slide { height: auto; }
+.nixa-testimonial-slider .nixa-tm-row { display: flex; flex-wrap: nowrap; gap: 40px; width: 100%; }
+.nixa-testimonial-slider .nixa-tm-cell { flex: 0 0 calc((100% - 80px) / 3); min-width: 0; }
+.nixa-testimonial-slider .swiper-pagination { bottom: 16px; }
+.nixa-testimonial-slider .swiper-pagination-bullet { width: 12px; height: 12px; margin: 0 14px !important; background: #0066cc; opacity: 0.4; }
+.nixa-testimonial-slider .swiper-pagination-bullet-active { opacity: 1; }
+@media (max-width: 992px) { .nixa-testimonial-slider .nixa-tm-cell { flex: 0 0 calc((100% - 40px) / 2); } }
+@media (max-width: 576px) { .nixa-testimonial-slider .nixa-tm-row { gap: 24px; } .nixa-testimonial-slider .nixa-tm-cell { flex: 0 0 100%; } }
+
+/* Testimonial card layout: top = text, center = avatar, bottom = name & designation */
+.nixa-tm-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  min-height: 260px;
+  padding: 24px 22px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  border: 1px solid #eee;
+  text-align: center;
+}
+.nixa-tm-text {
+  font-size: 0.95rem;
+  color: #4b5563;
+  line-height: 1.6;
+  margin-bottom: 18px;
+}
+.nixa-tm-text p { margin: 0; }
+.nixa-tm-avatar {
+  margin-bottom: 16px;
+}
+.nixa-tm-avatar img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.nixa-tm-meta h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.nixa-tm-meta .xb-item--desig {
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+/* Offers carousel - 3 per slide, dot pagination */
+.nixa-offers-slider { position: relative; padding-bottom: 60px; }
+.nixa-offers-slider .swiper-container { overflow: hidden; padding-bottom: 56px; box-sizing: content-box; }
+.nixa-offers-slider .swiper-slide { height: auto; }
+.nixa-offers-slider .nixa-offers-row { display: flex; flex-wrap: nowrap; gap: 40px; width: 100%; }
+.nixa-offers-slider .nixa-offers-cell { flex: 0 0 calc((100% - 80px) / 3); min-width: 0; }
+.nixa-offers-slider .swiper-pagination { bottom: 16px; }
+.nixa-offers-slider .swiper-pagination-bullet { width: 12px; height: 12px; margin: 0 14px !important; background: #0066cc; opacity: 0.4; }
+.nixa-offers-slider .swiper-pagination-bullet-active { opacity: 1; }
+@media (max-width: 992px) { .nixa-offers-slider .nixa-offers-cell { flex: 0 0 calc((100% - 40px) / 2); } }
+@media (max-width: 576px) { .nixa-offers-slider .nixa-offers-row { gap: 24px; } .nixa-offers-slider .nixa-offers-cell { flex: 0 0 100%; } }
+</style>
+<!-- Hero - full-width background from Site settings (Django admin), single CTA -->
+<section class="nixa-hero" role="banner">
+    <div class="nixa-hero__bg" style="background-image: url('{% if site_settings.hero_banner %}{{ site_settings.hero_banner.url }}{% else %}{% static 'root/assets/img/bg/counter_bg.jpg' %}{% endif %}');" aria-hidden="true"></div>
+    <div class="nixa-hero__overlay"></div>
     <div class="container">
-        <div class="row align-items-center">
-            <div class="col-xl-6 col-lg-7">
-                <div class="hero__content">
-                    <h1 class="wow skewIn">Welcome to <br> <span>Nixaglobal</span></h1>
-                    <p class="wow fadeInUp" data-wow-delay="200ms" data-wow-duration=".6s">Expert Guidance for Your Educational Journey</p>
-                    <ul class="xb-list list-unstyled mt-40 mb-60 wow fadeInUp" data-wow-delay="400ms"
-                        data-wow-duration=".6s">
-                        <li><i class="far fa-check"></i>Connecting You to Top Universities</li>
-                        <li><i class="far fa-check"></i>Personalized Support for a Smooth Admission Process</li>
-                        <li><i class="far fa-check"></i>Empowering Students to Achieve Their Dreams Abroad</li>
-                    </ul>
-                    <div class="btns wow fadeInUp" data-wow-delay="600ms" data-wow-duration=".6s">
-                        <a class="thm-btn" href="{% url 'core:application' %}">Apply Now</a>
-                        <a class="thm-btn thm-btn--white" href="{% url 'core:testimonial' %}">Read Story</a>
+        <div class="row justify-content-center">
+            <div class="col-lg-9 col-xl-8">
+                <div class="nixa-hero__content">
+                    <h1 class="nixa-hero__headline wow fadeInUp">{% if site_settings.hero_headline %}{{ site_settings.hero_headline }}{% else %}Your Study Abroad Dream Starts Here{% endif %}</h1>
+                    <p class="nixa-hero__subtitle wow fadeInUp" data-wow-delay="100ms">{% if site_settings.hero_subtitle %}{{ site_settings.hero_subtitle }}{% else %}Expert admission and visa guidance. From application to arrival—we support you every step of the way.{% endif %}</p>
+                    <div class="nixa-hero__cta wow fadeInUp" data-wow-delay="200ms">
+                        <a class="nixa-hero__btn thm-btn" href="{% url 'core:consultation' %}">{% if site_settings.hero_cta_label %}{{ site_settings.hero_cta_label }}{% else %}Book Free Consultation{% endif %}</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
-<!-- hero end -->
 
-<!-- brand start -->
-<section class="brand pt-110 pb-90">
+<!-- Stats - PFEC style -->
+<section class="container">
+    <div class="row nixa-stats">
+        <div class="col-6 col-md-3 stat-item">
+            <span class="stat-number"><span class="xbo" data-count="1000">1000</span>+</span>
+            <span class="stat-label">Students Assisted</span>
+        </div>
+        <div class="col-6 col-md-3 stat-item">
+            <span class="stat-number">50+</span>
+            <span class="stat-label">Partner Institutions</span>
+        </div>
+        <div class="col-6 col-md-3 stat-item">
+            <span class="stat-number">6+</span>
+            <span class="stat-label">Countries</span>
+        </div>
+        <div class="col-6 col-md-3 stat-item">
+            <span class="stat-number">96%+</span>
+            <span class="stat-label">Visa Success Rate</span>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Universities -->
+<section id="featured-universities" class="brand pt-110 pb-90">
     <div class="container">
-        <h2 class="brand-title text-center mb-50">
-            <span><span>We're proud to work with our preferred partners</span></span>
-        </h2>
+        <div class="sec-title mb-60 text-center">
+            <h2 class="nixa-section-title">Featured <span>Universities</span></h2>
+            <p class="nixa-section-desc">Nixa Global partners with renowned institutions worldwide. Pick a destination and make an informed decision.</p>
+        </div>
         <div class="xb-swiper-sliders brand-slider">
             <div class="xb-carousel-inner">
                 <div class="xb-swiper-container swiper-container">
                     <div class="xb-swiper-wrapper swiper-wrapper">
-                        <div class="swiper-slide xb-swiper-slide">
-                            <a href="#!"><img src="https://en.your-uni.com/assets/images/university/cyberjaya-university.png" alt=""></a>
-                        </div>
-                        <div class="swiper-slide xb-swiper-slide">
-                            <a href="#!"><img src="https://newinti.edu.my/wp-content/uploads/2020/01/INTI-YourFutureBuiltToday-LOGO_2020.png" alt=""></a>
-                        </div>
-                        <div class="swiper-slide xb-swiper-slide">
-                            <a href="#!"><img src="https://upload.wikimedia.org/wikipedia/en/c/c5/City_University_Malaysia.png" alt=""></a>
-                        </div>
-                        <div class="swiper-slide xb-swiper-slide">
-                            <a href="#!"><img src="https://lincoln.edu.my/wp-content/uploads/2021/06/cropped-logoLincoln.png" alt=""></a>
-                        </div>
-                        <div class="swiper-slide xb-swiper-slide">
-                            <a href="#!"><img src="https://i0.wp.com/www.geomatika.edu.my/wp-content/uploads/2022/10/Logo-UGM-2022-TRANSPARENT-01.png" alt=""></a>
-                        </div>
-                        <div class="swiper-slide xb-swiper-slide">
-                            <a href="#!"><img src="https://mahsa.edu.my/images/logo.png" alt=""></a>
-                        </div>
-                        <div class="swiper-slide xb-swiper-slide">
-                            <a href="#!"><img src="https://b2b.nixaglobal.com/static/images/logo-mmu.png" alt=""></a>
-                        </div>
-                        <div class="swiper-slide xb-swiper-slide">
-                            <a href="#!"><img src="https://b2b.nixaglobal.com/static/images/logo-apu.png" alt=""></a>
-                        </div>
-                        <div class="swiper-slide xb-swiper-slide">
-                            <a href="#!"><img src="https://www.ucsiuniversity.edu.my/sites/default/files/ucsi_uni_logo.png" alt=""></a>
-                        </div>
+                        {% if university_slides %}
+                            {% for slide in university_slides %}
+                            <div class="swiper-slide xb-swiper-slide">
+                                <div class="nixa-uni-stack">
+                                    {% for column in slide %}
+                                    <div class="nixa-uni-column">
+                                        {% for university in column %}
+                                        <a href="{% url 'core:university-details' university.id %}" class="nixa-uni-logo">
+                                            {% if university.logo %}
+                                            <img src="{{ university.logo.url }}" alt="{{ university.name }}">
+                                            {% else %}
+                                            <span>{{ university.name }}</span>
+                                            {% endif %}
+                                        </a>
+                                        {% endfor %}
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                        <div class="swiper-slide xb-swiper-slide"><a href="#!"><img src="{% static 'root/assets/img/university/logo-mmu.png' %}" alt="" style="max-height: 80px; object-fit: contain;"></a></div>
+                        <div class="swiper-slide xb-swiper-slide"><a href="#!"><img src="{% static 'root/assets/img/university/logo-apu.png' %}" alt="" style="max-height: 80px; object-fit: contain;"></a></div>
+                        <div class="swiper-slide xb-swiper-slide"><a href="#!"><img src="{% static 'root/assets/img/university/logo-cyberjaya.png' %}" alt="" style="max-height: 80px; object-fit: contain;"></a></div>
+                        <div class="swiper-slide xb-swiper-slide"><a href="#!"><img src="{% static 'root/assets/img/university/logo-inti.png' %}" alt="" style="max-height: 80px; object-fit: contain;"></a></div>
+                        <div class="swiper-slide xb-swiper-slide"><a href="#!"><img src="{% static 'root/assets/img/university/logo-lincoln.png' %}" alt="" style="max-height: 80px; object-fit: contain;"></a></div>
+                        <div class="swiper-slide xb-swiper-slide"><a href="#!"><img src="{% static 'root/assets/img/university/logo-mahsa.png' %}" alt="" style="max-height: 80px; object-fit: contain;"></a></div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="text-center mt-30">
+            <a href="{% url 'core:university' %}" class="thm-btn thm-btn--sm">View All Universities</a>
         </div>
     </div>
 </section>
 <!-- brand end -->
 
-<!-- visa type start -->
-<section class="visa type pb-135">
+<!-- How Nixa Global simplifies Your Study Abroad Journey -->
+<section class="nixa-services-section" id="admission">
     <div class="container">
-        <div class="service-wrap pos-rel">
-            <div class="service-img-wrap">
-                <div class="service-bg" data-background="https://html.xpressbuddy.com/e.visa/assets/img/bg/service_bg.png"></div>
-                <div class="service-img wow skewIn" data-wow-delay="100ms"
-                     data-background="https://html.xpressbuddy.com/e.visa/assets/img/service/img_01.jpg"></div>
+        <div class="sec-title text-center mb-60">
+            <h2 class="nixa-section-title">How Nixa Global Simplifies Your <span>Study Abroad Journey</span></h2>
+            <p class="nixa-section-desc">Our services provide end-to-end assistance to study abroad aspirants. We make the journey hassle-free!</p>
+        </div>
+        <div class="row justify-content-md-center mt-none-30">
+            <div class="col-lg-3 col-md-6 mt-30">
+                <div class="xb-service">
+                    <div class="xb-item--inner">
+                        <div class="xb-item--icon mb-50">
+                            <img src="{% static 'root/assets/img/icon/srv_01.svg' %}" alt="">
+                        </div>
+                        <div class="xb-item--holder">
+                            <h3 class="xb-item--title mb-20">Career Counseling</h3>
+                            <div class="xb-item--description">Receive expert guidance to align your academic goals with your career aspirations. We assess your interests and qualifications to recommend the best programs and universities.</div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="sec-title wow skewIn pt-120">
-                <h2 class="mb-60">Visa types and eligibility <br> <span>assessment</span></h2>
+            <div class="col-lg-3 col-md-6 mt-30">
+                <div class="xb-service">
+                    <div class="xb-item--inner">
+                        <div class="xb-item--icon color4 mb-50">
+                            <img src="{% static 'root/assets/img/icon/srv_02.svg' %}" alt="">
+                        </div>
+                        <div class="xb-item--holder">
+                            <h3 class="xb-item--title mb-20">Visa Guidance</h3>
+                            <div class="xb-item--description">Navigate the complexities of visa applications with ease. We provide detailed information on visa requirements, documentation, and step-by-step guidance for a successful application.</div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="row justify-content-md-center mt-none-30">
-                <div class="col-lg-4 col-md-6 mt-30">
-                    <div class="xb-service">
-                        <div class="xb-item--inner">
-                            <div class="xb-item--icon color3 mb-50">
-                                <img src="{% static '/root/assets/img/icon/sv_03.svg' %}" alt="">
-                            </div>
-                            <div class="xb-item--holder">
-                                <h3 class="xb-item--title mb-20">Student Visa
-                                </h3>
-                                <div class="xb-item--description">
-                                    Embark on your higher education journey abroad with expert guidance. Let us help you opendoors to global opportunitie
-                                </div>
-                            </div>
+            <div class="col-lg-3 col-md-6 mt-30">
+                <div class="xb-service">
+                    <div class="xb-item--inner">
+                        <div class="xb-item--icon color6 mb-50">
+                            <img src="{% static 'root/assets/img/icon/srv_03.svg' %}" alt="">
+                        </div>
+                        <div class="xb-item--holder">
+                            <h3 class="xb-item--title mb-20">Financial Planning</h3>
+                            <div class="xb-item--description">Ensure your financial readiness with personalized advice on demonstrating sufficient funds and exploring scholarship opportunities for international education.</div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 mt-30">
-                    <div class="xb-service">
-                        <div class="xb-item--inner">
-                            <div class="xb-item--icon color2 mb-50">
-                                <img src="{% static '/root/assets/img/icon/sv_02.svg' %}" alt="">
-                            </div>
-                            <div class="xb-item--holder">
-                                <h3 class="xb-item--title mb-20">Commercial
-                                    Visa</h3>
-                                <div class="xb-item--description">
-                                    Expand your business horizons with ease. Whether you're setting up new trade channels or
-applying for the Malaysia My Second Home (MM2H) visa, we provide comprehensive support
-to make the process seamless and hassle-free.
-                                </div>
-                            </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mt-30">
+                <div class="xb-service">
+                    <div class="xb-item--inner">
+                        <div class="xb-item--icon color3 mb-50">
+                            <img src="{% static 'root/assets/img/icon/srv_04.svg' %}" alt="">
+                        </div>
+                        <div class="xb-item--holder">
+                            <h3 class="xb-item--title mb-20">Application Assistance</h3>
+                            <div class="xb-item--description">Get end-to-end support in compiling and submitting required documents, ensuring your application is accurate and complete.</div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 mt-30"></div>
-                <div class="col-lg-4 col-md-6 mt-30">
-                    <div class="xb-service">
-                        <div class="xb-item--inner">
-                            <div class="xb-item--icon mb-50">
-                                <img src="{% static '/root/assets/img/icon/sv_01.svg' %}" alt="">
-                            </div>
-                            <div class="xb-item--holder">
-                                <h3 class="xb-item--title mb-20">Tourist Visa
-                                </h3>
-                                <div class="xb-item--description">
-                                    Explore the world with a Tourist Visa. Discover new destinations while we handle your
-documentation swiftly and efficiently.
-                                </div>
-                            </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mt-30">
+                <div class="xb-service">
+                    <div class="xb-item--inner">
+                        <div class="xb-item--icon color2 mb-50">
+                            <img src="{% static 'root/assets/img/icon/srv_05.svg' %}" alt="">
+                        </div>
+                        <div class="xb-item--holder">
+                            <h3 class="xb-item--title mb-20">Document Preparation</h3>
+                            <div class="xb-item--description">We help organize and prepare all necessary documents, from academic transcripts to financial statements, for a smooth application process.</div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 mt-30">
-                    <div class="xb-service">
-                        <div class="xb-item--inner">
-                            <div class="xb-item--icon color4 mb-50">
-                                <img src="{% static '/root/assets/img/icon/sv_04.svg' %}" alt="">
-                            </div>
-                            <div class="xb-item--holder">
-                                <h3 class="xb-item--title mb-20">Ticket Booking</h3>
-                                <div class="xb-item--description">
-                                    Simplify your travel plans with our expert ticket booking services. From seamless itineraries to
-stress-free journeys, we take care of it all.
-                                </div>
-                            </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mt-30">
+                <div class="xb-service">
+                    <div class="xb-item--inner">
+                        <div class="xb-item--icon color5 mb-50">
+                            <img src="{% static 'root/assets/img/icon/srv_06.svg' %}" alt="">
+                        </div>
+                        <div class="xb-item--holder">
+                            <h3 class="xb-item--title mb-20">Second Home Visa Service</h3>
+                            <div class="xb-item--description">Plan your long-term stay in Malaysia with our dedicated Second Home Visa services. We provide complete assistance with application requirements, documentation, and processing to ensure a seamless experience.</div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 mt-30">
-                    <div class="xb-service">
-                        <div class="xb-item--inner">
-                            <div class="xb-item--icon color5 mb-50">
-                                <img src="{% static '/root/assets/img/icon/sv_05.svg' %}" alt="">
-                            </div>
-                            <div class="xb-item--holder">
-                                <h3 class="xb-item--title mb-20"><a href="visa-single.html">Nixa B2B</a>
-                                </h3>
-                                <div class="xb-item--description">
-                                    Empowering agents through our NixaGlobal B2B portal. Access exclusive online facilities
-designed to help you succeed.
-                                </div>
-                            </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mt-30">
+                <div class="xb-service">
+                    <div class="xb-item--inner">
+                        <div class="xb-item--icon color5 mb-50">
+                            <img src="{% static 'root/assets/img/icon/srv_07.svg' %}" alt="">
+                        </div>
+                        <div class="xb-item--holder">
+                            <h3 class="xb-item--title mb-20">Language Proficiency</h3>
+                            <div class="xb-item--description">Guidance for language proficiency tests such as IELTS, TOEFL, or LinguaSkill, ensuring you meet the requirements of your chosen country and institution.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mt-30">
+                <div class="xb-service">
+                    <div class="xb-item--inner">
+                        <div class="xb-item--icon color6 mb-50">
+                            <img src="{% static 'root/assets/img/icon/srv_08.svg' %}" alt="">
+                        </div>
+                        <div class="xb-item--holder">
+                            <h3 class="xb-item--title mb-20">Visa Submission</h3>
+                            <div class="xb-item--description">Our team assists in submitting your visa application to the appropriate authorities, ensuring all details are handled professionally.</div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="text-center mt-50">
+            <a href="{% url 'core:services' %}" class="thm-btn">View All Services</a>
+        </div>
     </div>
 </section>
-<!-- visa type end -->
 
 <!-- about start -->
 <section class="about pos-rel pb-130">
@@ -246,74 +361,122 @@ your journey!
         </div>
     </div>
     <div class="about__img">
-        <img src="https://html.xpressbuddy.com/e.visa/assets/img/about/about_img.png" alt="">
+        <img src="{% static 'root/assets/img/about/about_img.png' %}" alt="">
     </div>
 </section>
 <!-- about end -->
 
-<!-- counter start -->
-<section class="counter pt-120 pb-120 bg_img" data-background="https://html.xpressbuddy.com/e.visa/assets/img/bg/counter_bg.jpg">
+<!-- Student Experience - all videos in carousel, 6 per slide, no titles, dot pagination -->
+<section id="student-experience" class="videos pt-120 pb-120 gray-bg">
     <div class="container">
-        <div class="sec-title mb-45">
-            <h2 class="mb-40 wow skewIn">Discovering Our Biggest Successes: The Stories <br> <span> Behind Our Great Achievements</span>
-            </h2>
-            <p>Every journey is unique, and every success is a story worth sharing. One of our proudest
-                moments was helping a couple reunite by successfully securing a spouse visa. Their smiles
-                remind us why we do what we do—bridging distances and creating opportunities for brighter
-                futures. </p>
+        <div class="sec-title mb-60 text-center">
+            <h2 class="nixa-section-title">Student <span>Experience</span></h2>
+            <p class="nixa-section-desc">Hear from students who made their study abroad dream a reality</p>
         </div>
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="xb-counter ul_li">
-                    <div class="xb-item--item ul_li">
-                        <div class="xb-item--icon">
-                            <img src="{% static '/root/assets/img/icon/c_01.svg' %}" alt="">
-                        </div>
-                        <div class="xb-item--holder">
-                            <h2 class="xb-item--number"><span class="xbo" data-count="05">05</span><span
-                                    class="suffix">+</span></h2>
-                            <h5 class="xb-item--title">Visa Categories</h5>
-                        </div>
-                    </div>
-                    <div class="xb-item--item style-2 ul_li">
-                        <div class="xb-item--icon">
-                            <img src="{% static '/root/assets/img/icon/c_02.svg' %}" alt="">
-                        </div>
-                        <div class="xb-item--holder">
-                            <h2 class="xb-item--number"><span class="xbo" data-count="700">700</span><span
-                                    class="suffix">+</span></h2>
-                            <h5 class="xb-item--title">Visa Process</h5>
+        {% if video_slides %}
+        <div class="nixa-video-slider">
+            <div class="swiper-container nixa-video-swiper">
+                <div class="swiper-wrapper">
+                    {% for slide in video_slides %}
+                    <div class="swiper-slide">
+                        <div class="nixa-video-row">
+                            {% for video in slide %}
+                            {% with embed_url=video.get_embed_url %}
+                            {% if embed_url %}
+                            <div class="nixa-video-cell">
+                                <div class="nixa-video-slide">
+                                    <iframe src="{{ embed_url }}" width="100%" height="350" title="Student experience" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% endwith %}
+                            {% endfor %}
                         </div>
                     </div>
-                    <div class="xb-item--item style-3 ul_li">
-                        <div class="xb-item--icon">
-                            <img src="{% static '/root/assets/img/icon/c_03.svg' %}" alt="">
-                        </div>
-                        <div class="xb-item--holder">
-                            <h2 class="xb-item--number"><span class="xbo" data-count="50">50</span><span
-                                    class="suffix">+</span></h2>
-                            <h5 class="xb-item--title">Successful Project</h5>
-                        </div>
-                    </div>
-                    <div class="xb-item--item style-4 ul_li">
-                        <div class="xb-item--icon">
-                            <img src="{% static '/root/assets/img/icon/c_04.svg' %}" alt="">
-                        </div>
-                        <div class="xb-item--holder">
-                            <h2 class="xb-item--number"><span class="xbo" data-count="1000">1000</span><span
-                                    class="suffix">+</span></h2>
-                            <h5 class="xb-item--title">Happy Clients</h5>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
+                <div class="swiper-pagination"></div>
             </div>
         </div>
+        {% else %}
+        <div class="row">
+            <div class="col-12 text-center py-5">
+                <p class="text-muted">Student experience videos coming soon.</p>
+            </div>
+        </div>
+        {% endif %}
     </div>
 </section>
-<!-- counter end -->
+
+<!-- Reviews - all testimonials in carousel, 3 per slide, dot pagination -->
+<section id="reviews" class="testimonial pt-120 pb-120">
+    <div class="container">
+        <div class="sec-title mb-60 text-center">
+            <h2 class="nixa-section-title">Reviews & <span>Testimonials</span></h2>
+            <p class="nixa-section-desc">What our students and partners say about us</p>
+        </div>
+        {% if testimonial_slides %}
+        <div class="nixa-testimonial-slider">
+            <div class="swiper-container nixa-testimonial-swiper">
+                <div class="swiper-wrapper">
+                    {% for slide in testimonial_slides %}
+                    <div class="swiper-slide">
+                        <div class="nixa-tm-row">
+                            {% for t in slide %}
+                            <div class="nixa-tm-cell">
+                                <div class="xb-blog">
+                                    <div class="xb-item--inner nixa-tm-card">
+                                        <div class="nixa-tm-text">
+                                            <p>{{ t.content|truncatewords:30 }}</p>
+                                        </div>
+                                        {% if t.avatar %}
+                                        <div class="nixa-tm-avatar">
+                                            <img src="{{ t.avatar.url }}" alt="{{ t.name }}">
+                                        </div>
+                                        {% endif %}
+                                        <div class="nixa-tm-meta">
+                                            <h3 class="xb-item--title">{{ t.name }}</h3>
+                                            <span class="xb-item--desig">{{ t.designation }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+        {% else %}
+        <div class="row">
+            <div class="col-12 text-center py-5">
+                <p class="text-muted">Reviews and testimonials coming soon.</p>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- Latest & Upcoming -->
+{% if featured_offer %}
+<section id="latest-offers" class="offers pt-80 pb-80 gray-bg">
+    <div class="container">
+        <div class="sec-title text-center mb-40">
+            <h2 class="wow skewIn">{{ featured_offer.title }}</h2>
+        </div>
+        {% if featured_offer.image %}
+        <a href="{% if featured_offer.link %}{{ featured_offer.link }}{% else %}{% url 'core:application' %}{% endif %}" class="nixa-offer-banner__img-link" title="Apply Now">
+            <img src="{{ featured_offer.image.url }}" alt="{{ featured_offer.title }}" class="nixa-offer-banner__img w-100">
+        </a>
+        {% endif %}
+    </div>
+</section>
+{% endif %}
 
 <!-- FAQ Section Start -->
-<section class="faq pt-120 pb-120">
+<section class="faq pt-120 pb-120" id="faq">
     <div class="container">
         <div class="row">
             <div class="col-lg-5">
@@ -322,156 +485,32 @@ your journey!
                         <h2 class="mb-30 wow skewIn">Common questions <br> <span> answered</span></h2>
                         <p>At the heart of our commitment to delivering exceptional solutions lies transparency and trusted guidance.</p>
                     </div>
-                    <div class="faq-img">
-                        <img src="https://html.xpressbuddy.com/e.visa/assets/img/faq/faq_img.png" alt="FAQ Image">
-                    </div>
                 </div>
             </div>
             <div class="col-lg-7">
                 <div class="xb-faq">
                     <ul class="accordion_box clearfix">
-                        <li class="accordion block active-block">
+                        {% for faq in faqs %}
+                        <li class="accordion block {% if forloop.first %}active-block{% endif %}">
                             <div class="acc-btn">
-                                What services do you offer?
+                                {{ faq.question }}
                                 <span class="arrow"></span>
                             </div>
-                            <div class="acc_body current">
+                            <div class="acc_body {% if forloop.first %}current{% endif %}">
                                 <div class="content">
-                                    <ul>
-                                        <li><i class="far fa-check"></i> Comprehensive visa application assistance.</li>
-                                        <li><i class="far fa-check"></i> Document preparation and review.</li>
-                                        <li><i class="far fa-check"></i> Tailored guidance for visa categories like student, work, and tourist visas.</li>
-                                        <li><i class="far fa-check"></i> University admission consulting and counseling.</li>
-                                    </ul>
+                                    {{ faq.answer|sanitize_html }}
                                 </div>
                             </div>
                         </li>
-                        <li class="accordion block">
-                            <div class="acc-btn">
-                                What is the consultation process like?
-                                <span class="arrow"></span>
-                            </div>
-                            <div class="acc_body">
-                                <div class="content">
-                                    <p>Our process is simple and client-focused:</p>
-                                    <ul>
-                                        <li><i class="far fa-check"></i> Step 1: Initial consultation to understand your needs.</li>
-                                        <li><i class="far fa-check"></i> Step 2: Evaluation of eligibility and goals.</li>
-                                        <li><i class="far fa-check"></i> Step 3: Tailored recommendations and next steps.</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="accordion block">
-                            <div class="acc-btn">
-                                How much do your services cost?
-                                <span class="arrow"></span>
-                            </div>
-                            <div class="acc_body">
-                                <div class="content">
-                                    <p>Our initial consultation and basic services are completely free! Additional services, if required, will be discussed transparently.</p>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="accordion block">
-                            <div class="acc-btn">
-                                How do I get started with your services?
-                                <span class="arrow"></span>
-                            </div>
-                            <div class="acc_body">
-                                <div class="content">
-                                    <ul>
-                                        <li><i class="far fa-check"></i> Reach out to us via phone, email, or by visiting one of our branches.</li>
-                                        <li><i class="far fa-check"></i> Share your goals, and we’ll guide you through the next steps.</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="accordion block">
-                            <div class="acc-btn">
-                                What is your success rate with visa applications?
-                                <span class="arrow"></span>
-                            </div>
-                            <div class="acc_body">
-                                <div class="content">
-                                    <p>We are proud of our strong track record, with a 100% success rate for Malaysia. Our meticulous planning ensures smooth processing.</p>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="accordion block">
-                            <div class="acc-btn">
-                                What documents are required for the visa application?
-                                <span class="arrow"></span>
-                            </div>
-                            <div class="acc_body">
-                                <div class="content">
-                                    <ul>
-                                        <li><i class="far fa-check"></i> A valid passport (minimum validity of 18 months).</li>
-                                        <li><i class="far fa-check"></i> Malaysian-sized photos.</li>
-                                        <li><i class="far fa-check"></i> Last academic transcript and certificate.</li>
-                                        <li><i class="far fa-check"></i> Curriculum Vitae (CV).</li>
-                                        <li><i class="far fa-check"></i> English proficiency certificate or equivalent.</li>
-                                        <li><i class="far fa-check"></i> Research proposal (for research-based programs).</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="accordion block">
-                            <div class="acc-btn">
-                                Can you help with university admissions?
-                                <span class="arrow"></span>
-                            </div>
-                            <div class="acc_body">
-                                <div class="content">
-                                    <p>Yes, we specialize in assisting students with university admissions, offering end-to-end support.</p>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="accordion block">
-                            <div class="acc-btn">
-                                How long does the visa process take?
-                                <span class="arrow"></span>
-                            </div>
-                            <div class="acc_body">
-                                <div class="content">
-                                    <p>Processing times vary based on the visa category and country. We provide accurate timelines during consultation.</p>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="accordion block">
-                            <div class="acc-btn">
-                                What if my visa application is rejected?
-                                <span class="arrow"></span>
-                            </div>
-                            <div class="acc_body">
-                                <div class="content">
-                                    <p>We analyze rejection reasons and provide guidance on reapplying or exploring alternatives.</p>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="accordion block">
-                            <div class="acc-btn">
-                                Do you offer post-arrival services?
-                                <span class="arrow"></span>
-                            </div>
-                            <div class="acc_body">
-                                <div class="content">
-                                    <p>Yes, we provide airport pick-up, accommodation arrangements, and more for a smooth transition.</p>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="accordion block">
-                            <div class="acc-btn">
-                                Can I track my visa application status?
-                                <span class="arrow"></span>
-                            </div>
-                            <div class="acc_body">
-                                <div class="content">
-                                    <p>Yes, we provide regular updates and keep you informed about your application progress.</p>
-                                </div>
-                            </div>
-                        </li>
+                        {% empty %}
+                        <li class="text-muted py-4">No FAQs added yet. Add FAQs from Django admin.</li>
+                        {% endfor %}
                     </ul>
+                    {% if faqs %}
+                    <div class="text-center mt-40">
+                        <a href="{% url 'core:faq' %}" class="thm-btn thm-btn--sm">View All FAQs</a>
+                    </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -485,8 +524,8 @@ your journey!
     <div class="container">
         <div class="blog-wrap">
             <div class="sec-title mb-60 text-center">
-                <h2 class="mb-30 wow skewIn">Cast Your Eyes Upon Our <br> <span> Newest Article</span></h2>
-                <p>Explore the most recent addition to our informative articles</p>
+                <h2 class="mb-30 wow skewIn nixa-section-title">Insights to Keep You <span>Ahead</span></h2>
+                <p class="nixa-section-desc">Explore articles packed with practical advice, trends, and expert perspectives for your study abroad journey</p>
             </div>
             <div class="row justify-content-md-center mt-none-30">
                 {% for blog in blogs %}
@@ -501,11 +540,12 @@ your journey!
                             <div class="xb-item--holder">
                                 <!-- <span class="xb-item--category">Consulting</span> -->
                                 <ul class="xb-item--meta ul_li mb-20">
-                                    <li><img src="assets/img/icon/calendar.svg" alt="">{{blog.published_at}}</li>
+                                    {% if blog.is_pinned %}<li><span class="badge" style="background:#0066cc;color:#fff;padding:2px 8px;font-size:11px;">Pinned</span></li>{% endif %}
+                                    <li><img src="{% static 'root/assets/img/icon/calendar.svg' %}" alt="">{{blog.published_at}}</li>
                                 </ul>
                                 <h3 class="xb-item--title border-effect"><a href="{% url 'core:blog-details' blog.id %}">{{blog.title}}</a></h3>
                                 <a class="xb-item--link" href="{% url 'core:blog-details' blog.id %}">Read the article<span><img
-                                        src="assets/img/icon/right_arrow.svg" alt=""></span></a>
+                                        src="{% static 'root/assets/img/icon/right_arrow.svg' %}" alt=""></span></a>
                             </div>
                             <a class="xb-overlay xb-overlay-link" href="{% url 'core:blog-details' blog.id %}"></a>
                         </div>
@@ -513,38 +553,11 @@ your journey!
                 </div>
                 {% endfor %}
             </div>
-            <div class="xb-blog-bg" data-bg-color="#EDF3F5" data-background="assets/img/bg/blog_bg.png"></div>
+            <div class="xb-blog-bg" data-bg-color="#EDF3F5" data-background="{% static 'root/assets/img/bg/blog_bg.png' %}"></div>
         </div>
     </div>
 </section>
 <!-- blog end -->
-
-<!-- newsletter start -->
-<section class="newsletter">
-    <div class="container">
-        <div class="xb-newsletter pos-rel">
-            <div class="row">
-                <div class="col-lg-7">
-                    <div class="xb-item--inner">
-                        <div class="xb-item--holder mb-30">
-                            <span>newsletter</span>
-                            <h3>Subscribe to the free newsletter to receive the latest <br> news & case studies!
-                            </h3>
-                        </div>
-                        <form class="xb-item--form" action="#!">
-                            <input type="text" placeholder="Your e-mail address">
-                            <button class="thm-btn">Subscribe</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="xb-newsletter__img">
-                <img src="https://html.xpressbuddy.com/e.visa/assets/img/bg/newsletter_img.png" alt="">
-            </div>
-        </div>
-    </div>
-</section>
-<!-- newsletter end -->
 
 <!-- contact start -->
 <section class="contact contact-pt gray-bg">
@@ -554,26 +567,26 @@ your journey!
                 <div class="col-lg-6">
                     <div class="xb-item--inner">
                         <div class="xb-item--holder mb-25">
-                            <span><img src="assets/img/icon/n_pad.svg" alt="">Contact Us</span>
+                            <span><img src="{% static 'root/assets/img/icon/n_pad.svg' %}" alt="">Contact Us</span>
                             <h3>Do you have questions or went more <br> information?</h3>
                         </div>
                         <form class="xb-item--form contact-from" action="#!">
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="xb-item--field">
-                                        <span><img src="assets/img/icon/c_user.svg" alt=""></span>
+                                        <span><img src="{% static 'root/assets/img/icon/c_user.svg' %}" alt=""></span>
                                         <input type="text" placeholder="Goladria Gomez">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="xb-item--field">
-                                        <span><img src="assets/img/icon/c_mail.svg" alt=""></span>
+                                        <span><img src="{% static 'root/assets/img/icon/c_mail.svg' %}" alt=""></span>
                                         <input type="text" placeholder="inquiry@nixaglobal.com">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="xb-item--field">
-                                        <span><img src="assets/img/icon/c_select.svg" alt=""></span>
+                                        <span><img src="{% static 'root/assets/img/icon/c_select.svg' %}" alt=""></span>
                                         <select name="select" id="nice-select">
                                             <option value="1">Student Visa</option>
                                             <option value="2">Tourist Visa</option>
@@ -585,13 +598,13 @@ your journey!
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="xb-item--field">
-                                        <span><img src="assets/img/icon/c_call.svg" alt=""></span>
+                                        <span><img src="{% static 'root/assets/img/icon/c_call.svg' %}" alt=""></span>
                                         <input type="text" placeholder="+60173891304">
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="xb-item--field">
-                                        <span><img src="assets/img/icon/c_message.svg" alt=""></span>
+                                        <span><img src="{% static 'root/assets/img/icon/c_message.svg' %}" alt=""></span>
                                         <textarea name="message" id="message" cols="30" rows="10"
                                                   placeholder="Write Your Message..."></textarea>
                                     </div>
