@@ -10,25 +10,103 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="{% block meta_description %}{{ site_settings.meta_description|default:'' }}{% endblock %}">
-    {% if site_settings.meta_keywords %}<meta name="keywords" content="{{ site_settings.meta_keywords }}">{% endif %}
-
-    <title>{% block title %}{{ site_settings.meta_title|default:'Nixa Global' }}{% endblock %}</title>
+    <title>
+        {% block title %}
+            {{ page_seo.meta_title|default:site_settings.meta_title|default:"Nixa Global" }}
+        {% endblock %}
+    </title>
+    <meta name="description" content="{% block meta_description %}{{ page_seo.meta_description|default:site_settings.meta_description|default:'' }}{% endblock %}">
+    {% with seo_keywords=page_seo.meta_keywords|default:site_settings.meta_keywords %}
+        {% if seo_keywords %}
+            <meta name="keywords" content="{{ seo_keywords }}">
+        {% endif %}
+    {% endwith %}
+    {% with robots_value=page_seo.robots_meta|default:site_settings.default_robots_meta %}
+        {% if robots_value %}
+            <meta name="robots" content="{{ robots_value }}">
+        {% endif %}
+    {% endwith %}
+    {% if page_seo and page_seo.canonical_url %}
+        <link rel="canonical" href="{{ page_seo.canonical_url }}">
+    {% elif site_settings.canonical_base_url %}
+        <link rel="canonical" href="{{ site_settings.canonical_base_url|add:request.path }}">
+    {% endif %}
 
     <link rel="shortcut icon" href="{% static 'root/assets/img/nixa_fav.png' %}" type="images/x-icon"/>
     {% block meta_extra %}{% endblock %}
     <!-- Open Graph / Social -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="{% block og_title %}{{ site_settings.og_title|default:site_settings.meta_title|default:'Nixa Global' }}{% endblock %}">
-    <meta property="og:description" content="{% block og_description %}{{ site_settings.og_description|default:site_settings.meta_description|default:'' }}{% endblock %}">
+    <meta property="og:title" content="{% block og_title %}{{ page_seo.meta_title|default:site_settings.og_title|default:site_settings.meta_title|default:'Nixa Global' }}{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}{{ page_seo.meta_description|default:site_settings.og_description|default:site_settings.meta_description|default:'' }}{% endblock %}">
     {% if site_settings.site_name %}<meta property="og:site_name" content="{{ site_settings.site_name }}">{% endif %}
     {% if request.build_absolute_uri %}<meta property="og:url" content="{{ request.build_absolute_uri }}">{% endif %}
     {% if site_settings.og_image %}<meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ site_settings.og_image.url }}">{% endif %}
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="{% block twitter_title %}{{ site_settings.og_title|default:site_settings.meta_title|default:'Nixa Global' }}{% endblock %}">
-    <meta name="twitter:description" content="{% block twitter_description %}{{ site_settings.og_description|default:site_settings.meta_description|default:'' }}{% endblock %}">
+    <meta name="twitter:title" content="{% block twitter_title %}{{ page_seo.meta_title|default:site_settings.og_title|default:site_settings.meta_title|default:'Nixa Global' }}{% endblock %}">
+    <meta name="twitter:description" content="{% block twitter_description %}{{ page_seo.meta_description|default:site_settings.og_description|default:site_settings.meta_description|default:'' }}{% endblock %}">
     {% if site_settings.og_image %}<meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}{{ site_settings.og_image.url }}">{% endif %}
+    {% if site_settings.global_schema_json %}
+        <script type="application/ld+json">
+            {{ site_settings.global_schema_json|safe }}
+        </script>
+    {% endif %}
+    {% if page_seo and page_seo.schema_json %}
+        <script type="application/ld+json">
+            {{ page_seo.schema_json|safe }}
+        </script>
+    {% endif %}
+
+    {% comment %} Global dataLayer bootstrap for GTM / GA4 {% endcomment %}
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+            'event': 'page_view',
+            'page_path': '{{ request.path|escapejs }}'
+        });
+    </script>
+    {% if site_settings.gtm_container_id %}
+        <!-- Google Tag Manager -->
+        <script>
+            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','{{ site_settings.gtm_container_id }}');
+        </script>
+        <!-- End Google Tag Manager -->
+    {% endif %}
+    {% if site_settings.ga4_measurement_id and not site_settings.gtm_container_id %}
+        <!-- GA4 (direct) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id={{ site_settings.ga4_measurement_id }}"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '{{ site_settings.ga4_measurement_id }}', {'page_path': '{{ request.path|escapejs }}'});
+        </script>
+        <!-- End GA4 -->
+    {% endif %}
+    {% if site_settings.meta_pixel_id %}
+        <!-- Meta Pixel Code -->
+        <script>
+            !function(f,b,e,v,n,t,s)
+            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s)}(window, document,'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', '{{ site_settings.meta_pixel_id }}');
+            fbq('track', 'PageView');
+        </script>
+        <noscript>
+            <img height="1" width="1" style="display:none"
+                 src="https://www.facebook.com/tr?id={{ site_settings.meta_pixel_id }}&ev=PageView&noscript=1"/>
+        </noscript>
+        <!-- End Meta Pixel Code -->
+    {% endif %}
 
     <!-- css include -->
     <link rel="stylesheet" href="{% static 'root/assets/css/bootstrap.min.css' %}">
@@ -85,52 +163,12 @@
 
 <body>
 
-<!-- ChatBot Popup - bottom right -->
-<div id="chatbot-widget" class="chatbot-widget">
-    <div id="chatbot-toggle" class="chatbot-toggle" title="Chat with us">
-        <i class="far fa-comments"></i>
-        <span>Chat</span>
-    </div>
-    <div id="chatbot-panel" class="chatbot-panel">
-        <div class="chatbot-header">
-            <h4>Nixa Global</h4>
-            <p>How can we help you today?</p>
-            <button id="chatbot-close" class="chatbot-close"><i class="far fa-times"></i></button>
-        </div>
-        <div class="chatbot-body">
-            <p>Welcome to Nixa Global! We're here to assist with your study abroad journey. You can:</p>
-            <ul>
-                <li>Book a free consultation</li>
-                <li>Get information about universities</li>
-                <li>Learn about scholarship programs</li>
-                <li>Ask about visa services</li>
-            </ul>
-            <p><a href="{% url 'core:contact' %}" class="thm-btn thm-btn--sm">Contact Us</a></p>
-        </div>
-    </div>
-</div>
-<style>
-.chatbot-widget { position: fixed; bottom: 20px; right: 20px; z-index: 9999; }
-.chatbot-toggle { background: #0066cc; color: #fff; padding: 12px 20px; border-radius: 30px; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 15px rgba(0,102,204,0.4); }
-.chatbot-toggle:hover { background: #0052a3; }
-.chatbot-panel { display: none; position: absolute; bottom: 60px; right: 0; width: 320px; background: #fff; border-radius: 12px; box-shadow: 0 5px 30px rgba(0,0,0,0.15); overflow: hidden; }
-.chatbot-panel.open { display: block; }
-.chatbot-header { background: #0066cc; color: #fff; padding: 15px 40px 15px 15px; position: relative; }
-.chatbot-header h4 { margin: 0 0 5px 0; font-size: 18px; }
-.chatbot-header p { margin: 0; font-size: 13px; opacity: 0.9; }
-.chatbot-close { position: absolute; top: 10px; right: 10px; background: transparent; border: none; color: #fff; cursor: pointer; font-size: 18px; }
-.chatbot-body { padding: 15px; max-height: 300px; overflow-y: auto; }
-.chatbot-body ul { margin: 10px 0; padding-left: 20px; }
-</style>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    var toggle = document.getElementById('chatbot-toggle');
-    var panel = document.getElementById('chatbot-panel');
-    var close = document.getElementById('chatbot-close');
-    if (toggle) toggle.addEventListener('click', function() { panel.classList.toggle('open'); });
-    if (close) close.addEventListener('click', function() { panel.classList.remove('open'); });
-});
-</script>
+{% if site_settings.gtm_container_id %}
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ site_settings.gtm_container_id }}"
+                  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+{% endif %}
 <!-- preloader start -->
 <div id="xb-loadding">
     <div class="loader">
@@ -345,6 +383,21 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
     </section>
 
+    {% if site_settings.enable_sticky_cta and site_settings.sticky_cta_label and site_settings.sticky_cta_url %}
+    <!-- Sticky CTA -->
+    <a href="{{ site_settings.sticky_cta_url }}" class="nixa-sticky-cta">
+        <span>{{ site_settings.sticky_cta_label }}</span>
+    </a>
+    {% endif %}
+
+    {% if site_settings.enable_whatsapp_chat and site_settings.whatsapp_number %}
+    <!-- WhatsApp Chat Floating Button -->
+    <a href="https://wa.me/{{ site_settings.whatsapp_number }}" target="_blank" rel="noopener"
+       class="nixa-whatsapp-chat" aria-label="Chat on WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+    {% endif %}
+
     <!-- footer start -->
     <footer class="nixa-footer">
         <div class="container">
@@ -405,6 +458,59 @@ document.addEventListener('DOMContentLoaded', function() {
     <!-- footer end -->
 
 </div>
+
+<style>
+.nixa-sticky-cta {
+    position: fixed;
+    right: 20px;
+    bottom: 90px;
+    z-index: 9998;
+    background: #0066cc;
+    color: #fff;
+    padding: 12px 22px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    box-shadow: 0 8px 20px rgba(0, 102, 204, 0.45);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+.nixa-sticky-cta:hover {
+    background: #0052a3;
+    color: #fff;
+}
+.nixa-whatsapp-chat {
+    position: fixed;
+    right: 20px;
+    bottom: 25px;
+    z-index: 9998;
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    background: #25D366;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    box-shadow: 0 8px 20px rgba(37, 211, 102, 0.5);
+    text-decoration: none;
+}
+.nixa-whatsapp-chat:hover {
+    background: #1ebe5b;
+    color: #fff;
+}
+@media (max-width: 767px) {
+    .nixa-sticky-cta {
+        right: 12px;
+        left: 12px;
+        bottom: 80px;
+        justify-content: center;
+    }
+}
+</style>
 
 <!-- jquery include -->
 <script src="{% static 'root/assets/js/jquery-3.7.1.min.js' %}"></script>

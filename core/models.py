@@ -567,6 +567,91 @@ class SiteSettings(models.Model):
         blank=True,
         help_text='Brand/site name for Open Graph (e.g. "Nixa Global").'
     )
+    # Analytics & tracking
+    gtm_container_id = models.CharField(
+        max_length=50,
+        blank=True,
+        help_text='Google Tag Manager container ID (e.g. "GTM-XXXXXXX"). Leave blank to disable GTM.'
+    )
+    ga4_measurement_id = models.CharField(
+        max_length=50,
+        blank=True,
+        help_text='GA4 Measurement ID (e.g. "G-XXXXXXXX"). Optional if GA4 is configured inside GTM.'
+    )
+    meta_pixel_id = models.CharField(
+        max_length=50,
+        blank=True,
+        help_text='Meta (Facebook) Pixel ID for browser tracking.'
+    )
+    enable_meta_capi = models.BooleanField(
+        default=False,
+        help_text='Enable server-side Meta Conversions API (requires backend implementation).'
+    )
+    meta_capi_access_token = models.CharField(
+        max_length=255,
+        blank=True,
+        help_text='Meta Conversions API access token (kept server-side, never exposed to templates).'
+    )
+    meta_capi_test_event_code = models.CharField(
+        max_length=100,
+        blank=True,
+        help_text='Optional Meta test event code for validating server-side events.'
+    )
+    # SEO & robots
+    canonical_base_url = models.URLField(
+        blank=True,
+        help_text='Canonical base URL (e.g. "https://www.nixaglobal.com"). Used to build canonical tags.'
+    )
+    default_robots_meta = models.CharField(
+        max_length=100,
+        blank=True,
+        help_text='Default robots meta value (e.g. "index,follow"). Leave blank to omit.'
+    )
+    global_schema_json = models.TextField(
+        blank=True,
+        help_text='Global JSON-LD schema markup (Organization / WebSite). Must be valid JSON.'
+    )
+    robots_txt_content = models.TextField(
+        blank=True,
+        help_text='Custom robots.txt content. Leave blank to use a simple default that allows all and points to the sitemap URL (if any).'
+    )
+    sitemap_url = models.URLField(
+        blank=True,
+        help_text='Optional full URL to your XML sitemap (e.g. "https://www.nixaglobal.com/sitemap.xml"). Added to robots.txt when set.'
+    )
+    # Marketing UI / CTAs
+    enable_sticky_cta = models.BooleanField(
+        default=False,
+        help_text='Show a global sticky Call-to-Action button/bar on all pages.'
+    )
+    sticky_cta_label = models.CharField(
+        max_length=100,
+        blank=True,
+        help_text='Label for the sticky CTA (e.g. "Book Free Consultation").'
+    )
+    sticky_cta_url = models.CharField(
+        max_length=255,
+        blank=True,
+        help_text='URL or path for the sticky CTA (e.g. "/application/").'
+    )
+    enable_whatsapp_chat = models.BooleanField(
+        default=False,
+        help_text='Show WhatsApp chat launcher.'
+    )
+    whatsapp_number = models.CharField(
+        max_length=30,
+        blank=True,
+        help_text='WhatsApp number in international format (e.g. "60173891304").'
+    )
+    enable_messenger_chat = models.BooleanField(
+        default=False,
+        help_text='Show Messenger chat launcher (requires Page ID).'
+    )
+    messenger_page_id = models.CharField(
+        max_length=100,
+        blank=True,
+        help_text='Facebook Page ID used for Messenger chat plugin.'
+    )
 
     class Meta:
         verbose_name = 'Site settings'
@@ -587,3 +672,60 @@ class SiteSettings(models.Model):
             }
         )
         return obj
+
+
+class PageSEO(models.Model):
+    """
+    Per-page SEO configuration for key URL paths.
+
+    This is intentionally simple: match on request.path (e.g. "/", "/blog/", "/contact/").
+    For dynamic detail pages you can create entries for their exact paths or common prefixes.
+    """
+    name = models.CharField(
+        max_length=100,
+        help_text='Admin label for this SEO entry (e.g. "Home", "Blog List", "Contact").'
+    )
+    path = models.CharField(
+        max_length=255,
+        unique=True,
+        help_text='Request path to match (e.g. "/", "/blog/", "/contact/"). Must include leading and trailing slash as in the browser URL.'
+    )
+    meta_title = models.CharField(
+        max_length=255,
+        blank=True,
+        help_text='Custom meta title for this page.'
+    )
+    meta_description = models.TextField(
+        blank=True,
+        help_text='Custom meta description for this page.'
+    )
+    meta_keywords = models.CharField(
+        max_length=255,
+        blank=True,
+        help_text='Optional comma-separated keywords for this page.'
+    )
+    robots_meta = models.CharField(
+        max_length=100,
+        blank=True,
+        help_text='Robots meta for this page (e.g. "index,follow", "noindex,nofollow"). Leave blank to use default.'
+    )
+    canonical_url = models.URLField(
+        blank=True,
+        help_text='Optional full canonical URL override for this page. Leave blank to build from base URL + path.'
+    )
+    schema_json = models.TextField(
+        blank=True,
+        help_text='Optional JSON-LD schema markup specific to this page. Must be valid JSON.'
+    )
+    is_active = models.BooleanField(
+        default=True,
+        help_text='Only active entries are applied.'
+    )
+
+    class Meta:
+        verbose_name = 'Page SEO'
+        verbose_name_plural = 'Page SEO'
+        ordering = ['path']
+
+    def __str__(self):
+        return f'{self.name} ({self.path})'

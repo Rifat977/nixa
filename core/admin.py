@@ -191,12 +191,48 @@ class SiteSettingsAdmin(admin.ModelAdmin):
             'description': _('Home page hero banner and text. Leave text fields blank to use defaults.'),
         }),
         (_('SEO & Meta'), {
-            'fields': ('meta_title', 'meta_description', 'meta_keywords'),
+            'fields': ('meta_title', 'meta_description', 'meta_keywords', 'canonical_base_url', 'default_robots_meta'),
             'description': _('Default meta tags for search engines. Used across the site when pages do not set their own.'),
         }),
         (_('Social sharing (Open Graph)'), {
             'fields': ('site_name', 'og_title', 'og_description', 'og_image'),
             'description': _('How the site appears when shared on Facebook, LinkedIn, etc. Leave blank to use SEO fields or logo.'),
+        }),
+        (_('Analytics & Tracking'), {
+            'fields': (
+                'gtm_container_id',
+                'ga4_measurement_id',
+                'meta_pixel_id',
+                'enable_meta_capi',
+                'meta_capi_access_token',
+                'meta_capi_test_event_code',
+            ),
+            'description': _(
+                'Global analytics configuration. Public IDs (GTM / GA4 / Pixel) are used in templates; '
+                'Meta Conversions API credentials are stored server-side for backend use.'
+            ),
+        }),
+        (_('Global Schema Markup'), {
+            'fields': ('global_schema_json', 'robots_txt_content', 'sitemap_url'),
+            'description': _(
+                'Optional JSON-LD schema for the entire site (e.g. Organization, WebSite). '
+                'Paste valid JSON without surrounding <script> tags. '
+                'robots.txt content can also be managed here; when left blank a simple default is served.'
+            ),
+        }),
+        (_('Sticky CTA & Chat'), {
+            'fields': (
+                'enable_sticky_cta',
+                'sticky_cta_label',
+                'sticky_cta_url',
+                'enable_whatsapp_chat',
+                'whatsapp_number',
+                'enable_messenger_chat',
+                'messenger_page_id',
+            ),
+            'description': _(
+                'Configure a global sticky Call-to-Action and optional WhatsApp / Messenger chat launchers.'
+            ),
         }),
     )
 
@@ -226,3 +262,11 @@ class SiteSettingsAdmin(admin.ModelAdmin):
         if obj and not request.GET.get('add'):
             return redirect(reverse('admin:core_sitesettings_change', args=[obj.pk]))
         return super().changelist_view(request, extra_context)
+
+
+@admin.register(PageSEO)
+class PageSEOAdmin(admin.ModelAdmin):
+    list_display = ('name', 'path', 'is_active')
+    list_editable = ('is_active',)
+    search_fields = ('name', 'path', 'meta_title', 'meta_description')
+    list_filter = ('is_active',)

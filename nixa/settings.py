@@ -86,6 +86,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'core.context_processors.site_settings',
                 'core.context_processors.destinations',
+                'core.context_processors.page_seo',
             ],
         },
     },

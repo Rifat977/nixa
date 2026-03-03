@@ -35,3 +35,18 @@ def site_settings(request):
         return {'site_settings': SiteSettings.get_settings()}
     except Exception:
         return {'site_settings': _FallbackSettings()}
+
+
+def page_seo(request):
+    """
+    Inject a PageSEO object for the current request path, if configured.
+
+    Matching is done on the exact request.path (e.g. "/", "/blog/", "/contact/").
+    """
+    try:
+        from .models import PageSEO
+        path = request.path
+        seo = PageSEO.objects.filter(path=path, is_active=True).first()
+        return {'page_seo': seo}
+    except Exception:
+        return {'page_seo': None}

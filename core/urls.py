@@ -36,4 +36,5 @@ urlpatterns = [
     path('events/<slug:slug>/book/', views.event_book, name='event-book'),
     path('search/', views.search, name='search'),
     path('newsletter/subscribe/', views.newsletter_subscribe, name='newsletter_subscribe'),
+    path('robots.txt', views.robots_txt, name='robots_txt'),
 ]

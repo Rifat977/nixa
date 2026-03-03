@@ -4,7 +4,7 @@ from datetime import datetime
 
 from django.db import IntegrityError
 from django.db.models import Q
-from django.http import Http404, JsonResponse
+from django.http import Http404, JsonResponse, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_http_methods
 from django.core.exceptions import ValidationError
@@ -16,7 +16,7 @@ from django.contrib.auth.hashers import make_password
 from .models import (
     Account, Application, Blog, ContactMessage, Consultation, Destination,
     Event, EventBooking, FAQ, GalleryImage, NewsletterSubscriber, Program,
-    Scholarship, Subject, Testimonial, University, Video, Offer,
+    Scholarship, Subject, Testimonial, University, Video, Offer, SiteSettings,
 )
 
 logger = logging.getLogger(__name__)
@@ -519,3 +519,22 @@ def newsletter_subscribe(request):
     except IntegrityError:
         messages.info(request, 'You are already subscribed.')
     return redirect(request.META.get('HTTP_REFERER', '/'))
+
+
+def robots_txt(request):
+    """
+    Serve robots.txt, optionally driven by SiteSettings.
+
+    Priority:
+    1. If SiteSettings.robots_txt_content is set, serve it as-is.
+    2. Else, serve a simple default that allows all and, if a sitemap URL
+       is configured, adds a Sitemap directive.
+    """
+    settings_obj = SiteSettings.get_settings()
+    content = (settings_obj.robots_txt_content or "").strip()
+    if not content:
+        lines = ["User-agent: *", "Disallow:"]
+        if settings_obj.sitemap_url:
+            lines.append(f"Sitemap: {settings_obj.sitemap_url}")
+        content = "\n".join(lines) + "\n"
+    return HttpResponse(content, content_type="text/plain")
