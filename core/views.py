@@ -470,8 +470,9 @@ def event_book(request, slug):
     name = (data.get('name') or '').strip()
     email = (data.get('email') or '').strip()
     phone = (data.get('phone') or '').strip()
-    message = (data.get('message') or '').strip()
-
+    institution_name = (data.get('institution_name') or '').strip()
+    inquery = (data.get('inquery') or '').strip()
+    # Keep seats for backward compatibility; default to 1 when not provided
     try:
         seats = int(data.get('seats') or 1)
         if seats < 1:
@@ -488,7 +489,8 @@ def event_book(request, slug):
         email=email,
         phone=phone,
         seats=seats,
-        message=message or None,
+        institution_name=institution_name or None,
+        inquery=inquery or None,
     )
     return JsonResponse({'success': True, 'message': f'Your seat{"s have" if seats > 1 else " has"} been booked for {event.title}!'})
 

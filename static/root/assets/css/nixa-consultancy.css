@@ -362,10 +362,36 @@
   border-radius: 6px !important;
   font-weight: 600 !important;
   margin-left: 10px;
+  border: none !important;
+  box-shadow: 0 0 0 0 transparent !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: background 0.2s ease, transform 0.1s ease;
 }
 .apply-now-nav:hover {
   background: var(--nixa-primary-dark) !important;
   color: #fff !important;
+  transform: translateY(-1px);
+}
+
+/* Remove default menu span border for Apply Now in main nav */
+.nixa-header .main-menu > ul > li > a.apply-now-nav span {
+  border: none !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+}
+
+/* Ensure nav items (including Apply Now) are vertically centered */
+.nixa-header .main-menu > ul > li {
+  display: flex;
+  align-items: center;
+}
+.nixa-header .main-menu > ul > li > a {
+  display: flex;
+  align-items: center;
 }
 
 /* Search bar - corner placement */
@@ -502,6 +528,40 @@
 .nixa-footer__contact-item i {
   width: 18px;
   opacity: 0.8;
+}
+.nixa-footer__social {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 18px;
+}
+.nixa-footer__social-label {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin-right: 4px;
+}
+.nixa-footer__social-links {
+  display: inline-flex;
+  gap: 10px;
+}
+.nixa-footer__social-link {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  font-size: 14px;
+  transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.1s;
+}
+.nixa-footer__social-link:hover {
+  background: #fff;
+  color: #0f1419;
+  border-color: #fff;
+  transform: translateY(-1px);
 }
 .nixa-footer__links h4 {
   color: #fff;
@@ -951,7 +1011,7 @@
   border-radius: 10px;
   box-shadow: 0 10px 18px rgba(221, 229, 236, 0.5);
   text-decoration: none;
-  opacity: 0.9;
+  opacity: 1;
   transition: box-shadow 0.25s, transform 0.25s, opacity 0.2s;
 }
 .brand-slider .nixa-uni-logo img {
@@ -968,6 +1028,11 @@
   opacity: 1;
   box-shadow: 0 16px 26px rgba(221, 229, 236, 0.8);
   transform: translateY(-3px);
+}
+
+/* Override base brand slider opacity so logos show full color without hover */
+.brand-slider .xb-swiper-slide a {
+  opacity: 1 !important;
 }
 
 @media (max-width: 991px) {

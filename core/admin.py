@@ -121,10 +121,10 @@ class EventAdmin(admin.ModelAdmin):
 
 @admin.register(EventBooking)
 class EventBookingAdmin(admin.ModelAdmin):
-    list_display = ('name', 'email', 'phone', 'event', 'seats', 'status', 'created_at')
+    list_display = ('name', 'email', 'phone', 'institution_name', 'event', 'status', 'created_at')
     list_filter = ('status', 'event', 'created_at')
     list_editable = ('status',)
-    search_fields = ('name', 'email', 'phone')
+    search_fields = ('name', 'email', 'phone', 'institution_name', 'inquery')
     readonly_fields = ('created_at',)
     list_display_links = ('name', 'email')
 
@@ -232,6 +232,17 @@ class SiteSettingsAdmin(admin.ModelAdmin):
             ),
             'description': _(
                 'Configure a global sticky Call-to-Action and optional WhatsApp / Messenger chat launchers.'
+            ),
+        }),
+        (_('Social links'), {
+            'fields': (
+                'facebook_url',
+                'instagram_url',
+                'linkedin_url',
+                'youtube_url',
+            ),
+            'description': _(
+                'Public social media profiles shown in the footer.'
             ),
         }),
     )

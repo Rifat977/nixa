@@ -392,6 +392,8 @@ class EventBooking(models.Model):
     name = models.CharField(max_length=255)
     email = models.EmailField()
     phone = models.CharField(max_length=20)
+    institution_name = models.CharField(max_length=255, blank=True)
+    inquery = models.TextField(blank=True, null=True)
     seats = models.PositiveIntegerField(default=1)
     message = models.TextField(blank=True, null=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
@@ -403,7 +405,7 @@ class EventBooking(models.Model):
         verbose_name_plural = 'Event Bookings'
 
     def __str__(self):
-        return f"{self.name} — {self.event.title} ({self.seats} seat{'s' if self.seats != 1 else ''})"
+        return f"{self.name} — {self.event.title}"
 
 
 class Consultation(models.Model):
@@ -651,6 +653,27 @@ class SiteSettings(models.Model):
         max_length=100,
         blank=True,
         help_text='Facebook Page ID used for Messenger chat plugin.'
+    )
+    # Social profile links
+    facebook_url = models.URLField(
+        max_length=255,
+        blank=True,
+        help_text='Link to your Facebook page or profile.'
+    )
+    instagram_url = models.URLField(
+        max_length=255,
+        blank=True,
+        help_text='Link to your Instagram profile.'
+    )
+    linkedin_url = models.URLField(
+        max_length=255,
+        blank=True,
+        help_text='Link to your LinkedIn page or profile.'
+    )
+    youtube_url = models.URLField(
+        max_length=255,
+        blank=True,
+        help_text='Link to your YouTube channel.'
     )
 
     class Meta:

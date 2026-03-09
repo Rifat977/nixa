@@ -373,7 +373,7 @@
                 </div>
                 <form class="nixa-footer-newsletter__form" action="{% url 'core:newsletter_subscribe' %}" method="post">
                     {% csrf_token %}
-                    <input type="email" name="email" placeholder="dev.abdullah.mamun@gmail.com" required>
+                    <input type="email" name="email" placeholder="nixaglobal@gmail.com" required>
                     <button type="submit">Subscribe</button>
                 </form>
                 {% for message in messages %}
@@ -413,6 +413,33 @@
                         <a href="mailto:info@nixaglobal.com" class="nixa-footer__contact-item"><i class="far fa-envelope"></i> info@nixaglobal.com</a>
                         <a href="https://maps.google.com/?q=12th+Floor+129+Green+Landmark+Tower+Kalabagan+Dhanmondi+Dhaka" target="_blank" rel="noopener" class="nixa-footer__contact-item"><i class="far fa-map-marker-alt"></i> Dhaka Office</a>
                     </div>
+                    {% if site_settings.facebook_url or site_settings.instagram_url or site_settings.linkedin_url or site_settings.youtube_url %}
+                    <div class="nixa-footer__social">
+                        <span class="nixa-footer__social-label">Follow us:</span>
+                        <div class="nixa-footer__social-links">
+                            {% if site_settings.facebook_url %}
+                            <a href="{{ site_settings.facebook_url }}" class="nixa-footer__social-link" target="_blank" rel="noopener" aria-label="Facebook">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            {% endif %}
+                            {% if site_settings.instagram_url %}
+                            <a href="{{ site_settings.instagram_url }}" class="nixa-footer__social-link" target="_blank" rel="noopener" aria-label="Instagram">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            {% endif %}
+                            {% if site_settings.linkedin_url %}
+                            <a href="{{ site_settings.linkedin_url }}" class="nixa-footer__social-link" target="_blank" rel="noopener" aria-label="LinkedIn">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            {% endif %}
+                            {% if site_settings.youtube_url %}
+                            <a href="{{ site_settings.youtube_url }}" class="nixa-footer__social-link" target="_blank" rel="noopener" aria-label="YouTube">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endif %}
                 </div>
                 <div class="nixa-footer__links">
                     <h4>Quick Links</h4>
@@ -564,12 +591,12 @@
                         <input type="tel" id="nixaBookPhone" name="phone" placeholder="+60 123456789" required>
                     </div>
                     <div class="nixa-form-group">
-                        <label for="nixaBookSeats">Number of Seats</label>
-                        <input type="number" id="nixaBookSeats" name="seats" value="1" min="1" max="10">
+                        <label for="nixaBookInstitution">Institution Name</label>
+                        <input type="text" id="nixaBookInstitution" name="institution_name" placeholder="Name of institution/university">
                     </div>
                     <div class="nixa-form-group">
-                        <label for="nixaBookMessage">Message / Notes</label>
-                        <textarea id="nixaBookMessage" name="message" rows="3" placeholder="Any special requirements..."></textarea>
+                        <label for="nixaBookInquery">Inquery</label>
+                        <textarea id="nixaBookInquery" name="inquery" rows="3" placeholder="Write your inquery..."></textarea>
                     </div>
                     <div id="nixaBookError" class="nixa-alert nixa-alert--error" style="display:none;"></div>
                     <div class="nixa-form-actions">
@@ -611,7 +638,6 @@
         successWrap.style.display = 'none';
         errorEl.style.display = 'none';
         form.reset();
-        document.getElementById('nixaBookSeats').value = '1';
         modal.setAttribute('aria-hidden', 'false');
         modal.classList.add('is-open');
         document.body.style.overflow = 'hidden';
@@ -659,8 +685,8 @@
                     name: document.getElementById('nixaBookName').value,
                     email: document.getElementById('nixaBookEmail').value,
                     phone: document.getElementById('nixaBookPhone').value,
-                    seats: parseInt(document.getElementById('nixaBookSeats').value) || 1,
-                    message: document.getElementById('nixaBookMessage').value,
+                    institution_name: document.getElementById('nixaBookInstitution').value,
+                    inquery: document.getElementById('nixaBookInquery').value,
                 }),
             })
             .then(function (r) { return r.json(); })
