@@ -388,10 +388,21 @@ class EventBooking(models.Model):
         ('confirmed', 'Confirmed'),
         ('cancelled', 'Cancelled'),
     ]
+    T_SHIRT_SIZE_CHOICES = [
+        ('s', 'S'),
+        ('m', 'M'),
+        ('l', 'L'),
+        ('xl', 'XL'),
+        ('xxl', 'XXL'),
+    ]
     event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name='bookings')
     name = models.CharField(max_length=255)
     email = models.EmailField()
     phone = models.CharField(max_length=20)
+    district_name = models.CharField(max_length=255, blank=True, default='')
+    t_shirt_size = models.CharField(
+        max_length=4, choices=T_SHIRT_SIZE_CHOICES, blank=True, default='m'
+    )
     institution_name = models.CharField(max_length=255, blank=True)
     inquery = models.TextField(blank=True, null=True)
     seats = models.PositiveIntegerField(default=1)

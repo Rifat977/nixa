@@ -471,6 +471,8 @@ def event_book(request, slug):
     email = (data.get('email') or '').strip()
     phone = (data.get('phone') or '').strip()
     institution_name = (data.get('institution_name') or '').strip()
+    district_name = (data.get('district_name') or '').strip()
+    t_shirt_size = (data.get('t_shirt_size') or '').strip().lower()
     inquery = (data.get('inquery') or '').strip()
     # Keep seats for backward compatibility; default to 1 when not provided
     try:
@@ -480,14 +482,22 @@ def event_book(request, slug):
     except (ValueError, TypeError):
         seats = 1
 
+    valid_sizes = {c[0] for c in EventBooking.T_SHIRT_SIZE_CHOICES}
+
     if not (name and email and phone):
         return JsonResponse({'error': 'Please fill in your name, email, and phone number.'}, status=400)
+    if not district_name:
+        return JsonResponse({'error': 'Please enter your district name.'}, status=400)
+    if t_shirt_size not in valid_sizes:
+        return JsonResponse({'error': 'Please select a T-shirt size.'}, status=400)
 
     EventBooking.objects.create(
         event=event,
         name=name,
         email=email,
         phone=phone,
+        district_name=district_name,
+        t_shirt_size=t_shirt_size,
         seats=seats,
         institution_name=institution_name or None,
         inquery=inquery or None,

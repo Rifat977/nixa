@@ -591,6 +591,21 @@
                         <input type="tel" id="nixaBookPhone" name="phone" placeholder="+60 123456789" required>
                     </div>
                     <div class="nixa-form-group">
+                        <label for="nixaBookDistrict">District Name <span class="required">*</span></label>
+                        <input type="text" id="nixaBookDistrict" name="district_name" placeholder="Your district" required>
+                    </div>
+                    <div class="nixa-form-group">
+                        <label for="nixaBookTshirt">T-shirt Size <span class="required">*</span></label>
+                        <select id="nixaBookTshirt" name="t_shirt_size" required>
+                            <option value="" disabled selected>Select size</option>
+                            <option value="s">S</option>
+                            <option value="m">M</option>
+                            <option value="l">L</option>
+                            <option value="xl">XL</option>
+                            <option value="xxl">XXL</option>
+                        </select>
+                    </div>
+                    <div class="nixa-form-group">
                         <label for="nixaBookInstitution">Institution Name</label>
                         <input type="text" id="nixaBookInstitution" name="institution_name" placeholder="Name of institution/university">
                     </div>
@@ -685,6 +700,8 @@
                     name: document.getElementById('nixaBookName').value,
                     email: document.getElementById('nixaBookEmail').value,
                     phone: document.getElementById('nixaBookPhone').value,
+                    district_name: document.getElementById('nixaBookDistrict').value,
+                    t_shirt_size: document.getElementById('nixaBookTshirt').value,
                     institution_name: document.getElementById('nixaBookInstitution').value,
                     inquery: document.getElementById('nixaBookInquery').value,
                 }),

@@ -121,10 +121,13 @@ class EventAdmin(admin.ModelAdmin):
 
 @admin.register(EventBooking)
 class EventBookingAdmin(admin.ModelAdmin):
-    list_display = ('name', 'email', 'phone', 'institution_name', 'event', 'status', 'created_at')
-    list_filter = ('status', 'event', 'created_at')
+    list_display = (
+        'name', 'email', 'phone', 'district_name', 't_shirt_size',
+        'institution_name', 'event', 'status', 'created_at',
+    )
+    list_filter = ('status', 'event', 't_shirt_size', 'created_at')
     list_editable = ('status',)
-    search_fields = ('name', 'email', 'phone', 'institution_name', 'inquery')
+    search_fields = ('name', 'email', 'phone', 'district_name', 'institution_name', 'inquery')
     readonly_fields = ('created_at',)
     list_display_links = ('name', 'email')
 
