@@ -73,6 +73,9 @@ def faq(request):
 def about(request):
     return render(request, 'root/about-us.html')
 
+def privacy_policy(request):
+    return render(request, 'root/privacy-policy.html')
+
 @require_http_methods(["GET", "POST"])
 def contact(request):
     if request.method == "POST":

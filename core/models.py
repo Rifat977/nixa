@@ -686,6 +686,16 @@ class SiteSettings(models.Model):
         blank=True,
         help_text='Link to your YouTube channel.'
     )
+    pinterest_url = models.URLField(
+        max_length=255,
+        blank=True,
+        help_text='Link to your Pinterest profile.'
+    )
+    tiktok_url = models.URLField(
+        max_length=255,
+        blank=True,
+        help_text='Link to your TikTok profile.'
+    )
 
     class Meta:
         verbose_name = 'Site settings'

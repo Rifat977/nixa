@@ -1,5 +1,10 @@
+import csv
+from datetime import datetime
+from html import escape
+
 # admin.py
 from django.contrib import admin
+from django.http import HttpResponse
 from .models import *
 from django.utils.translation import gettext_lazy as _
 from django.utils.safestring import mark_safe
@@ -121,6 +126,20 @@ class EventAdmin(admin.ModelAdmin):
 
 @admin.register(EventBooking)
 class EventBookingAdmin(admin.ModelAdmin):
+    EXPORT_FIELDS = (
+        ('id', 'ID'),
+        ('event__title', 'Event'),
+        ('name', 'Name'),
+        ('email', 'Email'),
+        ('phone', 'Phone'),
+        ('district_name', 'District Name'),
+        ('t_shirt_size', 'T-shirt Size'),
+        ('institution_name', 'Institution Name'),
+        ('inquery', 'Inquery'),
+        ('seats', 'Seats'),
+        ('status', 'Status'),
+        ('created_at', 'Created At'),
+    )
     list_display = (
         'name', 'email', 'phone', 'district_name', 't_shirt_size',
         'institution_name', 'event', 'status', 'created_at',
@@ -130,6 +149,49 @@ class EventBookingAdmin(admin.ModelAdmin):
     search_fields = ('name', 'email', 'phone', 'district_name', 'institution_name', 'inquery')
     readonly_fields = ('created_at',)
     list_display_links = ('name', 'email')
+    actions = ('export_selected_as_csv', 'export_selected_as_excel')
+
+    def _prepare_export_data(self, queryset):
+        rows = queryset.select_related('event').values_list(
+            *[field_name for field_name, _ in self.EXPORT_FIELDS]
+        )
+        return [[value if value is not None else '' for value in row] for row in rows]
+
+    @admin.action(description='Export selected bookings as CSV')
+    def export_selected_as_csv(self, request, queryset):
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = f'attachment; filename="event_bookings_{timestamp}.csv"'
+
+        writer = csv.writer(response)
+        writer.writerow([label for _, label in self.EXPORT_FIELDS])
+        writer.writerows(self._prepare_export_data(queryset))
+        return response
+
+    @admin.action(description='Export selected bookings as Excel')
+    def export_selected_as_excel(self, request, queryset):
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        response = HttpResponse(content_type='application/vnd.ms-excel')
+        response['Content-Disposition'] = f'attachment; filename="event_bookings_{timestamp}.xls"'
+
+        headers = ''.join(
+            f'<th>{escape(label)}</th>' for _, label in self.EXPORT_FIELDS
+        )
+        body_rows = []
+        for row in self._prepare_export_data(queryset):
+            cells = ''.join(f'<td>{escape(str(value))}</td>' for value in row)
+            body_rows.append(f'<tr>{cells}</tr>')
+
+        html = (
+            '<html><head><meta charset="utf-8"></head><body>'
+            '<table border="1">'
+            f'<thead><tr>{headers}</tr></thead>'
+            f'<tbody>{"".join(body_rows)}</tbody>'
+            '</table>'
+            '</body></html>'
+        )
+        response.write(html)
+        return response
 
 
 @admin.register(Offer)
@@ -243,6 +305,8 @@ class SiteSettingsAdmin(admin.ModelAdmin):
                 'instagram_url',
                 'linkedin_url',
                 'youtube_url',
+                'pinterest_url',
+                'tiktok_url',
             ),
             'description': _(
                 'Public social media profiles shown in the footer.'

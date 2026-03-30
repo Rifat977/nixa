@@ -1,0 +1,91 @@
+{% extends 'root/partial/base.html' %}
+{% load static %}
+
+{% block title %}Privacy Policy || Nixaglobal{% endblock %}
+
+{% block content %}
+<section class="breadcrumb pos-rel bg_img" data-background="{% static 'root/assets/img/bg/breadcrumb_bg.jpg' %}">
+    <div class="container">
+        <div class="breadcrumb__content">
+            <h2 class="breadcrumb__title">Privacy Policy</h2>
+            <ul class="breadcrumb__list clearfix">
+                <li class="breadcrumb-item"><a href="{% url 'core:index' %}">Home</a></li>
+                <li class="breadcrumb-item">Privacy Policy</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="about pt-130 pb-130">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="sec-title mb-30">
+                    <h2>Privacy Policy | Nixa Global</h2>
+                    <p><strong>Last Updated:</strong> January 28, 2025</p>
+                </div>
+
+                <p>
+                    At Nixa Global, we are committed to protecting the privacy and security of the personal information shared by our students and their guardians.
+                    This Privacy Policy outlines how we collect, use, and safeguard your data during your higher education journey with us.
+                </p>
+
+                <h3 class="mt-40 mb-15">1. Information We Collect</h3>
+                <p>To provide effective consultancy and university placement services, we collect the following types of information:</p>
+                <ul class="list-unstyled mb-30">
+                    <li><strong>Personal Identification:</strong> Full name, date of birth, gender, and nationality.</li>
+                    <li><strong>Contact Details:</strong> Email address, phone number, and permanent/present address.</li>
+                    <li><strong>Academic Records:</strong> Transcripts, certificates, English proficiency test scores (IELTS/PTE/Duolingo), and CVs.</li>
+                    <li><strong>Identification Documents:</strong> Passport copies and National ID (NID).</li>
+                    <li><strong>Financial Context:</strong> Information required for visa processing and scholarship eligibility (e.g., bank statements).</li>
+                </ul>
+
+                <h3 class="mt-40 mb-15">2. How We Use Your Data</h3>
+                <p>Your information is used strictly for the following purposes:</p>
+                <ul class="list-unstyled mb-30">
+                    <li><strong>University Applications:</strong> To submit and track admission applications to partner universities (e.g., INTI, SEGi, etc.).</li>
+                    <li><strong>Visa Processing:</strong> To assist with EMGS (Education Malaysia Global Services) and Embassy requirements.</li>
+                    <li><strong>Scholarship Assessment:</strong> To evaluate and apply for merit-based or need-based financial aid.</li>
+                    <li><strong>Communication:</strong> To provide updates on application status, expo invitations, and counseling sessions.</li>
+                    <li><strong>Internal Records:</strong> For administrative purposes and to improve our consultancy services.</li>
+                </ul>
+
+                <h3 class="mt-40 mb-15">3. Data Sharing &amp; Disclosure</h3>
+                <p>Nixa Global does not sell or rent student data to third-party marketing agencies. We only share your information with:</p>
+                <ul class="list-unstyled mb-30">
+                    <li><strong>Educational Institutions:</strong> Authorized partner universities and colleges you have applied to.</li>
+                    <li><strong>Governmental Bodies:</strong> Regulatory authorities involved in the student visa and immigration process.</li>
+                    <li><strong>Service Providers:</strong> Secured internal tools used for document management and communication.</li>
+                </ul>
+
+                <h3 class="mt-40 mb-15">4. Data Security</h3>
+                <p>
+                    We implement industry-standard security measures to protect your digital and physical documents from unauthorized access, alteration, or disclosure.
+                    Access to your sensitive documents is restricted to authorized Nixa Global counselors and management only.
+                </p>
+
+                <h3 class="mt-40 mb-15">5. Your Rights</h3>
+                <p>As a student or guardian, you have the right to:</p>
+                <ul class="list-unstyled mb-30">
+                    <li><strong>Access:</strong> Request a copy of the personal data we hold about you.</li>
+                    <li><strong>Correction:</strong> Ask us to update or correct any inaccurate information.</li>
+                    <li><strong>Withdrawal:</strong> Request the deletion of your data once the admission process is completed or if you choose to discontinue our services.</li>
+                </ul>
+
+                <h3 class="mt-40 mb-15">6. No Service Charge Transparency</h3>
+                <p>
+                    Consistent with our core mission, Nixa Global does not store payment or credit card information on our servers, as we operate under a Zero Service Charge policy for our partner institutions.
+                </p>
+
+                <h3 class="mt-40 mb-15">7. Contact Us</h3>
+                <p>If you have any questions regarding this Privacy Policy or your data, please contact our Compliance Team:</p>
+                <p>
+                    Nixa Global Green Landmark Tower (Level-12), Kolabagan, Dhanmondi, Dhaka.<br>
+                    Email: <a href="mailto:info@nixaglobal.com">info@nixaglobal.com</a><br>
+                    Hotline: <a href="tel:01896459410">01896-459 410</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
