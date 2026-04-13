@@ -6551,6 +6551,12 @@ blockquote {
 
 .contact-pt {
   padding: 100px; }
+  @media (max-width: 1199px) {
+    .contact-pt {
+      padding: 70px 40px; } }
+  @media (max-width: 767px) {
+    .contact-pt {
+      padding: 40px 15px; } }
 
 .xb-contact2 {
   background-color: #121212;
